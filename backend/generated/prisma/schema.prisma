@@ -271,3 +271,15 @@ model MateriaMedica {
 
   @@map("materia_medicas")
 }
+
+model ResearchDev {
+  id               String   @id @default(cuid())
+  title            String
+  descriptionTitle String?
+  description      String?  @db.Text
+  image            String? // Cloudinary URL
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("research_devs")
+}

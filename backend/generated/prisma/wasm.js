@@ -289,6 +289,16 @@ exports.Prisma.MateriaMedicaScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ResearchDevScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  descriptionTitle: 'descriptionTitle',
+  description: 'description',
+  image: 'image',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -360,7 +370,8 @@ exports.Prisma.ModelName = {
   CaseTaking: 'CaseTaking',
   FollowUp: 'FollowUp',
   Invoice: 'Invoice',
-  MateriaMedica: 'MateriaMedica'
+  MateriaMedica: 'MateriaMedica',
+  ResearchDev: 'ResearchDev'
 };
 
 /**

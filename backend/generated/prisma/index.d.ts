@@ -73,6 +73,11 @@ export type Invoice = $Result.DefaultSelection<Prisma.$InvoicePayload>
  * 
  */
 export type MateriaMedica = $Result.DefaultSelection<Prisma.$MateriaMedicaPayload>
+/**
+ * Model ResearchDev
+ * 
+ */
+export type ResearchDev = $Result.DefaultSelection<Prisma.$ResearchDevPayload>
 
 /**
  * Enums
@@ -415,6 +420,16 @@ export class PrismaClient<
     * ```
     */
   get materiaMedica(): Prisma.MateriaMedicaDelegate<ExtArgs>;
+
+  /**
+   * `prisma.researchDev`: Exposes CRUD operations for the **ResearchDev** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ResearchDevs
+    * const researchDevs = await prisma.researchDev.findMany()
+    * ```
+    */
+  get researchDev(): Prisma.ResearchDevDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -867,7 +882,8 @@ export namespace Prisma {
     CaseTaking: 'CaseTaking',
     FollowUp: 'FollowUp',
     Invoice: 'Invoice',
-    MateriaMedica: 'MateriaMedica'
+    MateriaMedica: 'MateriaMedica',
+    ResearchDev: 'ResearchDev'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -883,7 +899,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "patient" | "appointment" | "payment" | "prescription" | "holiday" | "appointmentSettings" | "event" | "caseTaking" | "followUp" | "invoice" | "materiaMedica"
+      modelProps: "user" | "patient" | "appointment" | "payment" | "prescription" | "holiday" | "appointmentSettings" | "event" | "caseTaking" | "followUp" | "invoice" | "materiaMedica" | "researchDev"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1724,6 +1740,76 @@ export namespace Prisma {
           count: {
             args: Prisma.MateriaMedicaCountArgs<ExtArgs>
             result: $Utils.Optional<MateriaMedicaCountAggregateOutputType> | number
+          }
+        }
+      }
+      ResearchDev: {
+        payload: Prisma.$ResearchDevPayload<ExtArgs>
+        fields: Prisma.ResearchDevFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ResearchDevFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResearchDevPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ResearchDevFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResearchDevPayload>
+          }
+          findFirst: {
+            args: Prisma.ResearchDevFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResearchDevPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ResearchDevFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResearchDevPayload>
+          }
+          findMany: {
+            args: Prisma.ResearchDevFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResearchDevPayload>[]
+          }
+          create: {
+            args: Prisma.ResearchDevCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResearchDevPayload>
+          }
+          createMany: {
+            args: Prisma.ResearchDevCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ResearchDevCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResearchDevPayload>[]
+          }
+          delete: {
+            args: Prisma.ResearchDevDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResearchDevPayload>
+          }
+          update: {
+            args: Prisma.ResearchDevUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResearchDevPayload>
+          }
+          deleteMany: {
+            args: Prisma.ResearchDevDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ResearchDevUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ResearchDevUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResearchDevPayload>
+          }
+          aggregate: {
+            args: Prisma.ResearchDevAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateResearchDev>
+          }
+          groupBy: {
+            args: Prisma.ResearchDevGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ResearchDevGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ResearchDevCountArgs<ExtArgs>
+            result: $Utils.Optional<ResearchDevCountAggregateOutputType> | number
           }
         }
       }
@@ -14247,6 +14333,908 @@ export namespace Prisma {
 
 
   /**
+   * Model ResearchDev
+   */
+
+  export type AggregateResearchDev = {
+    _count: ResearchDevCountAggregateOutputType | null
+    _min: ResearchDevMinAggregateOutputType | null
+    _max: ResearchDevMaxAggregateOutputType | null
+  }
+
+  export type ResearchDevMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    descriptionTitle: string | null
+    description: string | null
+    image: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ResearchDevMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    descriptionTitle: string | null
+    description: string | null
+    image: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ResearchDevCountAggregateOutputType = {
+    id: number
+    title: number
+    descriptionTitle: number
+    description: number
+    image: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ResearchDevMinAggregateInputType = {
+    id?: true
+    title?: true
+    descriptionTitle?: true
+    description?: true
+    image?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ResearchDevMaxAggregateInputType = {
+    id?: true
+    title?: true
+    descriptionTitle?: true
+    description?: true
+    image?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ResearchDevCountAggregateInputType = {
+    id?: true
+    title?: true
+    descriptionTitle?: true
+    description?: true
+    image?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ResearchDevAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ResearchDev to aggregate.
+     */
+    where?: ResearchDevWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResearchDevs to fetch.
+     */
+    orderBy?: ResearchDevOrderByWithRelationInput | ResearchDevOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ResearchDevWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResearchDevs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResearchDevs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ResearchDevs
+    **/
+    _count?: true | ResearchDevCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ResearchDevMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ResearchDevMaxAggregateInputType
+  }
+
+  export type GetResearchDevAggregateType<T extends ResearchDevAggregateArgs> = {
+        [P in keyof T & keyof AggregateResearchDev]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateResearchDev[P]>
+      : GetScalarType<T[P], AggregateResearchDev[P]>
+  }
+
+
+
+
+  export type ResearchDevGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ResearchDevWhereInput
+    orderBy?: ResearchDevOrderByWithAggregationInput | ResearchDevOrderByWithAggregationInput[]
+    by: ResearchDevScalarFieldEnum[] | ResearchDevScalarFieldEnum
+    having?: ResearchDevScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ResearchDevCountAggregateInputType | true
+    _min?: ResearchDevMinAggregateInputType
+    _max?: ResearchDevMaxAggregateInputType
+  }
+
+  export type ResearchDevGroupByOutputType = {
+    id: string
+    title: string
+    descriptionTitle: string | null
+    description: string | null
+    image: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ResearchDevCountAggregateOutputType | null
+    _min: ResearchDevMinAggregateOutputType | null
+    _max: ResearchDevMaxAggregateOutputType | null
+  }
+
+  type GetResearchDevGroupByPayload<T extends ResearchDevGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ResearchDevGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ResearchDevGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ResearchDevGroupByOutputType[P]>
+            : GetScalarType<T[P], ResearchDevGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ResearchDevSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    descriptionTitle?: boolean
+    description?: boolean
+    image?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["researchDev"]>
+
+  export type ResearchDevSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    descriptionTitle?: boolean
+    description?: boolean
+    image?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["researchDev"]>
+
+  export type ResearchDevSelectScalar = {
+    id?: boolean
+    title?: boolean
+    descriptionTitle?: boolean
+    description?: boolean
+    image?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $ResearchDevPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ResearchDev"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      descriptionTitle: string | null
+      description: string | null
+      image: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["researchDev"]>
+    composites: {}
+  }
+
+  type ResearchDevGetPayload<S extends boolean | null | undefined | ResearchDevDefaultArgs> = $Result.GetResult<Prisma.$ResearchDevPayload, S>
+
+  type ResearchDevCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ResearchDevFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ResearchDevCountAggregateInputType | true
+    }
+
+  export interface ResearchDevDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ResearchDev'], meta: { name: 'ResearchDev' } }
+    /**
+     * Find zero or one ResearchDev that matches the filter.
+     * @param {ResearchDevFindUniqueArgs} args - Arguments to find a ResearchDev
+     * @example
+     * // Get one ResearchDev
+     * const researchDev = await prisma.researchDev.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ResearchDevFindUniqueArgs>(args: SelectSubset<T, ResearchDevFindUniqueArgs<ExtArgs>>): Prisma__ResearchDevClient<$Result.GetResult<Prisma.$ResearchDevPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one ResearchDev that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ResearchDevFindUniqueOrThrowArgs} args - Arguments to find a ResearchDev
+     * @example
+     * // Get one ResearchDev
+     * const researchDev = await prisma.researchDev.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ResearchDevFindUniqueOrThrowArgs>(args: SelectSubset<T, ResearchDevFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ResearchDevClient<$Result.GetResult<Prisma.$ResearchDevPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first ResearchDev that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResearchDevFindFirstArgs} args - Arguments to find a ResearchDev
+     * @example
+     * // Get one ResearchDev
+     * const researchDev = await prisma.researchDev.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ResearchDevFindFirstArgs>(args?: SelectSubset<T, ResearchDevFindFirstArgs<ExtArgs>>): Prisma__ResearchDevClient<$Result.GetResult<Prisma.$ResearchDevPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first ResearchDev that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResearchDevFindFirstOrThrowArgs} args - Arguments to find a ResearchDev
+     * @example
+     * // Get one ResearchDev
+     * const researchDev = await prisma.researchDev.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ResearchDevFindFirstOrThrowArgs>(args?: SelectSubset<T, ResearchDevFindFirstOrThrowArgs<ExtArgs>>): Prisma__ResearchDevClient<$Result.GetResult<Prisma.$ResearchDevPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more ResearchDevs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResearchDevFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ResearchDevs
+     * const researchDevs = await prisma.researchDev.findMany()
+     * 
+     * // Get first 10 ResearchDevs
+     * const researchDevs = await prisma.researchDev.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const researchDevWithIdOnly = await prisma.researchDev.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ResearchDevFindManyArgs>(args?: SelectSubset<T, ResearchDevFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResearchDevPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a ResearchDev.
+     * @param {ResearchDevCreateArgs} args - Arguments to create a ResearchDev.
+     * @example
+     * // Create one ResearchDev
+     * const ResearchDev = await prisma.researchDev.create({
+     *   data: {
+     *     // ... data to create a ResearchDev
+     *   }
+     * })
+     * 
+     */
+    create<T extends ResearchDevCreateArgs>(args: SelectSubset<T, ResearchDevCreateArgs<ExtArgs>>): Prisma__ResearchDevClient<$Result.GetResult<Prisma.$ResearchDevPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many ResearchDevs.
+     * @param {ResearchDevCreateManyArgs} args - Arguments to create many ResearchDevs.
+     * @example
+     * // Create many ResearchDevs
+     * const researchDev = await prisma.researchDev.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ResearchDevCreateManyArgs>(args?: SelectSubset<T, ResearchDevCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ResearchDevs and returns the data saved in the database.
+     * @param {ResearchDevCreateManyAndReturnArgs} args - Arguments to create many ResearchDevs.
+     * @example
+     * // Create many ResearchDevs
+     * const researchDev = await prisma.researchDev.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ResearchDevs and only return the `id`
+     * const researchDevWithIdOnly = await prisma.researchDev.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ResearchDevCreateManyAndReturnArgs>(args?: SelectSubset<T, ResearchDevCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResearchDevPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a ResearchDev.
+     * @param {ResearchDevDeleteArgs} args - Arguments to delete one ResearchDev.
+     * @example
+     * // Delete one ResearchDev
+     * const ResearchDev = await prisma.researchDev.delete({
+     *   where: {
+     *     // ... filter to delete one ResearchDev
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ResearchDevDeleteArgs>(args: SelectSubset<T, ResearchDevDeleteArgs<ExtArgs>>): Prisma__ResearchDevClient<$Result.GetResult<Prisma.$ResearchDevPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one ResearchDev.
+     * @param {ResearchDevUpdateArgs} args - Arguments to update one ResearchDev.
+     * @example
+     * // Update one ResearchDev
+     * const researchDev = await prisma.researchDev.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ResearchDevUpdateArgs>(args: SelectSubset<T, ResearchDevUpdateArgs<ExtArgs>>): Prisma__ResearchDevClient<$Result.GetResult<Prisma.$ResearchDevPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more ResearchDevs.
+     * @param {ResearchDevDeleteManyArgs} args - Arguments to filter ResearchDevs to delete.
+     * @example
+     * // Delete a few ResearchDevs
+     * const { count } = await prisma.researchDev.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ResearchDevDeleteManyArgs>(args?: SelectSubset<T, ResearchDevDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ResearchDevs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResearchDevUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ResearchDevs
+     * const researchDev = await prisma.researchDev.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ResearchDevUpdateManyArgs>(args: SelectSubset<T, ResearchDevUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ResearchDev.
+     * @param {ResearchDevUpsertArgs} args - Arguments to update or create a ResearchDev.
+     * @example
+     * // Update or create a ResearchDev
+     * const researchDev = await prisma.researchDev.upsert({
+     *   create: {
+     *     // ... data to create a ResearchDev
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ResearchDev we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ResearchDevUpsertArgs>(args: SelectSubset<T, ResearchDevUpsertArgs<ExtArgs>>): Prisma__ResearchDevClient<$Result.GetResult<Prisma.$ResearchDevPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of ResearchDevs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResearchDevCountArgs} args - Arguments to filter ResearchDevs to count.
+     * @example
+     * // Count the number of ResearchDevs
+     * const count = await prisma.researchDev.count({
+     *   where: {
+     *     // ... the filter for the ResearchDevs we want to count
+     *   }
+     * })
+    **/
+    count<T extends ResearchDevCountArgs>(
+      args?: Subset<T, ResearchDevCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ResearchDevCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ResearchDev.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResearchDevAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ResearchDevAggregateArgs>(args: Subset<T, ResearchDevAggregateArgs>): Prisma.PrismaPromise<GetResearchDevAggregateType<T>>
+
+    /**
+     * Group by ResearchDev.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResearchDevGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ResearchDevGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ResearchDevGroupByArgs['orderBy'] }
+        : { orderBy?: ResearchDevGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ResearchDevGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetResearchDevGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ResearchDev model
+   */
+  readonly fields: ResearchDevFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ResearchDev.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ResearchDevClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ResearchDev model
+   */ 
+  interface ResearchDevFieldRefs {
+    readonly id: FieldRef<"ResearchDev", 'String'>
+    readonly title: FieldRef<"ResearchDev", 'String'>
+    readonly descriptionTitle: FieldRef<"ResearchDev", 'String'>
+    readonly description: FieldRef<"ResearchDev", 'String'>
+    readonly image: FieldRef<"ResearchDev", 'String'>
+    readonly createdAt: FieldRef<"ResearchDev", 'DateTime'>
+    readonly updatedAt: FieldRef<"ResearchDev", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ResearchDev findUnique
+   */
+  export type ResearchDevFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchDev
+     */
+    select?: ResearchDevSelect<ExtArgs> | null
+    /**
+     * Filter, which ResearchDev to fetch.
+     */
+    where: ResearchDevWhereUniqueInput
+  }
+
+  /**
+   * ResearchDev findUniqueOrThrow
+   */
+  export type ResearchDevFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchDev
+     */
+    select?: ResearchDevSelect<ExtArgs> | null
+    /**
+     * Filter, which ResearchDev to fetch.
+     */
+    where: ResearchDevWhereUniqueInput
+  }
+
+  /**
+   * ResearchDev findFirst
+   */
+  export type ResearchDevFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchDev
+     */
+    select?: ResearchDevSelect<ExtArgs> | null
+    /**
+     * Filter, which ResearchDev to fetch.
+     */
+    where?: ResearchDevWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResearchDevs to fetch.
+     */
+    orderBy?: ResearchDevOrderByWithRelationInput | ResearchDevOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ResearchDevs.
+     */
+    cursor?: ResearchDevWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResearchDevs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResearchDevs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ResearchDevs.
+     */
+    distinct?: ResearchDevScalarFieldEnum | ResearchDevScalarFieldEnum[]
+  }
+
+  /**
+   * ResearchDev findFirstOrThrow
+   */
+  export type ResearchDevFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchDev
+     */
+    select?: ResearchDevSelect<ExtArgs> | null
+    /**
+     * Filter, which ResearchDev to fetch.
+     */
+    where?: ResearchDevWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResearchDevs to fetch.
+     */
+    orderBy?: ResearchDevOrderByWithRelationInput | ResearchDevOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ResearchDevs.
+     */
+    cursor?: ResearchDevWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResearchDevs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResearchDevs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ResearchDevs.
+     */
+    distinct?: ResearchDevScalarFieldEnum | ResearchDevScalarFieldEnum[]
+  }
+
+  /**
+   * ResearchDev findMany
+   */
+  export type ResearchDevFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchDev
+     */
+    select?: ResearchDevSelect<ExtArgs> | null
+    /**
+     * Filter, which ResearchDevs to fetch.
+     */
+    where?: ResearchDevWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResearchDevs to fetch.
+     */
+    orderBy?: ResearchDevOrderByWithRelationInput | ResearchDevOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ResearchDevs.
+     */
+    cursor?: ResearchDevWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResearchDevs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResearchDevs.
+     */
+    skip?: number
+    distinct?: ResearchDevScalarFieldEnum | ResearchDevScalarFieldEnum[]
+  }
+
+  /**
+   * ResearchDev create
+   */
+  export type ResearchDevCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchDev
+     */
+    select?: ResearchDevSelect<ExtArgs> | null
+    /**
+     * The data needed to create a ResearchDev.
+     */
+    data: XOR<ResearchDevCreateInput, ResearchDevUncheckedCreateInput>
+  }
+
+  /**
+   * ResearchDev createMany
+   */
+  export type ResearchDevCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ResearchDevs.
+     */
+    data: ResearchDevCreateManyInput | ResearchDevCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ResearchDev createManyAndReturn
+   */
+  export type ResearchDevCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchDev
+     */
+    select?: ResearchDevSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many ResearchDevs.
+     */
+    data: ResearchDevCreateManyInput | ResearchDevCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ResearchDev update
+   */
+  export type ResearchDevUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchDev
+     */
+    select?: ResearchDevSelect<ExtArgs> | null
+    /**
+     * The data needed to update a ResearchDev.
+     */
+    data: XOR<ResearchDevUpdateInput, ResearchDevUncheckedUpdateInput>
+    /**
+     * Choose, which ResearchDev to update.
+     */
+    where: ResearchDevWhereUniqueInput
+  }
+
+  /**
+   * ResearchDev updateMany
+   */
+  export type ResearchDevUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ResearchDevs.
+     */
+    data: XOR<ResearchDevUpdateManyMutationInput, ResearchDevUncheckedUpdateManyInput>
+    /**
+     * Filter which ResearchDevs to update
+     */
+    where?: ResearchDevWhereInput
+  }
+
+  /**
+   * ResearchDev upsert
+   */
+  export type ResearchDevUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchDev
+     */
+    select?: ResearchDevSelect<ExtArgs> | null
+    /**
+     * The filter to search for the ResearchDev to update in case it exists.
+     */
+    where: ResearchDevWhereUniqueInput
+    /**
+     * In case the ResearchDev found by the `where` argument doesn't exist, create a new ResearchDev with this data.
+     */
+    create: XOR<ResearchDevCreateInput, ResearchDevUncheckedCreateInput>
+    /**
+     * In case the ResearchDev was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ResearchDevUpdateInput, ResearchDevUncheckedUpdateInput>
+  }
+
+  /**
+   * ResearchDev delete
+   */
+  export type ResearchDevDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchDev
+     */
+    select?: ResearchDevSelect<ExtArgs> | null
+    /**
+     * Filter which ResearchDev to delete.
+     */
+    where: ResearchDevWhereUniqueInput
+  }
+
+  /**
+   * ResearchDev deleteMany
+   */
+  export type ResearchDevDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ResearchDevs to delete
+     */
+    where?: ResearchDevWhereInput
+  }
+
+  /**
+   * ResearchDev without action
+   */
+  export type ResearchDevDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchDev
+     */
+    select?: ResearchDevSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -14461,6 +15449,19 @@ export namespace Prisma {
   };
 
   export type MateriaMedicaScalarFieldEnum = (typeof MateriaMedicaScalarFieldEnum)[keyof typeof MateriaMedicaScalarFieldEnum]
+
+
+  export const ResearchDevScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    descriptionTitle: 'descriptionTitle',
+    description: 'description',
+    image: 'image',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ResearchDevScalarFieldEnum = (typeof ResearchDevScalarFieldEnum)[keyof typeof ResearchDevScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -15695,6 +16696,68 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"MateriaMedica"> | Date | string
   }
 
+  export type ResearchDevWhereInput = {
+    AND?: ResearchDevWhereInput | ResearchDevWhereInput[]
+    OR?: ResearchDevWhereInput[]
+    NOT?: ResearchDevWhereInput | ResearchDevWhereInput[]
+    id?: StringFilter<"ResearchDev"> | string
+    title?: StringFilter<"ResearchDev"> | string
+    descriptionTitle?: StringNullableFilter<"ResearchDev"> | string | null
+    description?: StringNullableFilter<"ResearchDev"> | string | null
+    image?: StringNullableFilter<"ResearchDev"> | string | null
+    createdAt?: DateTimeFilter<"ResearchDev"> | Date | string
+    updatedAt?: DateTimeFilter<"ResearchDev"> | Date | string
+  }
+
+  export type ResearchDevOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    descriptionTitle?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    image?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ResearchDevWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ResearchDevWhereInput | ResearchDevWhereInput[]
+    OR?: ResearchDevWhereInput[]
+    NOT?: ResearchDevWhereInput | ResearchDevWhereInput[]
+    title?: StringFilter<"ResearchDev"> | string
+    descriptionTitle?: StringNullableFilter<"ResearchDev"> | string | null
+    description?: StringNullableFilter<"ResearchDev"> | string | null
+    image?: StringNullableFilter<"ResearchDev"> | string | null
+    createdAt?: DateTimeFilter<"ResearchDev"> | Date | string
+    updatedAt?: DateTimeFilter<"ResearchDev"> | Date | string
+  }, "id">
+
+  export type ResearchDevOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    descriptionTitle?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    image?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ResearchDevCountOrderByAggregateInput
+    _max?: ResearchDevMaxOrderByAggregateInput
+    _min?: ResearchDevMinOrderByAggregateInput
+  }
+
+  export type ResearchDevScalarWhereWithAggregatesInput = {
+    AND?: ResearchDevScalarWhereWithAggregatesInput | ResearchDevScalarWhereWithAggregatesInput[]
+    OR?: ResearchDevScalarWhereWithAggregatesInput[]
+    NOT?: ResearchDevScalarWhereWithAggregatesInput | ResearchDevScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ResearchDev"> | string
+    title?: StringWithAggregatesFilter<"ResearchDev"> | string
+    descriptionTitle?: StringNullableWithAggregatesFilter<"ResearchDev"> | string | null
+    description?: StringNullableWithAggregatesFilter<"ResearchDev"> | string | null
+    image?: StringNullableWithAggregatesFilter<"ResearchDev"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ResearchDev"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ResearchDev"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name: string
@@ -16888,6 +17951,76 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ResearchDevCreateInput = {
+    id?: string
+    title: string
+    descriptionTitle?: string | null
+    description?: string | null
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ResearchDevUncheckedCreateInput = {
+    id?: string
+    title: string
+    descriptionTitle?: string | null
+    description?: string | null
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ResearchDevUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    descriptionTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResearchDevUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    descriptionTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResearchDevCreateManyInput = {
+    id?: string
+    title: string
+    descriptionTitle?: string | null
+    description?: string | null
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ResearchDevUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    descriptionTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResearchDevUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    descriptionTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -17847,6 +18980,36 @@ export namespace Prisma {
     potency30CH?: SortOrder
     potency200CH?: SortOrder
     potency1M?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ResearchDevCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    descriptionTitle?: SortOrder
+    description?: SortOrder
+    image?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ResearchDevMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    descriptionTitle?: SortOrder
+    description?: SortOrder
+    image?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ResearchDevMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    descriptionTitle?: SortOrder
+    description?: SortOrder
+    image?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20611,6 +21774,10 @@ export namespace Prisma {
      * @deprecated Use MateriaMedicaDefaultArgs instead
      */
     export type MateriaMedicaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MateriaMedicaDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ResearchDevDefaultArgs instead
+     */
+    export type ResearchDevArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ResearchDevDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
