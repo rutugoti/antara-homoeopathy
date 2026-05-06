@@ -13,6 +13,7 @@ const caseTakingRouter  = require('./routes/caseTaking.routes');
 const followUpRouter    = require('./routes/followUp.routes');
 const invoiceRouter     = require('./routes/invoice.routes');
 const settingsRouter    = require('./routes/appointmentSettings.routes');
+const appointmentRouter = require('./routes/appointment.routes');
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use('/api/patients/:patientId/case-taking',  caseTakingRouter);
 app.use('/api/patients/:patientId/follow-ups',   followUpRouter);
 app.use('/api/patients/:patientId/invoices',     invoiceRouter);
 app.use('/api/settings',                          settingsRouter);
+app.use('/api/appointments',                       appointmentRouter);
 
 // Health-check — useful for load balancers and uptime monitors.
 app.get('/api/health', (req, res) => {

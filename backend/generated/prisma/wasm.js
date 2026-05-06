@@ -164,8 +164,11 @@ exports.Prisma.AppointmentScalarFieldEnum = {
   branch: 'branch',
   date: 'date',
   time: 'time',
+  endTime: 'endTime',
   reason: 'reason',
   notes: 'notes',
+  charge: 'charge',
+  appointmentBy: 'appointmentBy',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -297,6 +300,7 @@ exports.Branch = exports.$Enums.Branch = {
 
 exports.AppointmentStatus = exports.$Enums.AppointmentStatus = {
   PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
   IN: 'IN',
   CLOSED: 'CLOSED',
   CANCELLED: 'CANCELLED'

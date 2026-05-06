@@ -30,6 +30,7 @@ enum Branch {
 
 enum AppointmentStatus {
   PENDING
+  CONFIRMED
   IN
   CLOSED
   CANCELLED
@@ -96,8 +97,11 @@ model Appointment {
   branch    Branch            @default(MAIN)
   date      DateTime          @db.Date
   time      String
+  endTime   String?           // auto-computed from appointment settings
   reason    String?
   notes     String?
+  charge    Float?            // appointment fee
+  appointmentBy String        @default("In Clinic") // e.g. "In Clinic", "Online"
   status    AppointmentStatus @default(PENDING)
   createdAt DateTime          @default(now())
   updatedAt DateTime          @updatedAt

@@ -105,6 +105,7 @@ export type Branch = (typeof Branch)[keyof typeof Branch]
 
 export const AppointmentStatus: {
   PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
   IN: 'IN',
   CLOSED: 'CLOSED',
   CANCELLED: 'CANCELLED'
@@ -4030,8 +4031,18 @@ export namespace Prisma {
 
   export type AggregateAppointment = {
     _count: AppointmentCountAggregateOutputType | null
+    _avg: AppointmentAvgAggregateOutputType | null
+    _sum: AppointmentSumAggregateOutputType | null
     _min: AppointmentMinAggregateOutputType | null
     _max: AppointmentMaxAggregateOutputType | null
+  }
+
+  export type AppointmentAvgAggregateOutputType = {
+    charge: number | null
+  }
+
+  export type AppointmentSumAggregateOutputType = {
+    charge: number | null
   }
 
   export type AppointmentMinAggregateOutputType = {
@@ -4041,8 +4052,11 @@ export namespace Prisma {
     branch: $Enums.Branch | null
     date: Date | null
     time: string | null
+    endTime: string | null
     reason: string | null
     notes: string | null
+    charge: number | null
+    appointmentBy: string | null
     status: $Enums.AppointmentStatus | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4055,8 +4069,11 @@ export namespace Prisma {
     branch: $Enums.Branch | null
     date: Date | null
     time: string | null
+    endTime: string | null
     reason: string | null
     notes: string | null
+    charge: number | null
+    appointmentBy: string | null
     status: $Enums.AppointmentStatus | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4069,14 +4086,25 @@ export namespace Prisma {
     branch: number
     date: number
     time: number
+    endTime: number
     reason: number
     notes: number
+    charge: number
+    appointmentBy: number
     status: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
+
+  export type AppointmentAvgAggregateInputType = {
+    charge?: true
+  }
+
+  export type AppointmentSumAggregateInputType = {
+    charge?: true
+  }
 
   export type AppointmentMinAggregateInputType = {
     id?: true
@@ -4085,8 +4113,11 @@ export namespace Prisma {
     branch?: true
     date?: true
     time?: true
+    endTime?: true
     reason?: true
     notes?: true
+    charge?: true
+    appointmentBy?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -4099,8 +4130,11 @@ export namespace Prisma {
     branch?: true
     date?: true
     time?: true
+    endTime?: true
     reason?: true
     notes?: true
+    charge?: true
+    appointmentBy?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -4113,8 +4147,11 @@ export namespace Prisma {
     branch?: true
     date?: true
     time?: true
+    endTime?: true
     reason?: true
     notes?: true
+    charge?: true
+    appointmentBy?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -4159,6 +4196,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: AppointmentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AppointmentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: AppointmentMinAggregateInputType
@@ -4189,6 +4238,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: AppointmentCountAggregateInputType | true
+    _avg?: AppointmentAvgAggregateInputType
+    _sum?: AppointmentSumAggregateInputType
     _min?: AppointmentMinAggregateInputType
     _max?: AppointmentMaxAggregateInputType
   }
@@ -4200,12 +4251,17 @@ export namespace Prisma {
     branch: $Enums.Branch
     date: Date
     time: string
+    endTime: string | null
     reason: string | null
     notes: string | null
+    charge: number | null
+    appointmentBy: string
     status: $Enums.AppointmentStatus
     createdAt: Date
     updatedAt: Date
     _count: AppointmentCountAggregateOutputType | null
+    _avg: AppointmentAvgAggregateOutputType | null
+    _sum: AppointmentSumAggregateOutputType | null
     _min: AppointmentMinAggregateOutputType | null
     _max: AppointmentMaxAggregateOutputType | null
   }
@@ -4231,8 +4287,11 @@ export namespace Prisma {
     branch?: boolean
     date?: boolean
     time?: boolean
+    endTime?: boolean
     reason?: boolean
     notes?: boolean
+    charge?: boolean
+    appointmentBy?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4247,8 +4306,11 @@ export namespace Prisma {
     branch?: boolean
     date?: boolean
     time?: boolean
+    endTime?: boolean
     reason?: boolean
     notes?: boolean
+    charge?: boolean
+    appointmentBy?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4263,8 +4325,11 @@ export namespace Prisma {
     branch?: boolean
     date?: boolean
     time?: boolean
+    endTime?: boolean
     reason?: boolean
     notes?: boolean
+    charge?: boolean
+    appointmentBy?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4292,8 +4357,11 @@ export namespace Prisma {
       branch: $Enums.Branch
       date: Date
       time: string
+      endTime: string | null
       reason: string | null
       notes: string | null
+      charge: number | null
+      appointmentBy: string
       status: $Enums.AppointmentStatus
       createdAt: Date
       updatedAt: Date
@@ -4698,8 +4766,11 @@ export namespace Prisma {
     readonly branch: FieldRef<"Appointment", 'Branch'>
     readonly date: FieldRef<"Appointment", 'DateTime'>
     readonly time: FieldRef<"Appointment", 'String'>
+    readonly endTime: FieldRef<"Appointment", 'String'>
     readonly reason: FieldRef<"Appointment", 'String'>
     readonly notes: FieldRef<"Appointment", 'String'>
+    readonly charge: FieldRef<"Appointment", 'Float'>
+    readonly appointmentBy: FieldRef<"Appointment", 'String'>
     readonly status: FieldRef<"Appointment", 'AppointmentStatus'>
     readonly createdAt: FieldRef<"Appointment", 'DateTime'>
     readonly updatedAt: FieldRef<"Appointment", 'DateTime'>
@@ -11952,8 +12023,11 @@ export namespace Prisma {
     branch: 'branch',
     date: 'date',
     time: 'time',
+    endTime: 'endTime',
     reason: 'reason',
     notes: 'notes',
+    charge: 'charge',
+    appointmentBy: 'appointmentBy',
     status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -12205,20 +12279,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'AppointmentStatus'
-   */
-  export type EnumAppointmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentStatus'>
-    
-
-
-  /**
-   * Reference to a field of type 'AppointmentStatus[]'
-   */
-  export type ListEnumAppointmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentStatus[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -12229,6 +12289,20 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AppointmentStatus'
+   */
+  export type EnumAppointmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'AppointmentStatus[]'
+   */
+  export type ListEnumAppointmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentStatus[]'>
     
   /**
    * Deep Input Types
@@ -12464,8 +12538,11 @@ export namespace Prisma {
     branch?: EnumBranchFilter<"Appointment"> | $Enums.Branch
     date?: DateTimeFilter<"Appointment"> | Date | string
     time?: StringFilter<"Appointment"> | string
+    endTime?: StringNullableFilter<"Appointment"> | string | null
     reason?: StringNullableFilter<"Appointment"> | string | null
     notes?: StringNullableFilter<"Appointment"> | string | null
+    charge?: FloatNullableFilter<"Appointment"> | number | null
+    appointmentBy?: StringFilter<"Appointment"> | string
     status?: EnumAppointmentStatusFilter<"Appointment"> | $Enums.AppointmentStatus
     createdAt?: DateTimeFilter<"Appointment"> | Date | string
     updatedAt?: DateTimeFilter<"Appointment"> | Date | string
@@ -12480,8 +12557,11 @@ export namespace Prisma {
     branch?: SortOrder
     date?: SortOrder
     time?: SortOrder
+    endTime?: SortOrderInput | SortOrder
     reason?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
+    charge?: SortOrderInput | SortOrder
+    appointmentBy?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12499,8 +12579,11 @@ export namespace Prisma {
     branch?: EnumBranchFilter<"Appointment"> | $Enums.Branch
     date?: DateTimeFilter<"Appointment"> | Date | string
     time?: StringFilter<"Appointment"> | string
+    endTime?: StringNullableFilter<"Appointment"> | string | null
     reason?: StringNullableFilter<"Appointment"> | string | null
     notes?: StringNullableFilter<"Appointment"> | string | null
+    charge?: FloatNullableFilter<"Appointment"> | number | null
+    appointmentBy?: StringFilter<"Appointment"> | string
     status?: EnumAppointmentStatusFilter<"Appointment"> | $Enums.AppointmentStatus
     createdAt?: DateTimeFilter<"Appointment"> | Date | string
     updatedAt?: DateTimeFilter<"Appointment"> | Date | string
@@ -12515,14 +12598,19 @@ export namespace Prisma {
     branch?: SortOrder
     date?: SortOrder
     time?: SortOrder
+    endTime?: SortOrderInput | SortOrder
     reason?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
+    charge?: SortOrderInput | SortOrder
+    appointmentBy?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: AppointmentCountOrderByAggregateInput
+    _avg?: AppointmentAvgOrderByAggregateInput
     _max?: AppointmentMaxOrderByAggregateInput
     _min?: AppointmentMinOrderByAggregateInput
+    _sum?: AppointmentSumOrderByAggregateInput
   }
 
   export type AppointmentScalarWhereWithAggregatesInput = {
@@ -12535,8 +12623,11 @@ export namespace Prisma {
     branch?: EnumBranchWithAggregatesFilter<"Appointment"> | $Enums.Branch
     date?: DateTimeWithAggregatesFilter<"Appointment"> | Date | string
     time?: StringWithAggregatesFilter<"Appointment"> | string
+    endTime?: StringNullableWithAggregatesFilter<"Appointment"> | string | null
     reason?: StringNullableWithAggregatesFilter<"Appointment"> | string | null
     notes?: StringNullableWithAggregatesFilter<"Appointment"> | string | null
+    charge?: FloatNullableWithAggregatesFilter<"Appointment"> | number | null
+    appointmentBy?: StringWithAggregatesFilter<"Appointment"> | string
     status?: EnumAppointmentStatusWithAggregatesFilter<"Appointment"> | $Enums.AppointmentStatus
     createdAt?: DateTimeWithAggregatesFilter<"Appointment"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Appointment"> | Date | string
@@ -13353,8 +13444,11 @@ export namespace Prisma {
     branch?: $Enums.Branch
     date: Date | string
     time: string
+    endTime?: string | null
     reason?: string | null
     notes?: string | null
+    charge?: number | null
+    appointmentBy?: string
     status?: $Enums.AppointmentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13369,8 +13463,11 @@ export namespace Prisma {
     branch?: $Enums.Branch
     date: Date | string
     time: string
+    endTime?: string | null
     reason?: string | null
     notes?: string | null
+    charge?: number | null
+    appointmentBy?: string
     status?: $Enums.AppointmentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13381,8 +13478,11 @@ export namespace Prisma {
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time?: StringFieldUpdateOperationsInput | string
+    endTime?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    charge?: NullableFloatFieldUpdateOperationsInput | number | null
+    appointmentBy?: StringFieldUpdateOperationsInput | string
     status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13397,8 +13497,11 @@ export namespace Prisma {
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time?: StringFieldUpdateOperationsInput | string
+    endTime?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    charge?: NullableFloatFieldUpdateOperationsInput | number | null
+    appointmentBy?: StringFieldUpdateOperationsInput | string
     status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13411,8 +13514,11 @@ export namespace Prisma {
     branch?: $Enums.Branch
     date: Date | string
     time: string
+    endTime?: string | null
     reason?: string | null
     notes?: string | null
+    charge?: number | null
+    appointmentBy?: string
     status?: $Enums.AppointmentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13423,8 +13529,11 @@ export namespace Prisma {
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time?: StringFieldUpdateOperationsInput | string
+    endTime?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    charge?: NullableFloatFieldUpdateOperationsInput | number | null
+    appointmentBy?: StringFieldUpdateOperationsInput | string
     status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13437,8 +13546,11 @@ export namespace Prisma {
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time?: StringFieldUpdateOperationsInput | string
+    endTime?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    charge?: NullableFloatFieldUpdateOperationsInput | number | null
+    appointmentBy?: StringFieldUpdateOperationsInput | string
     status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14411,6 +14523,17 @@ export namespace Prisma {
     _max?: NestedEnumBranchFilter<$PrismaModel>
   }
 
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type EnumAppointmentStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.AppointmentStatus | EnumAppointmentStatusFieldRefInput<$PrismaModel>
     in?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
@@ -14435,11 +14558,18 @@ export namespace Prisma {
     branch?: SortOrder
     date?: SortOrder
     time?: SortOrder
+    endTime?: SortOrder
     reason?: SortOrder
     notes?: SortOrder
+    charge?: SortOrder
+    appointmentBy?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type AppointmentAvgOrderByAggregateInput = {
+    charge?: SortOrder
   }
 
   export type AppointmentMaxOrderByAggregateInput = {
@@ -14449,8 +14579,11 @@ export namespace Prisma {
     branch?: SortOrder
     date?: SortOrder
     time?: SortOrder
+    endTime?: SortOrder
     reason?: SortOrder
     notes?: SortOrder
+    charge?: SortOrder
+    appointmentBy?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14463,11 +14596,34 @@ export namespace Prisma {
     branch?: SortOrder
     date?: SortOrder
     time?: SortOrder
+    endTime?: SortOrder
     reason?: SortOrder
     notes?: SortOrder
+    charge?: SortOrder
+    appointmentBy?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type AppointmentSumOrderByAggregateInput = {
+    charge?: SortOrder
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type EnumAppointmentStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -14721,17 +14877,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type FloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
   export type FollowUpCountOrderByAggregateInput = {
     id?: SortOrder
     patientId?: SortOrder
@@ -14792,22 +14937,6 @@ export namespace Prisma {
 
   export type FollowUpSumOrderByAggregateInput = {
     appointmentCharge?: SortOrder
-  }
-
-  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type InvoiceCountOrderByAggregateInput = {
@@ -15148,6 +15277,14 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type EnumAppointmentStatusFieldUpdateOperationsInput = {
     set?: $Enums.AppointmentStatus
   }
@@ -15245,14 +15382,6 @@ export namespace Prisma {
     create?: XOR<PatientCreateWithoutFollowUpsInput, PatientUncheckedCreateWithoutFollowUpsInput>
     connectOrCreate?: PatientCreateOrConnectWithoutFollowUpsInput
     connect?: PatientWhereUniqueInput
-  }
-
-  export type NullableFloatFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type PatientUpdateOneRequiredWithoutFollowUpsNestedInput = {
@@ -15501,6 +15630,22 @@ export namespace Prisma {
     not?: NestedEnumAppointmentStatusFilter<$PrismaModel> | $Enums.AppointmentStatus
   }
 
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
   export type NestedEnumAppointmentStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.AppointmentStatus | EnumAppointmentStatusFieldRefInput<$PrismaModel>
     in?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
@@ -15554,29 +15699,16 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
-  }
-
   export type AppointmentCreateWithoutDoctorInput = {
     id?: string
     branch?: $Enums.Branch
     date: Date | string
     time: string
+    endTime?: string | null
     reason?: string | null
     notes?: string | null
+    charge?: number | null
+    appointmentBy?: string
     status?: $Enums.AppointmentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15589,8 +15721,11 @@ export namespace Prisma {
     branch?: $Enums.Branch
     date: Date | string
     time: string
+    endTime?: string | null
     reason?: string | null
     notes?: string | null
+    charge?: number | null
+    appointmentBy?: string
     status?: $Enums.AppointmentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15632,8 +15767,11 @@ export namespace Prisma {
     branch?: EnumBranchFilter<"Appointment"> | $Enums.Branch
     date?: DateTimeFilter<"Appointment"> | Date | string
     time?: StringFilter<"Appointment"> | string
+    endTime?: StringNullableFilter<"Appointment"> | string | null
     reason?: StringNullableFilter<"Appointment"> | string | null
     notes?: StringNullableFilter<"Appointment"> | string | null
+    charge?: FloatNullableFilter<"Appointment"> | number | null
+    appointmentBy?: StringFilter<"Appointment"> | string
     status?: EnumAppointmentStatusFilter<"Appointment"> | $Enums.AppointmentStatus
     createdAt?: DateTimeFilter<"Appointment"> | Date | string
     updatedAt?: DateTimeFilter<"Appointment"> | Date | string
@@ -15644,8 +15782,11 @@ export namespace Prisma {
     branch?: $Enums.Branch
     date: Date | string
     time: string
+    endTime?: string | null
     reason?: string | null
     notes?: string | null
+    charge?: number | null
+    appointmentBy?: string
     status?: $Enums.AppointmentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15658,8 +15799,11 @@ export namespace Prisma {
     branch?: $Enums.Branch
     date: Date | string
     time: string
+    endTime?: string | null
     reason?: string | null
     notes?: string | null
+    charge?: number | null
+    appointmentBy?: string
     status?: $Enums.AppointmentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16651,8 +16795,11 @@ export namespace Prisma {
     branch?: $Enums.Branch
     date: Date | string
     time: string
+    endTime?: string | null
     reason?: string | null
     notes?: string | null
+    charge?: number | null
+    appointmentBy?: string
     status?: $Enums.AppointmentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16663,8 +16810,11 @@ export namespace Prisma {
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time?: StringFieldUpdateOperationsInput | string
+    endTime?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    charge?: NullableFloatFieldUpdateOperationsInput | number | null
+    appointmentBy?: StringFieldUpdateOperationsInput | string
     status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16677,8 +16827,11 @@ export namespace Prisma {
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time?: StringFieldUpdateOperationsInput | string
+    endTime?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    charge?: NullableFloatFieldUpdateOperationsInput | number | null
+    appointmentBy?: StringFieldUpdateOperationsInput | string
     status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16690,8 +16843,11 @@ export namespace Prisma {
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time?: StringFieldUpdateOperationsInput | string
+    endTime?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    charge?: NullableFloatFieldUpdateOperationsInput | number | null
+    appointmentBy?: StringFieldUpdateOperationsInput | string
     status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16703,8 +16859,11 @@ export namespace Prisma {
     branch?: $Enums.Branch
     date: Date | string
     time: string
+    endTime?: string | null
     reason?: string | null
     notes?: string | null
+    charge?: number | null
+    appointmentBy?: string
     status?: $Enums.AppointmentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16751,8 +16910,11 @@ export namespace Prisma {
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time?: StringFieldUpdateOperationsInput | string
+    endTime?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    charge?: NullableFloatFieldUpdateOperationsInput | number | null
+    appointmentBy?: StringFieldUpdateOperationsInput | string
     status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16765,8 +16927,11 @@ export namespace Prisma {
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time?: StringFieldUpdateOperationsInput | string
+    endTime?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    charge?: NullableFloatFieldUpdateOperationsInput | number | null
+    appointmentBy?: StringFieldUpdateOperationsInput | string
     status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16778,8 +16943,11 @@ export namespace Prisma {
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time?: StringFieldUpdateOperationsInput | string
+    endTime?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    charge?: NullableFloatFieldUpdateOperationsInput | number | null
+    appointmentBy?: StringFieldUpdateOperationsInput | string
     status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
