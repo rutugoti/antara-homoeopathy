@@ -41,6 +41,20 @@ enum MaritalStatus {
   UNMARRIED
 }
 
+enum PaymentMethod {
+  CASH
+  UPI
+  CARD
+  ONLINE
+  OTHER
+}
+
+enum PaymentStatus {
+  PAID
+  PENDING
+  REFUNDED
+}
+
 // ─── Models ──────────────────────────────────────────────────────────────────
 
 model User {
@@ -86,6 +100,7 @@ model Patient {
   caseTaking    CaseTaking?
   followUps     FollowUp[]
   invoices      Invoice[]
+  payments      Payment[]
 
   @@map("patients")
 }
@@ -106,10 +121,29 @@ model Appointment {
   createdAt     DateTime          @default(now())
   updatedAt     DateTime          @updatedAt
 
-  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
-  doctor  User?   @relation("DoctorAppointments", fields: [doctorId], references: [id], onDelete: SetNull)
+  patient  Patient   @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctor   User?     @relation("DoctorAppointments", fields: [doctorId], references: [id], onDelete: SetNull)
+  payments Payment[]
 
   @@map("appointments")
+}
+
+model Payment {
+  id            String        @id @default(cuid())
+  appointmentId String
+  patientId     String
+  amount        Float
+  method        PaymentMethod @default(CASH)
+  status        PaymentStatus @default(PAID)
+  notes         String?
+  receiptNo     String?       @unique
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  appointment Appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+  patient     Patient     @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@map("payments")
 }
 
 model Prescription {

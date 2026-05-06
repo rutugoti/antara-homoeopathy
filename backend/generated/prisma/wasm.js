@@ -174,6 +174,19 @@ exports.Prisma.AppointmentScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.PaymentScalarFieldEnum = {
+  id: 'id',
+  appointmentId: 'appointmentId',
+  patientId: 'patientId',
+  amount: 'amount',
+  method: 'method',
+  status: 'status',
+  notes: 'notes',
+  receiptNo: 'receiptNo',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.PrescriptionScalarFieldEnum = {
   id: 'id',
   patientId: 'patientId',
@@ -306,10 +319,25 @@ exports.AppointmentStatus = exports.$Enums.AppointmentStatus = {
   CANCELLED: 'CANCELLED'
 };
 
+exports.PaymentMethod = exports.$Enums.PaymentMethod = {
+  CASH: 'CASH',
+  UPI: 'UPI',
+  CARD: 'CARD',
+  ONLINE: 'ONLINE',
+  OTHER: 'OTHER'
+};
+
+exports.PaymentStatus = exports.$Enums.PaymentStatus = {
+  PAID: 'PAID',
+  PENDING: 'PENDING',
+  REFUNDED: 'REFUNDED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Patient: 'Patient',
   Appointment: 'Appointment',
+  Payment: 'Payment',
   Prescription: 'Prescription',
   Holiday: 'Holiday',
   AppointmentSettings: 'AppointmentSettings',
