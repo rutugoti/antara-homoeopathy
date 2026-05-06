@@ -6372,6 +6372,7 @@ export namespace Prisma {
     id: string | null
     patientId: string | null
     title: string | null
+    list: string | null
     content: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6381,6 +6382,7 @@ export namespace Prisma {
     id: string | null
     patientId: string | null
     title: string | null
+    list: string | null
     content: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6390,6 +6392,7 @@ export namespace Prisma {
     id: number
     patientId: number
     title: number
+    list: number
     content: number
     createdAt: number
     updatedAt: number
@@ -6401,6 +6404,7 @@ export namespace Prisma {
     id?: true
     patientId?: true
     title?: true
+    list?: true
     content?: true
     createdAt?: true
     updatedAt?: true
@@ -6410,6 +6414,7 @@ export namespace Prisma {
     id?: true
     patientId?: true
     title?: true
+    list?: true
     content?: true
     createdAt?: true
     updatedAt?: true
@@ -6419,6 +6424,7 @@ export namespace Prisma {
     id?: true
     patientId?: true
     title?: true
+    list?: true
     content?: true
     createdAt?: true
     updatedAt?: true
@@ -6501,6 +6507,7 @@ export namespace Prisma {
     id: string
     patientId: string
     title: string
+    list: string | null
     content: string
     createdAt: Date
     updatedAt: Date
@@ -6527,6 +6534,7 @@ export namespace Prisma {
     id?: boolean
     patientId?: boolean
     title?: boolean
+    list?: boolean
     content?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6537,6 +6545,7 @@ export namespace Prisma {
     id?: boolean
     patientId?: boolean
     title?: boolean
+    list?: boolean
     content?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6547,6 +6556,7 @@ export namespace Prisma {
     id?: boolean
     patientId?: boolean
     title?: boolean
+    list?: boolean
     content?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6568,6 +6578,7 @@ export namespace Prisma {
       id: string
       patientId: string
       title: string
+      list: string | null
       content: string
       createdAt: Date
       updatedAt: Date
@@ -6968,6 +6979,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Prescription", 'String'>
     readonly patientId: FieldRef<"Prescription", 'String'>
     readonly title: FieldRef<"Prescription", 'String'>
+    readonly list: FieldRef<"Prescription", 'String'>
     readonly content: FieldRef<"Prescription", 'String'>
     readonly createdAt: FieldRef<"Prescription", 'DateTime'>
     readonly updatedAt: FieldRef<"Prescription", 'DateTime'>
@@ -13293,6 +13305,7 @@ export namespace Prisma {
     id: 'id',
     patientId: 'patientId',
     title: 'title',
+    list: 'list',
     content: 'content',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -14012,6 +14025,7 @@ export namespace Prisma {
     id?: StringFilter<"Prescription"> | string
     patientId?: StringFilter<"Prescription"> | string
     title?: StringFilter<"Prescription"> | string
+    list?: StringNullableFilter<"Prescription"> | string | null
     content?: StringFilter<"Prescription"> | string
     createdAt?: DateTimeFilter<"Prescription"> | Date | string
     updatedAt?: DateTimeFilter<"Prescription"> | Date | string
@@ -14022,6 +14036,7 @@ export namespace Prisma {
     id?: SortOrder
     patientId?: SortOrder
     title?: SortOrder
+    list?: SortOrderInput | SortOrder
     content?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14035,6 +14050,7 @@ export namespace Prisma {
     NOT?: PrescriptionWhereInput | PrescriptionWhereInput[]
     patientId?: StringFilter<"Prescription"> | string
     title?: StringFilter<"Prescription"> | string
+    list?: StringNullableFilter<"Prescription"> | string | null
     content?: StringFilter<"Prescription"> | string
     createdAt?: DateTimeFilter<"Prescription"> | Date | string
     updatedAt?: DateTimeFilter<"Prescription"> | Date | string
@@ -14045,6 +14061,7 @@ export namespace Prisma {
     id?: SortOrder
     patientId?: SortOrder
     title?: SortOrder
+    list?: SortOrderInput | SortOrder
     content?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14060,6 +14077,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Prescription"> | string
     patientId?: StringWithAggregatesFilter<"Prescription"> | string
     title?: StringWithAggregatesFilter<"Prescription"> | string
+    list?: StringNullableWithAggregatesFilter<"Prescription"> | string | null
     content?: StringWithAggregatesFilter<"Prescription"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Prescription"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Prescription"> | Date | string
@@ -15028,6 +15046,7 @@ export namespace Prisma {
   export type PrescriptionCreateInput = {
     id?: string
     title: string
+    list?: string | null
     content: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15038,6 +15057,7 @@ export namespace Prisma {
     id?: string
     patientId: string
     title: string
+    list?: string | null
     content: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15046,6 +15066,7 @@ export namespace Prisma {
   export type PrescriptionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    list?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15056,6 +15077,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     patientId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    list?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15065,6 +15087,7 @@ export namespace Prisma {
     id?: string
     patientId: string
     title: string
+    list?: string | null
     content: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15073,6 +15096,7 @@ export namespace Prisma {
   export type PrescriptionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    list?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15082,6 +15106,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     patientId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    list?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16232,6 +16257,7 @@ export namespace Prisma {
     id?: SortOrder
     patientId?: SortOrder
     title?: SortOrder
+    list?: SortOrder
     content?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -16241,6 +16267,7 @@ export namespace Prisma {
     id?: SortOrder
     patientId?: SortOrder
     title?: SortOrder
+    list?: SortOrder
     content?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -16250,6 +16277,7 @@ export namespace Prisma {
     id?: SortOrder
     patientId?: SortOrder
     title?: SortOrder
+    list?: SortOrder
     content?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -17545,6 +17573,7 @@ export namespace Prisma {
   export type PrescriptionCreateWithoutPatientInput = {
     id?: string
     title: string
+    list?: string | null
     content: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17553,6 +17582,7 @@ export namespace Prisma {
   export type PrescriptionUncheckedCreateWithoutPatientInput = {
     id?: string
     title: string
+    list?: string | null
     content: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17742,6 +17772,7 @@ export namespace Prisma {
     id?: StringFilter<"Prescription"> | string
     patientId?: StringFilter<"Prescription"> | string
     title?: StringFilter<"Prescription"> | string
+    list?: StringNullableFilter<"Prescription"> | string | null
     content?: StringFilter<"Prescription"> | string
     createdAt?: DateTimeFilter<"Prescription"> | Date | string
     updatedAt?: DateTimeFilter<"Prescription"> | Date | string
@@ -18949,6 +18980,7 @@ export namespace Prisma {
   export type PrescriptionCreateManyPatientInput = {
     id?: string
     title: string
+    list?: string | null
     content: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19047,6 +19079,7 @@ export namespace Prisma {
   export type PrescriptionUpdateWithoutPatientInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    list?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19055,6 +19088,7 @@ export namespace Prisma {
   export type PrescriptionUncheckedUpdateWithoutPatientInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    list?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19063,6 +19097,7 @@ export namespace Prisma {
   export type PrescriptionUncheckedUpdateManyWithoutPatientInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    list?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

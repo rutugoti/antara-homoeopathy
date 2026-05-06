@@ -150,6 +150,7 @@ model Prescription {
   id        String   @id @default(cuid())
   patientId String
   title     String
+  list      String? // category/type e.g. "General", "Follow Up", etc.
   content   String   @db.Text
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
