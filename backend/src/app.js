@@ -7,8 +7,12 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 const { ApiError, ApiResponse } = require('./utils/apiResponse');
-const dashboardRouter = require('./routes/dashboard.routes');
-const patientRouter   = require('./routes/patient.routes');
+const dashboardRouter   = require('./routes/dashboard.routes');
+const patientRouter     = require('./routes/patient.routes');
+const caseTakingRouter  = require('./routes/caseTaking.routes');
+const followUpRouter    = require('./routes/followUp.routes');
+const invoiceRouter     = require('./routes/invoice.routes');
+const settingsRouter    = require('./routes/appointmentSettings.routes');
 
 const app = express();
 
@@ -37,6 +41,10 @@ app.use(cookieParser());
 // ─── Routes ───────────────────────────────────────────────────────────────────
 app.use('/api/dashboard', dashboardRouter);
 app.use('/api/patients',  patientRouter);
+app.use('/api/patients/:patientId/case-taking',  caseTakingRouter);
+app.use('/api/patients/:patientId/follow-ups',   followUpRouter);
+app.use('/api/patients/:patientId/invoices',     invoiceRouter);
+app.use('/api/settings',                          settingsRouter);
 
 // Health-check — useful for load balancers and uptime monitors.
 app.get('/api/health', (req, res) => {

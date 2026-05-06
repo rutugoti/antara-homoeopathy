@@ -190,6 +190,21 @@ exports.Prisma.HolidayScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AppointmentSettingsScalarFieldEnum = {
+  id: 'id',
+  morningStartTime: 'morningStartTime',
+  morningEndTime: 'morningEndTime',
+  afternoonStartTime: 'afternoonStartTime',
+  afternoonEndTime: 'afternoonEndTime',
+  oldPatientTime: 'oldPatientTime',
+  newPatientTime: 'newPatientTime',
+  oldPatientFee: 'oldPatientFee',
+  newPatientFee: 'newPatientFee',
+  workingDays: 'workingDays',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.EventScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -198,6 +213,47 @@ exports.Prisma.EventScalarFieldEnum = {
   time: 'time',
   location: 'location',
   isPublished: 'isPublished',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CaseTakingScalarFieldEnum = {
+  id: 'id',
+  patientId: 'patientId',
+  historyTakenBy: 'historyTakenBy',
+  beforeImages: 'beforeImages',
+  afterImages: 'afterImages',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FollowUpScalarFieldEnum = {
+  id: 'id',
+  patientId: 'patientId',
+  followUp: 'followUp',
+  weight: 'weight',
+  bp: 'bp',
+  appointmentCharge: 'appointmentCharge',
+  historyTakenBy: 'historyTakenBy',
+  remedy: 'remedy',
+  dosage: 'dosage',
+  repetition: 'repetition',
+  potency: 'potency',
+  days: 'days',
+  prescriptionType: 'prescriptionType',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.InvoiceScalarFieldEnum = {
+  id: 'id',
+  patientId: 'patientId',
+  invoiceNo: 'invoiceNo',
+  diagnosis: 'diagnosis',
+  prescriptionDate: 'prescriptionDate',
+  prescription: 'prescription',
+  amount: 'amount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -252,7 +308,11 @@ exports.Prisma.ModelName = {
   Appointment: 'Appointment',
   Prescription: 'Prescription',
   Holiday: 'Holiday',
-  Event: 'Event'
+  AppointmentSettings: 'AppointmentSettings',
+  Event: 'Event',
+  CaseTaking: 'CaseTaking',
+  FollowUp: 'FollowUp',
+  Invoice: 'Invoice'
 };
 
 /**

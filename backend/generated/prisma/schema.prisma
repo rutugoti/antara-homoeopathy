@@ -82,6 +82,9 @@ model Patient {
 
   appointments  Appointment[]
   prescriptions Prescription[]
+  caseTaking    CaseTaking?
+  followUps     FollowUp[]
+  invoices      Invoice[]
 
   @@map("patients")
 }
@@ -130,6 +133,23 @@ model Holiday {
   @@map("holidays")
 }
 
+model AppointmentSettings {
+  id                 String   @id @default(cuid())
+  morningStartTime   String // e.g. "09:00 AM"
+  morningEndTime     String // e.g. "02:00 PM"
+  afternoonStartTime String // e.g. "02:01 PM"
+  afternoonEndTime   String // e.g. "11:59 PM"
+  oldPatientTime     Int // in minutes
+  newPatientTime     Int // in minutes
+  oldPatientFee      Float
+  newPatientFee      Float
+  workingDays        String[] // e.g. ["Monday", "Tuesday", ...]
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@map("appointment_settings")
+}
+
 model Event {
   id          String   @id @default(cuid())
   title       String
@@ -142,4 +162,57 @@ model Event {
   updatedAt   DateTime @updatedAt
 
   @@map("events")
+}
+
+model CaseTaking {
+  id             String   @id @default(cuid())
+  patientId      String   @unique
+  historyTakenBy String?
+  beforeImages   String[] // Array of Cloudinary URLs
+  afterImages    String[] // Array of Cloudinary URLs
+  notes          String?  @db.Text
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@map("case_takings")
+}
+
+model FollowUp {
+  id                String   @id @default(cuid())
+  patientId         String
+  followUp          String
+  weight            String?
+  bp                String?
+  appointmentCharge Float?
+  historyTakenBy    String
+  remedy            String
+  dosage            String?
+  repetition        String?
+  potency           String
+  days              String?
+  prescriptionType  String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@map("follow_ups")
+}
+
+model Invoice {
+  id               String   @id @default(cuid())
+  patientId        String
+  invoiceNo        String   @unique
+  diagnosis        String
+  prescriptionDate DateTime @db.Date
+  prescription     String   @db.Text
+  amount           Float?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@map("invoices")
 }
