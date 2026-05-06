@@ -192,6 +192,8 @@ model AppointmentSettings {
 model Event {
   id          String   @id @default(cuid())
   title       String
+  type        String? // e.g. "Seminar", "Workshop", "Camp", etc.
+  organizeBy  String? // e.g. "Dr. Bhumi", "Antara Homoeopathy"
   description String?
   date        DateTime @db.Date
   time        String

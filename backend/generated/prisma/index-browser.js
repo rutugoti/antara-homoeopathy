@@ -225,6 +225,8 @@ exports.Prisma.AppointmentSettingsScalarFieldEnum = {
 exports.Prisma.EventScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  type: 'type',
+  organizeBy: 'organizeBy',
   description: 'description',
   date: 'date',
   time: 'time',

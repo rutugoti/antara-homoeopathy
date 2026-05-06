@@ -9320,6 +9320,8 @@ export namespace Prisma {
   export type EventMinAggregateOutputType = {
     id: string | null
     title: string | null
+    type: string | null
+    organizeBy: string | null
     description: string | null
     date: Date | null
     time: string | null
@@ -9332,6 +9334,8 @@ export namespace Prisma {
   export type EventMaxAggregateOutputType = {
     id: string | null
     title: string | null
+    type: string | null
+    organizeBy: string | null
     description: string | null
     date: Date | null
     time: string | null
@@ -9344,6 +9348,8 @@ export namespace Prisma {
   export type EventCountAggregateOutputType = {
     id: number
     title: number
+    type: number
+    organizeBy: number
     description: number
     date: number
     time: number
@@ -9358,6 +9364,8 @@ export namespace Prisma {
   export type EventMinAggregateInputType = {
     id?: true
     title?: true
+    type?: true
+    organizeBy?: true
     description?: true
     date?: true
     time?: true
@@ -9370,6 +9378,8 @@ export namespace Prisma {
   export type EventMaxAggregateInputType = {
     id?: true
     title?: true
+    type?: true
+    organizeBy?: true
     description?: true
     date?: true
     time?: true
@@ -9382,6 +9392,8 @@ export namespace Prisma {
   export type EventCountAggregateInputType = {
     id?: true
     title?: true
+    type?: true
+    organizeBy?: true
     description?: true
     date?: true
     time?: true
@@ -9467,6 +9479,8 @@ export namespace Prisma {
   export type EventGroupByOutputType = {
     id: string
     title: string
+    type: string | null
+    organizeBy: string | null
     description: string | null
     date: Date
     time: string
@@ -9496,6 +9510,8 @@ export namespace Prisma {
   export type EventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    type?: boolean
+    organizeBy?: boolean
     description?: boolean
     date?: boolean
     time?: boolean
@@ -9508,6 +9524,8 @@ export namespace Prisma {
   export type EventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    type?: boolean
+    organizeBy?: boolean
     description?: boolean
     date?: boolean
     time?: boolean
@@ -9520,6 +9538,8 @@ export namespace Prisma {
   export type EventSelectScalar = {
     id?: boolean
     title?: boolean
+    type?: boolean
+    organizeBy?: boolean
     description?: boolean
     date?: boolean
     time?: boolean
@@ -9536,6 +9556,8 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
+      type: string | null
+      organizeBy: string | null
       description: string | null
       date: Date
       time: string
@@ -9938,6 +9960,8 @@ export namespace Prisma {
   interface EventFieldRefs {
     readonly id: FieldRef<"Event", 'String'>
     readonly title: FieldRef<"Event", 'String'>
+    readonly type: FieldRef<"Event", 'String'>
+    readonly organizeBy: FieldRef<"Event", 'String'>
     readonly description: FieldRef<"Event", 'String'>
     readonly date: FieldRef<"Event", 'DateTime'>
     readonly time: FieldRef<"Event", 'String'>
@@ -14360,6 +14384,8 @@ export namespace Prisma {
   export const EventScalarFieldEnum: {
     id: 'id',
     title: 'title',
+    type: 'type',
+    organizeBy: 'organizeBy',
     description: 'description',
     date: 'date',
     time: 'time',
@@ -15267,6 +15293,8 @@ export namespace Prisma {
     NOT?: EventWhereInput | EventWhereInput[]
     id?: StringFilter<"Event"> | string
     title?: StringFilter<"Event"> | string
+    type?: StringNullableFilter<"Event"> | string | null
+    organizeBy?: StringNullableFilter<"Event"> | string | null
     description?: StringNullableFilter<"Event"> | string | null
     date?: DateTimeFilter<"Event"> | Date | string
     time?: StringFilter<"Event"> | string
@@ -15279,6 +15307,8 @@ export namespace Prisma {
   export type EventOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
+    type?: SortOrderInput | SortOrder
+    organizeBy?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     date?: SortOrder
     time?: SortOrder
@@ -15294,6 +15324,8 @@ export namespace Prisma {
     OR?: EventWhereInput[]
     NOT?: EventWhereInput | EventWhereInput[]
     title?: StringFilter<"Event"> | string
+    type?: StringNullableFilter<"Event"> | string | null
+    organizeBy?: StringNullableFilter<"Event"> | string | null
     description?: StringNullableFilter<"Event"> | string | null
     date?: DateTimeFilter<"Event"> | Date | string
     time?: StringFilter<"Event"> | string
@@ -15306,6 +15338,8 @@ export namespace Prisma {
   export type EventOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
+    type?: SortOrderInput | SortOrder
+    organizeBy?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     date?: SortOrder
     time?: SortOrder
@@ -15324,6 +15358,8 @@ export namespace Prisma {
     NOT?: EventScalarWhereWithAggregatesInput | EventScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Event"> | string
     title?: StringWithAggregatesFilter<"Event"> | string
+    type?: StringNullableWithAggregatesFilter<"Event"> | string | null
+    organizeBy?: StringNullableWithAggregatesFilter<"Event"> | string | null
     description?: StringNullableWithAggregatesFilter<"Event"> | string | null
     date?: DateTimeWithAggregatesFilter<"Event"> | Date | string
     time?: StringWithAggregatesFilter<"Event"> | string
@@ -16389,6 +16425,8 @@ export namespace Prisma {
   export type EventCreateInput = {
     id?: string
     title: string
+    type?: string | null
+    organizeBy?: string | null
     description?: string | null
     date: Date | string
     time: string
@@ -16401,6 +16439,8 @@ export namespace Prisma {
   export type EventUncheckedCreateInput = {
     id?: string
     title: string
+    type?: string | null
+    organizeBy?: string | null
     description?: string | null
     date: Date | string
     time: string
@@ -16413,6 +16453,8 @@ export namespace Prisma {
   export type EventUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    organizeBy?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time?: StringFieldUpdateOperationsInput | string
@@ -16425,6 +16467,8 @@ export namespace Prisma {
   export type EventUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    organizeBy?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time?: StringFieldUpdateOperationsInput | string
@@ -16437,6 +16481,8 @@ export namespace Prisma {
   export type EventCreateManyInput = {
     id?: string
     title: string
+    type?: string | null
+    organizeBy?: string | null
     description?: string | null
     date: Date | string
     time: string
@@ -16449,6 +16495,8 @@ export namespace Prisma {
   export type EventUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    organizeBy?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time?: StringFieldUpdateOperationsInput | string
@@ -16461,6 +16509,8 @@ export namespace Prisma {
   export type EventUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    organizeBy?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time?: StringFieldUpdateOperationsInput | string
@@ -17591,6 +17641,8 @@ export namespace Prisma {
   export type EventCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    type?: SortOrder
+    organizeBy?: SortOrder
     description?: SortOrder
     date?: SortOrder
     time?: SortOrder
@@ -17603,6 +17655,8 @@ export namespace Prisma {
   export type EventMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    type?: SortOrder
+    organizeBy?: SortOrder
     description?: SortOrder
     date?: SortOrder
     time?: SortOrder
@@ -17615,6 +17669,8 @@ export namespace Prisma {
   export type EventMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    type?: SortOrder
+    organizeBy?: SortOrder
     description?: SortOrder
     date?: SortOrder
     time?: SortOrder
