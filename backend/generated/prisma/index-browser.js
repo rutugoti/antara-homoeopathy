@@ -144,6 +144,13 @@ exports.Prisma.PatientScalarFieldEnum = {
   email: 'email',
   address: 'address',
   bloodGroup: 'bloodGroup',
+  occupation: 'occupation',
+  reference: 'reference',
+  maritalStatus: 'maritalStatus',
+  education: 'education',
+  profileImage: 'profileImage',
+  note: 'note',
+  age: 'age',
   branch: 'branch',
   isActive: 'isActive',
   createdAt: 'createdAt',
@@ -219,6 +226,11 @@ exports.Gender = exports.$Enums.Gender = {
   MALE: 'MALE',
   FEMALE: 'FEMALE',
   OTHER: 'OTHER'
+};
+
+exports.MaritalStatus = exports.$Enums.MaritalStatus = {
+  MARRIED: 'MARRIED',
+  UNMARRIED: 'UNMARRIED'
 };
 
 exports.Branch = exports.$Enums.Branch = {

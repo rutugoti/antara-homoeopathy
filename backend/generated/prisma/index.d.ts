@@ -66,6 +66,14 @@ export const Gender: {
 export type Gender = (typeof Gender)[keyof typeof Gender]
 
 
+export const MaritalStatus: {
+  MARRIED: 'MARRIED',
+  UNMARRIED: 'UNMARRIED'
+};
+
+export type MaritalStatus = (typeof MaritalStatus)[keyof typeof MaritalStatus]
+
+
 export const Branch: {
   MAIN: 'MAIN',
   BRANCH_1: 'BRANCH_1',
@@ -93,6 +101,10 @@ export const Role: typeof $Enums.Role
 export type Gender = $Enums.Gender
 
 export const Gender: typeof $Enums.Gender
+
+export type MaritalStatus = $Enums.MaritalStatus
+
+export const MaritalStatus: typeof $Enums.MaritalStatus
 
 export type Branch = $Enums.Branch
 
@@ -2391,8 +2403,18 @@ export namespace Prisma {
 
   export type AggregatePatient = {
     _count: PatientCountAggregateOutputType | null
+    _avg: PatientAvgAggregateOutputType | null
+    _sum: PatientSumAggregateOutputType | null
     _min: PatientMinAggregateOutputType | null
     _max: PatientMaxAggregateOutputType | null
+  }
+
+  export type PatientAvgAggregateOutputType = {
+    age: number | null
+  }
+
+  export type PatientSumAggregateOutputType = {
+    age: number | null
   }
 
   export type PatientMinAggregateOutputType = {
@@ -2406,6 +2428,13 @@ export namespace Prisma {
     email: string | null
     address: string | null
     bloodGroup: string | null
+    occupation: string | null
+    reference: string | null
+    maritalStatus: $Enums.MaritalStatus | null
+    education: string | null
+    profileImage: string | null
+    note: string | null
+    age: number | null
     branch: $Enums.Branch | null
     isActive: boolean | null
     createdAt: Date | null
@@ -2423,6 +2452,13 @@ export namespace Prisma {
     email: string | null
     address: string | null
     bloodGroup: string | null
+    occupation: string | null
+    reference: string | null
+    maritalStatus: $Enums.MaritalStatus | null
+    education: string | null
+    profileImage: string | null
+    note: string | null
+    age: number | null
     branch: $Enums.Branch | null
     isActive: boolean | null
     createdAt: Date | null
@@ -2440,6 +2476,13 @@ export namespace Prisma {
     email: number
     address: number
     bloodGroup: number
+    occupation: number
+    reference: number
+    maritalStatus: number
+    education: number
+    profileImage: number
+    note: number
+    age: number
     branch: number
     isActive: number
     createdAt: number
@@ -2447,6 +2490,14 @@ export namespace Prisma {
     _all: number
   }
 
+
+  export type PatientAvgAggregateInputType = {
+    age?: true
+  }
+
+  export type PatientSumAggregateInputType = {
+    age?: true
+  }
 
   export type PatientMinAggregateInputType = {
     id?: true
@@ -2459,6 +2510,13 @@ export namespace Prisma {
     email?: true
     address?: true
     bloodGroup?: true
+    occupation?: true
+    reference?: true
+    maritalStatus?: true
+    education?: true
+    profileImage?: true
+    note?: true
+    age?: true
     branch?: true
     isActive?: true
     createdAt?: true
@@ -2476,6 +2534,13 @@ export namespace Prisma {
     email?: true
     address?: true
     bloodGroup?: true
+    occupation?: true
+    reference?: true
+    maritalStatus?: true
+    education?: true
+    profileImage?: true
+    note?: true
+    age?: true
     branch?: true
     isActive?: true
     createdAt?: true
@@ -2493,6 +2558,13 @@ export namespace Prisma {
     email?: true
     address?: true
     bloodGroup?: true
+    occupation?: true
+    reference?: true
+    maritalStatus?: true
+    education?: true
+    profileImage?: true
+    note?: true
+    age?: true
     branch?: true
     isActive?: true
     createdAt?: true
@@ -2538,6 +2610,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: PatientAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PatientSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: PatientMinAggregateInputType
@@ -2568,6 +2652,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: PatientCountAggregateInputType | true
+    _avg?: PatientAvgAggregateInputType
+    _sum?: PatientSumAggregateInputType
     _min?: PatientMinAggregateInputType
     _max?: PatientMaxAggregateInputType
   }
@@ -2583,11 +2669,20 @@ export namespace Prisma {
     email: string | null
     address: string | null
     bloodGroup: string | null
+    occupation: string | null
+    reference: string | null
+    maritalStatus: $Enums.MaritalStatus | null
+    education: string | null
+    profileImage: string | null
+    note: string | null
+    age: number | null
     branch: $Enums.Branch
     isActive: boolean
     createdAt: Date
     updatedAt: Date
     _count: PatientCountAggregateOutputType | null
+    _avg: PatientAvgAggregateOutputType | null
+    _sum: PatientSumAggregateOutputType | null
     _min: PatientMinAggregateOutputType | null
     _max: PatientMaxAggregateOutputType | null
   }
@@ -2617,6 +2712,13 @@ export namespace Prisma {
     email?: boolean
     address?: boolean
     bloodGroup?: boolean
+    occupation?: boolean
+    reference?: boolean
+    maritalStatus?: boolean
+    education?: boolean
+    profileImage?: boolean
+    note?: boolean
+    age?: boolean
     branch?: boolean
     isActive?: boolean
     createdAt?: boolean
@@ -2637,6 +2739,13 @@ export namespace Prisma {
     email?: boolean
     address?: boolean
     bloodGroup?: boolean
+    occupation?: boolean
+    reference?: boolean
+    maritalStatus?: boolean
+    education?: boolean
+    profileImage?: boolean
+    note?: boolean
+    age?: boolean
     branch?: boolean
     isActive?: boolean
     createdAt?: boolean
@@ -2654,6 +2763,13 @@ export namespace Prisma {
     email?: boolean
     address?: boolean
     bloodGroup?: boolean
+    occupation?: boolean
+    reference?: boolean
+    maritalStatus?: boolean
+    education?: boolean
+    profileImage?: boolean
+    note?: boolean
+    age?: boolean
     branch?: boolean
     isActive?: boolean
     createdAt?: boolean
@@ -2684,6 +2800,13 @@ export namespace Prisma {
       email: string | null
       address: string | null
       bloodGroup: string | null
+      occupation: string | null
+      reference: string | null
+      maritalStatus: $Enums.MaritalStatus | null
+      education: string | null
+      profileImage: string | null
+      note: string | null
+      age: number | null
       branch: $Enums.Branch
       isActive: boolean
       createdAt: Date
@@ -3093,6 +3216,13 @@ export namespace Prisma {
     readonly email: FieldRef<"Patient", 'String'>
     readonly address: FieldRef<"Patient", 'String'>
     readonly bloodGroup: FieldRef<"Patient", 'String'>
+    readonly occupation: FieldRef<"Patient", 'String'>
+    readonly reference: FieldRef<"Patient", 'String'>
+    readonly maritalStatus: FieldRef<"Patient", 'MaritalStatus'>
+    readonly education: FieldRef<"Patient", 'String'>
+    readonly profileImage: FieldRef<"Patient", 'String'>
+    readonly note: FieldRef<"Patient", 'String'>
+    readonly age: FieldRef<"Patient", 'Int'>
     readonly branch: FieldRef<"Patient", 'Branch'>
     readonly isActive: FieldRef<"Patient", 'Boolean'>
     readonly createdAt: FieldRef<"Patient", 'DateTime'>
@@ -7303,6 +7433,13 @@ export namespace Prisma {
     email: 'email',
     address: 'address',
     bloodGroup: 'bloodGroup',
+    occupation: 'occupation',
+    reference: 'reference',
+    maritalStatus: 'maritalStatus',
+    education: 'education',
+    profileImage: 'profileImage',
+    note: 'note',
+    age: 'age',
     branch: 'branch',
     isActive: 'isActive',
     createdAt: 'createdAt',
@@ -7462,6 +7599,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'MaritalStatus'
+   */
+  export type EnumMaritalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaritalStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'MaritalStatus[]'
+   */
+  export type ListEnumMaritalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaritalStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Branch'
    */
   export type EnumBranchFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Branch'>
@@ -7490,16 +7655,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'Float'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
 
 
   /**
-   * Reference to a field of type 'Int[]'
+   * Reference to a field of type 'Float[]'
    */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -7590,6 +7755,13 @@ export namespace Prisma {
     email?: StringNullableFilter<"Patient"> | string | null
     address?: StringNullableFilter<"Patient"> | string | null
     bloodGroup?: StringNullableFilter<"Patient"> | string | null
+    occupation?: StringNullableFilter<"Patient"> | string | null
+    reference?: StringNullableFilter<"Patient"> | string | null
+    maritalStatus?: EnumMaritalStatusNullableFilter<"Patient"> | $Enums.MaritalStatus | null
+    education?: StringNullableFilter<"Patient"> | string | null
+    profileImage?: StringNullableFilter<"Patient"> | string | null
+    note?: StringNullableFilter<"Patient"> | string | null
+    age?: IntNullableFilter<"Patient"> | number | null
     branch?: EnumBranchFilter<"Patient"> | $Enums.Branch
     isActive?: BoolFilter<"Patient"> | boolean
     createdAt?: DateTimeFilter<"Patient"> | Date | string
@@ -7609,6 +7781,13 @@ export namespace Prisma {
     email?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
     bloodGroup?: SortOrderInput | SortOrder
+    occupation?: SortOrderInput | SortOrder
+    reference?: SortOrderInput | SortOrder
+    maritalStatus?: SortOrderInput | SortOrder
+    education?: SortOrderInput | SortOrder
+    profileImage?: SortOrderInput | SortOrder
+    note?: SortOrderInput | SortOrder
+    age?: SortOrderInput | SortOrder
     branch?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
@@ -7631,6 +7810,13 @@ export namespace Prisma {
     email?: StringNullableFilter<"Patient"> | string | null
     address?: StringNullableFilter<"Patient"> | string | null
     bloodGroup?: StringNullableFilter<"Patient"> | string | null
+    occupation?: StringNullableFilter<"Patient"> | string | null
+    reference?: StringNullableFilter<"Patient"> | string | null
+    maritalStatus?: EnumMaritalStatusNullableFilter<"Patient"> | $Enums.MaritalStatus | null
+    education?: StringNullableFilter<"Patient"> | string | null
+    profileImage?: StringNullableFilter<"Patient"> | string | null
+    note?: StringNullableFilter<"Patient"> | string | null
+    age?: IntNullableFilter<"Patient"> | number | null
     branch?: EnumBranchFilter<"Patient"> | $Enums.Branch
     isActive?: BoolFilter<"Patient"> | boolean
     createdAt?: DateTimeFilter<"Patient"> | Date | string
@@ -7650,13 +7836,22 @@ export namespace Prisma {
     email?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
     bloodGroup?: SortOrderInput | SortOrder
+    occupation?: SortOrderInput | SortOrder
+    reference?: SortOrderInput | SortOrder
+    maritalStatus?: SortOrderInput | SortOrder
+    education?: SortOrderInput | SortOrder
+    profileImage?: SortOrderInput | SortOrder
+    note?: SortOrderInput | SortOrder
+    age?: SortOrderInput | SortOrder
     branch?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: PatientCountOrderByAggregateInput
+    _avg?: PatientAvgOrderByAggregateInput
     _max?: PatientMaxOrderByAggregateInput
     _min?: PatientMinOrderByAggregateInput
+    _sum?: PatientSumOrderByAggregateInput
   }
 
   export type PatientScalarWhereWithAggregatesInput = {
@@ -7673,6 +7868,13 @@ export namespace Prisma {
     email?: StringNullableWithAggregatesFilter<"Patient"> | string | null
     address?: StringNullableWithAggregatesFilter<"Patient"> | string | null
     bloodGroup?: StringNullableWithAggregatesFilter<"Patient"> | string | null
+    occupation?: StringNullableWithAggregatesFilter<"Patient"> | string | null
+    reference?: StringNullableWithAggregatesFilter<"Patient"> | string | null
+    maritalStatus?: EnumMaritalStatusNullableWithAggregatesFilter<"Patient"> | $Enums.MaritalStatus | null
+    education?: StringNullableWithAggregatesFilter<"Patient"> | string | null
+    profileImage?: StringNullableWithAggregatesFilter<"Patient"> | string | null
+    note?: StringNullableWithAggregatesFilter<"Patient"> | string | null
+    age?: IntNullableWithAggregatesFilter<"Patient"> | number | null
     branch?: EnumBranchWithAggregatesFilter<"Patient"> | $Enums.Branch
     isActive?: BoolWithAggregatesFilter<"Patient"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Patient"> | Date | string
@@ -8053,6 +8255,13 @@ export namespace Prisma {
     email?: string | null
     address?: string | null
     bloodGroup?: string | null
+    occupation?: string | null
+    reference?: string | null
+    maritalStatus?: $Enums.MaritalStatus | null
+    education?: string | null
+    profileImage?: string | null
+    note?: string | null
+    age?: number | null
     branch?: $Enums.Branch
     isActive?: boolean
     createdAt?: Date | string
@@ -8072,6 +8281,13 @@ export namespace Prisma {
     email?: string | null
     address?: string | null
     bloodGroup?: string | null
+    occupation?: string | null
+    reference?: string | null
+    maritalStatus?: $Enums.MaritalStatus | null
+    education?: string | null
+    profileImage?: string | null
+    note?: string | null
+    age?: number | null
     branch?: $Enums.Branch
     isActive?: boolean
     createdAt?: Date | string
@@ -8091,6 +8307,13 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus | null
+    education?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8110,6 +8333,13 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus | null
+    education?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8129,6 +8359,13 @@ export namespace Prisma {
     email?: string | null
     address?: string | null
     bloodGroup?: string | null
+    occupation?: string | null
+    reference?: string | null
+    maritalStatus?: $Enums.MaritalStatus | null
+    education?: string | null
+    profileImage?: string | null
+    note?: string | null
+    age?: number | null
     branch?: $Enums.Branch
     isActive?: boolean
     createdAt?: Date | string
@@ -8146,6 +8383,13 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus | null
+    education?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8163,6 +8407,13 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus | null
+    education?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8634,6 +8885,24 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type EnumMaritalStatusNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.MaritalStatus | EnumMaritalStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.MaritalStatus[] | ListEnumMaritalStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.MaritalStatus[] | ListEnumMaritalStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumMaritalStatusNullableFilter<$PrismaModel> | $Enums.MaritalStatus | null
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type EnumBranchFilter<$PrismaModel = never> = {
     equals?: $Enums.Branch | EnumBranchFieldRefInput<$PrismaModel>
     in?: $Enums.Branch[] | ListEnumBranchFieldRefInput<$PrismaModel>
@@ -8667,10 +8936,21 @@ export namespace Prisma {
     email?: SortOrder
     address?: SortOrder
     bloodGroup?: SortOrder
+    occupation?: SortOrder
+    reference?: SortOrder
+    maritalStatus?: SortOrder
+    education?: SortOrder
+    profileImage?: SortOrder
+    note?: SortOrder
+    age?: SortOrder
     branch?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type PatientAvgOrderByAggregateInput = {
+    age?: SortOrder
   }
 
   export type PatientMaxOrderByAggregateInput = {
@@ -8684,6 +8964,13 @@ export namespace Prisma {
     email?: SortOrder
     address?: SortOrder
     bloodGroup?: SortOrder
+    occupation?: SortOrder
+    reference?: SortOrder
+    maritalStatus?: SortOrder
+    education?: SortOrder
+    profileImage?: SortOrder
+    note?: SortOrder
+    age?: SortOrder
     branch?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
@@ -8701,10 +8988,21 @@ export namespace Prisma {
     email?: SortOrder
     address?: SortOrder
     bloodGroup?: SortOrder
+    occupation?: SortOrder
+    reference?: SortOrder
+    maritalStatus?: SortOrder
+    education?: SortOrder
+    profileImage?: SortOrder
+    note?: SortOrder
+    age?: SortOrder
     branch?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type PatientSumOrderByAggregateInput = {
+    age?: SortOrder
   }
 
   export type EnumGenderWithAggregatesFilter<$PrismaModel = never> = {
@@ -8733,6 +9031,32 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type EnumMaritalStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MaritalStatus | EnumMaritalStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.MaritalStatus[] | ListEnumMaritalStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.MaritalStatus[] | ListEnumMaritalStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumMaritalStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.MaritalStatus | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumMaritalStatusNullableFilter<$PrismaModel>
+    _max?: NestedEnumMaritalStatusNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type EnumBranchWithAggregatesFilter<$PrismaModel = never> = {
@@ -9001,6 +9325,18 @@ export namespace Prisma {
     set?: string | null
   }
 
+  export type NullableEnumMaritalStatusFieldUpdateOperationsInput = {
+    set?: $Enums.MaritalStatus | null
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type EnumBranchFieldUpdateOperationsInput = {
     set?: $Enums.Branch
   }
@@ -9227,6 +9563,24 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedEnumMaritalStatusNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.MaritalStatus | EnumMaritalStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.MaritalStatus[] | ListEnumMaritalStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.MaritalStatus[] | ListEnumMaritalStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumMaritalStatusNullableFilter<$PrismaModel> | $Enums.MaritalStatus | null
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumBranchFilter<$PrismaModel = never> = {
     equals?: $Enums.Branch | EnumBranchFieldRefInput<$PrismaModel>
     in?: $Enums.Branch[] | ListEnumBranchFieldRefInput<$PrismaModel>
@@ -9261,7 +9615,17 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
+  export type NestedEnumMaritalStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MaritalStatus | EnumMaritalStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.MaritalStatus[] | ListEnumMaritalStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.MaritalStatus[] | ListEnumMaritalStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumMaritalStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.MaritalStatus | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumMaritalStatusNullableFilter<$PrismaModel>
+    _max?: NestedEnumMaritalStatusNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -9269,7 +9633,23 @@ export namespace Prisma {
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedEnumBranchWithAggregatesFilter<$PrismaModel = never> = {
@@ -9485,6 +9865,13 @@ export namespace Prisma {
     email?: string | null
     address?: string | null
     bloodGroup?: string | null
+    occupation?: string | null
+    reference?: string | null
+    maritalStatus?: $Enums.MaritalStatus | null
+    education?: string | null
+    profileImage?: string | null
+    note?: string | null
+    age?: number | null
     branch?: $Enums.Branch
     isActive?: boolean
     createdAt?: Date | string
@@ -9503,6 +9890,13 @@ export namespace Prisma {
     email?: string | null
     address?: string | null
     bloodGroup?: string | null
+    occupation?: string | null
+    reference?: string | null
+    maritalStatus?: $Enums.MaritalStatus | null
+    education?: string | null
+    profileImage?: string | null
+    note?: string | null
+    age?: number | null
     branch?: $Enums.Branch
     isActive?: boolean
     createdAt?: Date | string
@@ -9564,6 +9958,13 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus | null
+    education?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9582,6 +9983,13 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus | null
+    education?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9633,6 +10041,13 @@ export namespace Prisma {
     email?: string | null
     address?: string | null
     bloodGroup?: string | null
+    occupation?: string | null
+    reference?: string | null
+    maritalStatus?: $Enums.MaritalStatus | null
+    education?: string | null
+    profileImage?: string | null
+    note?: string | null
+    age?: number | null
     branch?: $Enums.Branch
     isActive?: boolean
     createdAt?: Date | string
@@ -9651,6 +10066,13 @@ export namespace Prisma {
     email?: string | null
     address?: string | null
     bloodGroup?: string | null
+    occupation?: string | null
+    reference?: string | null
+    maritalStatus?: $Enums.MaritalStatus | null
+    education?: string | null
+    profileImage?: string | null
+    note?: string | null
+    age?: number | null
     branch?: $Enums.Branch
     isActive?: boolean
     createdAt?: Date | string
@@ -9685,6 +10107,13 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus | null
+    education?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9703,6 +10132,13 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus | null
+    education?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

@@ -35,6 +35,11 @@ enum AppointmentStatus {
   CANCELLED
 }
 
+enum MaritalStatus {
+  MARRIED
+  UNMARRIED
+}
+
 // ─── Models ──────────────────────────────────────────────────────────────────
 
 model User {
@@ -61,9 +66,16 @@ model Patient {
   dateOfBirth DateTime @db.Date
   phone       String
   email       String?
-  address     String?
-  bloodGroup  String?  // e.g. A+, B+, O+, AB+, A-, B-, O-, AB-
-  branch      Branch   @default(MAIN)
+  address       String?
+  bloodGroup    String?        // e.g. A+, B+, O+, AB+, A-, B-, O-, AB-
+  occupation    String?
+  reference     String?
+  maritalStatus MaritalStatus?
+  education     String?
+  profileImage  String?        // Cloudinary URL
+  note          String?        @db.Text
+  age           Int?           // stored for quick display
+  branch        Branch         @default(MAIN)
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

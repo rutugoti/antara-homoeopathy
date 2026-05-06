@@ -1,19 +1,16 @@
 'use strict';
 
-const asyncHandler = require('../utils/asyncHandler');
+const asyncHandler         = require('../utils/asyncHandler');
 const { ApiResponse, ApiError } = require('../utils/apiResponse');
-const patientService = require('../services/patient.service');
+const patientService       = require('../services/patient.service');
+const { uploadImage }      = require('../services/cloudinary.service');
 
 // ─── GET /api/patients ────────────────────────────────────────────────────────
-/**
- * Returns a paginated, optionally filtered list of active patients.
- * Query params: page, limit, search, branch
- */
 const getAllPatients = asyncHandler(async (req, res) => {
   const page   = parseInt(req.query.page,  10) || 1;
   const limit  = parseInt(req.query.limit, 10) || 10;
-  const search = req.query.search  || undefined;
-  const branch = req.query.branch  || undefined;
+  const search = req.query.search || undefined;
+  const branch = req.query.branch || undefined;
 
   const result = await patientService.getAllPatients({ page, limit, search, branch });
 
@@ -23,13 +20,8 @@ const getAllPatients = asyncHandler(async (req, res) => {
 });
 
 // ─── GET /api/patients/:id ────────────────────────────────────────────────────
-/**
- * Returns a single patient with their last 5 appointments and prescriptions.
- */
 const getPatientById = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-
-  const patient = await patientService.getPatientById(id);
+  const patient = await patientService.getPatientById(req.params.id);
 
   return res.status(200).json(
     new ApiResponse(200, 'Patient fetched successfully', patient)
@@ -37,50 +29,40 @@ const getPatientById = asyncHandler(async (req, res) => {
 });
 
 // ─── POST /api/patients ───────────────────────────────────────────────────────
-/**
- * Creates a new patient with an auto-generated fileId.
- * Required body fields: firstName, lastName, gender, dateOfBirth, phone, branch
- */
 const createPatient = asyncHandler(async (req, res) => {
   const {
-    firstName,
-    lastName,
-    gender,
-    dateOfBirth,
-    phone,
-    email,
-    address,
-    branch,
-    bloodGroup,
+    firstName, lastName, gender, dateOfBirth, phone, email,
+    address, bloodGroup, branch, occupation, reference,
+    maritalStatus, education, note, age,
   } = req.body;
 
-  // Validate required fields
+  // ── Required field validation ──────────────────────────────────────────────
   const missing = [];
-  if (!firstName)   missing.push('firstName');
-  if (!lastName)    missing.push('lastName');
-  if (!gender)      missing.push('gender');
-  if (!dateOfBirth) missing.push('dateOfBirth');
-  if (!phone)       missing.push('phone');
-  if (!branch)      missing.push('branch');
+  if (!firstName) missing.push('firstName');
+  if (!lastName)  missing.push('lastName');
+  if (!phone)     missing.push('phone');
+  if (!branch)    missing.push('branch');
+  if (!dateOfBirth && !age) missing.push('dateOfBirth or age');
 
   if (missing.length > 0) {
     throw new ApiError(
       400,
       'Missing required fields.',
-      missing.map((field) => ({ field, message: `${field} is required.` }))
+      missing.map((f) => ({ field: f, message: `${f} is required.` }))
     );
   }
 
+  // ── Handle optional profile image upload ───────────────────────────────────
+  let profileImage = req.body.profileImage ?? null;
+  if (req.file) {
+    profileImage = await uploadImage(req.file.buffer);
+  }
+
   const patient = await patientService.createPatient({
-    firstName,
-    lastName,
-    gender,
-    dateOfBirth,
-    phone,
-    email,
-    address,
-    branch,
-    bloodGroup,
+    firstName, lastName, gender, dateOfBirth, phone, email,
+    address, bloodGroup, branch, occupation, reference,
+    maritalStatus, education, profileImage, note,
+    age: age ? parseInt(age, 10) : null,
   });
 
   return res.status(201).json(
@@ -89,14 +71,26 @@ const createPatient = asyncHandler(async (req, res) => {
 });
 
 // ─── PATCH /api/patients/:id ──────────────────────────────────────────────────
-/**
- * Partially updates a patient's details.
- * All body fields are optional; only provided fields are updated.
- */
 const updatePatient = asyncHandler(async (req, res) => {
   const { id } = req.params;
+  const {
+    firstName, lastName, gender, dateOfBirth, phone, email,
+    address, bloodGroup, branch, occupation, reference,
+    maritalStatus, education, note, age,
+  } = req.body;
 
-  const updated = await patientService.updatePatient(id, req.body);
+  // ── Handle optional profile image upload ───────────────────────────────────
+  let profileImage = req.body.profileImage;
+  if (req.file) {
+    profileImage = await uploadImage(req.file.buffer);
+  }
+
+  const updated = await patientService.updatePatient(id, {
+    firstName, lastName, gender, dateOfBirth, phone, email,
+    address, bloodGroup, branch, occupation, reference,
+    maritalStatus, education, profileImage, note,
+    age: age !== undefined ? parseInt(age, 10) : undefined,
+  });
 
   return res.status(200).json(
     new ApiResponse(200, 'Patient updated successfully', updated)
@@ -104,13 +98,8 @@ const updatePatient = asyncHandler(async (req, res) => {
 });
 
 // ─── DELETE /api/patients/:id ─────────────────────────────────────────────────
-/**
- * Soft-deletes a patient (sets isActive = false).
- */
 const deletePatient = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-
-  const result = await patientService.deletePatient(id);
+  const result = await patientService.deletePatient(req.params.id);
 
   return res.status(200).json(
     new ApiResponse(200, result.message, null)
@@ -118,10 +107,6 @@ const deletePatient = asyncHandler(async (req, res) => {
 });
 
 // ─── POST /api/patients/:id/book-appointment ──────────────────────────────────
-/**
- * Books a new PENDING appointment for an existing patient.
- * Required body fields: date, time, branch
- */
 const bookAppointment = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { date, time, branch, reason, doctorId } = req.body;
@@ -135,16 +120,12 @@ const bookAppointment = asyncHandler(async (req, res) => {
     throw new ApiError(
       400,
       'Missing required fields.',
-      missing.map((field) => ({ field, message: `${field} is required.` }))
+      missing.map((f) => ({ field: f, message: `${f} is required.` }))
     );
   }
 
   const appointment = await patientService.bookAppointmentForPatient(id, {
-    date,
-    time,
-    branch,
-    reason,
-    doctorId,
+    date, time, branch, reason, doctorId,
   });
 
   return res.status(201).json(
