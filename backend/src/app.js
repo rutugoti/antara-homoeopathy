@@ -19,6 +19,7 @@ const prescriptionRouter   = require('./routes/prescription.routes');
 const materiaMedicaRouter  = require('./routes/materiaMedica.routes');
 const eventRouter          = require('./routes/event.routes');
 const researchDevRouter    = require('./routes/researchDev.routes');
+const clinicRouter         = require('./routes/clinic.routes');
 
 const app = express();
 
@@ -57,6 +58,7 @@ app.use('/api/prescriptions',                       prescriptionRouter);
 app.use('/api/materia-medica',                       materiaMedicaRouter);
 app.use('/api/events',                                eventRouter);
 app.use('/api/research-dev',                           researchDevRouter);
+app.use('/api/clinics',                                 clinicRouter);
 
 // Health-check — useful for load balancers and uptime monitors.
 app.get('/api/health', (req, res) => {

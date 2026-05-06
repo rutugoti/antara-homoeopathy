@@ -283,3 +283,17 @@ model ResearchDev {
 
   @@map("research_devs")
 }
+
+model Clinic {
+  id         String   @id @default(cuid())
+  officeId   String   @unique // auto-generated e.g. OFC-001
+  title      String
+  address    String?
+  contact    String?
+  officeType String? // e.g. "Main Office", "Branch", "Consultation"
+  location   String? // e.g. city or Google Maps link
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("clinics")
+}
