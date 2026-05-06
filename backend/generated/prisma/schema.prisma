@@ -255,3 +255,17 @@ model Invoice {
 
   @@map("invoices")
 }
+
+model MateriaMedica {
+  id           String   @id @default(cuid())
+  code         String   @unique
+  productName  String
+  potency6CH   String? // 6 CH / 106F
+  potency30CH  String? // 30 CH / 130F
+  potency200CH String? // 200 CH / 150F
+  potency1M    String? // 1M / 160F
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("materia_medicas")
+}

@@ -275,6 +275,18 @@ exports.Prisma.InvoiceScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.MateriaMedicaScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  productName: 'productName',
+  potency6CH: 'potency6CH',
+  potency30CH: 'potency30CH',
+  potency200CH: 'potency200CH',
+  potency1M: 'potency1M',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -345,7 +357,8 @@ exports.Prisma.ModelName = {
   Event: 'Event',
   CaseTaking: 'CaseTaking',
   FollowUp: 'FollowUp',
-  Invoice: 'Invoice'
+  Invoice: 'Invoice',
+  MateriaMedica: 'MateriaMedica'
 };
 
 /**

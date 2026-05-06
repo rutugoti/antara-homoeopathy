@@ -68,6 +68,11 @@ export type FollowUp = $Result.DefaultSelection<Prisma.$FollowUpPayload>
  * 
  */
 export type Invoice = $Result.DefaultSelection<Prisma.$InvoicePayload>
+/**
+ * Model MateriaMedica
+ * 
+ */
+export type MateriaMedica = $Result.DefaultSelection<Prisma.$MateriaMedicaPayload>
 
 /**
  * Enums
@@ -400,6 +405,16 @@ export class PrismaClient<
     * ```
     */
   get invoice(): Prisma.InvoiceDelegate<ExtArgs>;
+
+  /**
+   * `prisma.materiaMedica`: Exposes CRUD operations for the **MateriaMedica** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MateriaMedicas
+    * const materiaMedicas = await prisma.materiaMedica.findMany()
+    * ```
+    */
+  get materiaMedica(): Prisma.MateriaMedicaDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -851,7 +866,8 @@ export namespace Prisma {
     Event: 'Event',
     CaseTaking: 'CaseTaking',
     FollowUp: 'FollowUp',
-    Invoice: 'Invoice'
+    Invoice: 'Invoice',
+    MateriaMedica: 'MateriaMedica'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -867,7 +883,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "patient" | "appointment" | "payment" | "prescription" | "holiday" | "appointmentSettings" | "event" | "caseTaking" | "followUp" | "invoice"
+      modelProps: "user" | "patient" | "appointment" | "payment" | "prescription" | "holiday" | "appointmentSettings" | "event" | "caseTaking" | "followUp" | "invoice" | "materiaMedica"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1638,6 +1654,76 @@ export namespace Prisma {
           count: {
             args: Prisma.InvoiceCountArgs<ExtArgs>
             result: $Utils.Optional<InvoiceCountAggregateOutputType> | number
+          }
+        }
+      }
+      MateriaMedica: {
+        payload: Prisma.$MateriaMedicaPayload<ExtArgs>
+        fields: Prisma.MateriaMedicaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MateriaMedicaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MateriaMedicaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MateriaMedicaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MateriaMedicaPayload>
+          }
+          findFirst: {
+            args: Prisma.MateriaMedicaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MateriaMedicaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MateriaMedicaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MateriaMedicaPayload>
+          }
+          findMany: {
+            args: Prisma.MateriaMedicaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MateriaMedicaPayload>[]
+          }
+          create: {
+            args: Prisma.MateriaMedicaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MateriaMedicaPayload>
+          }
+          createMany: {
+            args: Prisma.MateriaMedicaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MateriaMedicaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MateriaMedicaPayload>[]
+          }
+          delete: {
+            args: Prisma.MateriaMedicaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MateriaMedicaPayload>
+          }
+          update: {
+            args: Prisma.MateriaMedicaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MateriaMedicaPayload>
+          }
+          deleteMany: {
+            args: Prisma.MateriaMedicaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MateriaMedicaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.MateriaMedicaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MateriaMedicaPayload>
+          }
+          aggregate: {
+            args: Prisma.MateriaMedicaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMateriaMedica>
+          }
+          groupBy: {
+            args: Prisma.MateriaMedicaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MateriaMedicaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MateriaMedicaCountArgs<ExtArgs>
+            result: $Utils.Optional<MateriaMedicaCountAggregateOutputType> | number
           }
         }
       }
@@ -13211,6 +13297,932 @@ export namespace Prisma {
 
 
   /**
+   * Model MateriaMedica
+   */
+
+  export type AggregateMateriaMedica = {
+    _count: MateriaMedicaCountAggregateOutputType | null
+    _min: MateriaMedicaMinAggregateOutputType | null
+    _max: MateriaMedicaMaxAggregateOutputType | null
+  }
+
+  export type MateriaMedicaMinAggregateOutputType = {
+    id: string | null
+    code: string | null
+    productName: string | null
+    potency6CH: string | null
+    potency30CH: string | null
+    potency200CH: string | null
+    potency1M: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MateriaMedicaMaxAggregateOutputType = {
+    id: string | null
+    code: string | null
+    productName: string | null
+    potency6CH: string | null
+    potency30CH: string | null
+    potency200CH: string | null
+    potency1M: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MateriaMedicaCountAggregateOutputType = {
+    id: number
+    code: number
+    productName: number
+    potency6CH: number
+    potency30CH: number
+    potency200CH: number
+    potency1M: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MateriaMedicaMinAggregateInputType = {
+    id?: true
+    code?: true
+    productName?: true
+    potency6CH?: true
+    potency30CH?: true
+    potency200CH?: true
+    potency1M?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MateriaMedicaMaxAggregateInputType = {
+    id?: true
+    code?: true
+    productName?: true
+    potency6CH?: true
+    potency30CH?: true
+    potency200CH?: true
+    potency1M?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MateriaMedicaCountAggregateInputType = {
+    id?: true
+    code?: true
+    productName?: true
+    potency6CH?: true
+    potency30CH?: true
+    potency200CH?: true
+    potency1M?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MateriaMedicaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MateriaMedica to aggregate.
+     */
+    where?: MateriaMedicaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MateriaMedicas to fetch.
+     */
+    orderBy?: MateriaMedicaOrderByWithRelationInput | MateriaMedicaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MateriaMedicaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MateriaMedicas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MateriaMedicas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MateriaMedicas
+    **/
+    _count?: true | MateriaMedicaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MateriaMedicaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MateriaMedicaMaxAggregateInputType
+  }
+
+  export type GetMateriaMedicaAggregateType<T extends MateriaMedicaAggregateArgs> = {
+        [P in keyof T & keyof AggregateMateriaMedica]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMateriaMedica[P]>
+      : GetScalarType<T[P], AggregateMateriaMedica[P]>
+  }
+
+
+
+
+  export type MateriaMedicaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MateriaMedicaWhereInput
+    orderBy?: MateriaMedicaOrderByWithAggregationInput | MateriaMedicaOrderByWithAggregationInput[]
+    by: MateriaMedicaScalarFieldEnum[] | MateriaMedicaScalarFieldEnum
+    having?: MateriaMedicaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MateriaMedicaCountAggregateInputType | true
+    _min?: MateriaMedicaMinAggregateInputType
+    _max?: MateriaMedicaMaxAggregateInputType
+  }
+
+  export type MateriaMedicaGroupByOutputType = {
+    id: string
+    code: string
+    productName: string
+    potency6CH: string | null
+    potency30CH: string | null
+    potency200CH: string | null
+    potency1M: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: MateriaMedicaCountAggregateOutputType | null
+    _min: MateriaMedicaMinAggregateOutputType | null
+    _max: MateriaMedicaMaxAggregateOutputType | null
+  }
+
+  type GetMateriaMedicaGroupByPayload<T extends MateriaMedicaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MateriaMedicaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MateriaMedicaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MateriaMedicaGroupByOutputType[P]>
+            : GetScalarType<T[P], MateriaMedicaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MateriaMedicaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    productName?: boolean
+    potency6CH?: boolean
+    potency30CH?: boolean
+    potency200CH?: boolean
+    potency1M?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["materiaMedica"]>
+
+  export type MateriaMedicaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    productName?: boolean
+    potency6CH?: boolean
+    potency30CH?: boolean
+    potency200CH?: boolean
+    potency1M?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["materiaMedica"]>
+
+  export type MateriaMedicaSelectScalar = {
+    id?: boolean
+    code?: boolean
+    productName?: boolean
+    potency6CH?: boolean
+    potency30CH?: boolean
+    potency200CH?: boolean
+    potency1M?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $MateriaMedicaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MateriaMedica"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      code: string
+      productName: string
+      potency6CH: string | null
+      potency30CH: string | null
+      potency200CH: string | null
+      potency1M: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["materiaMedica"]>
+    composites: {}
+  }
+
+  type MateriaMedicaGetPayload<S extends boolean | null | undefined | MateriaMedicaDefaultArgs> = $Result.GetResult<Prisma.$MateriaMedicaPayload, S>
+
+  type MateriaMedicaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<MateriaMedicaFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: MateriaMedicaCountAggregateInputType | true
+    }
+
+  export interface MateriaMedicaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MateriaMedica'], meta: { name: 'MateriaMedica' } }
+    /**
+     * Find zero or one MateriaMedica that matches the filter.
+     * @param {MateriaMedicaFindUniqueArgs} args - Arguments to find a MateriaMedica
+     * @example
+     * // Get one MateriaMedica
+     * const materiaMedica = await prisma.materiaMedica.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MateriaMedicaFindUniqueArgs>(args: SelectSubset<T, MateriaMedicaFindUniqueArgs<ExtArgs>>): Prisma__MateriaMedicaClient<$Result.GetResult<Prisma.$MateriaMedicaPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one MateriaMedica that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {MateriaMedicaFindUniqueOrThrowArgs} args - Arguments to find a MateriaMedica
+     * @example
+     * // Get one MateriaMedica
+     * const materiaMedica = await prisma.materiaMedica.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MateriaMedicaFindUniqueOrThrowArgs>(args: SelectSubset<T, MateriaMedicaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MateriaMedicaClient<$Result.GetResult<Prisma.$MateriaMedicaPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first MateriaMedica that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MateriaMedicaFindFirstArgs} args - Arguments to find a MateriaMedica
+     * @example
+     * // Get one MateriaMedica
+     * const materiaMedica = await prisma.materiaMedica.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MateriaMedicaFindFirstArgs>(args?: SelectSubset<T, MateriaMedicaFindFirstArgs<ExtArgs>>): Prisma__MateriaMedicaClient<$Result.GetResult<Prisma.$MateriaMedicaPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first MateriaMedica that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MateriaMedicaFindFirstOrThrowArgs} args - Arguments to find a MateriaMedica
+     * @example
+     * // Get one MateriaMedica
+     * const materiaMedica = await prisma.materiaMedica.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MateriaMedicaFindFirstOrThrowArgs>(args?: SelectSubset<T, MateriaMedicaFindFirstOrThrowArgs<ExtArgs>>): Prisma__MateriaMedicaClient<$Result.GetResult<Prisma.$MateriaMedicaPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more MateriaMedicas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MateriaMedicaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MateriaMedicas
+     * const materiaMedicas = await prisma.materiaMedica.findMany()
+     * 
+     * // Get first 10 MateriaMedicas
+     * const materiaMedicas = await prisma.materiaMedica.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const materiaMedicaWithIdOnly = await prisma.materiaMedica.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MateriaMedicaFindManyArgs>(args?: SelectSubset<T, MateriaMedicaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MateriaMedicaPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a MateriaMedica.
+     * @param {MateriaMedicaCreateArgs} args - Arguments to create a MateriaMedica.
+     * @example
+     * // Create one MateriaMedica
+     * const MateriaMedica = await prisma.materiaMedica.create({
+     *   data: {
+     *     // ... data to create a MateriaMedica
+     *   }
+     * })
+     * 
+     */
+    create<T extends MateriaMedicaCreateArgs>(args: SelectSubset<T, MateriaMedicaCreateArgs<ExtArgs>>): Prisma__MateriaMedicaClient<$Result.GetResult<Prisma.$MateriaMedicaPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many MateriaMedicas.
+     * @param {MateriaMedicaCreateManyArgs} args - Arguments to create many MateriaMedicas.
+     * @example
+     * // Create many MateriaMedicas
+     * const materiaMedica = await prisma.materiaMedica.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MateriaMedicaCreateManyArgs>(args?: SelectSubset<T, MateriaMedicaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MateriaMedicas and returns the data saved in the database.
+     * @param {MateriaMedicaCreateManyAndReturnArgs} args - Arguments to create many MateriaMedicas.
+     * @example
+     * // Create many MateriaMedicas
+     * const materiaMedica = await prisma.materiaMedica.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MateriaMedicas and only return the `id`
+     * const materiaMedicaWithIdOnly = await prisma.materiaMedica.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MateriaMedicaCreateManyAndReturnArgs>(args?: SelectSubset<T, MateriaMedicaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MateriaMedicaPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a MateriaMedica.
+     * @param {MateriaMedicaDeleteArgs} args - Arguments to delete one MateriaMedica.
+     * @example
+     * // Delete one MateriaMedica
+     * const MateriaMedica = await prisma.materiaMedica.delete({
+     *   where: {
+     *     // ... filter to delete one MateriaMedica
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MateriaMedicaDeleteArgs>(args: SelectSubset<T, MateriaMedicaDeleteArgs<ExtArgs>>): Prisma__MateriaMedicaClient<$Result.GetResult<Prisma.$MateriaMedicaPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one MateriaMedica.
+     * @param {MateriaMedicaUpdateArgs} args - Arguments to update one MateriaMedica.
+     * @example
+     * // Update one MateriaMedica
+     * const materiaMedica = await prisma.materiaMedica.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MateriaMedicaUpdateArgs>(args: SelectSubset<T, MateriaMedicaUpdateArgs<ExtArgs>>): Prisma__MateriaMedicaClient<$Result.GetResult<Prisma.$MateriaMedicaPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more MateriaMedicas.
+     * @param {MateriaMedicaDeleteManyArgs} args - Arguments to filter MateriaMedicas to delete.
+     * @example
+     * // Delete a few MateriaMedicas
+     * const { count } = await prisma.materiaMedica.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MateriaMedicaDeleteManyArgs>(args?: SelectSubset<T, MateriaMedicaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MateriaMedicas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MateriaMedicaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MateriaMedicas
+     * const materiaMedica = await prisma.materiaMedica.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MateriaMedicaUpdateManyArgs>(args: SelectSubset<T, MateriaMedicaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one MateriaMedica.
+     * @param {MateriaMedicaUpsertArgs} args - Arguments to update or create a MateriaMedica.
+     * @example
+     * // Update or create a MateriaMedica
+     * const materiaMedica = await prisma.materiaMedica.upsert({
+     *   create: {
+     *     // ... data to create a MateriaMedica
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MateriaMedica we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MateriaMedicaUpsertArgs>(args: SelectSubset<T, MateriaMedicaUpsertArgs<ExtArgs>>): Prisma__MateriaMedicaClient<$Result.GetResult<Prisma.$MateriaMedicaPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of MateriaMedicas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MateriaMedicaCountArgs} args - Arguments to filter MateriaMedicas to count.
+     * @example
+     * // Count the number of MateriaMedicas
+     * const count = await prisma.materiaMedica.count({
+     *   where: {
+     *     // ... the filter for the MateriaMedicas we want to count
+     *   }
+     * })
+    **/
+    count<T extends MateriaMedicaCountArgs>(
+      args?: Subset<T, MateriaMedicaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MateriaMedicaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MateriaMedica.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MateriaMedicaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MateriaMedicaAggregateArgs>(args: Subset<T, MateriaMedicaAggregateArgs>): Prisma.PrismaPromise<GetMateriaMedicaAggregateType<T>>
+
+    /**
+     * Group by MateriaMedica.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MateriaMedicaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MateriaMedicaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MateriaMedicaGroupByArgs['orderBy'] }
+        : { orderBy?: MateriaMedicaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MateriaMedicaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMateriaMedicaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MateriaMedica model
+   */
+  readonly fields: MateriaMedicaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MateriaMedica.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MateriaMedicaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MateriaMedica model
+   */ 
+  interface MateriaMedicaFieldRefs {
+    readonly id: FieldRef<"MateriaMedica", 'String'>
+    readonly code: FieldRef<"MateriaMedica", 'String'>
+    readonly productName: FieldRef<"MateriaMedica", 'String'>
+    readonly potency6CH: FieldRef<"MateriaMedica", 'String'>
+    readonly potency30CH: FieldRef<"MateriaMedica", 'String'>
+    readonly potency200CH: FieldRef<"MateriaMedica", 'String'>
+    readonly potency1M: FieldRef<"MateriaMedica", 'String'>
+    readonly createdAt: FieldRef<"MateriaMedica", 'DateTime'>
+    readonly updatedAt: FieldRef<"MateriaMedica", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MateriaMedica findUnique
+   */
+  export type MateriaMedicaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MateriaMedica
+     */
+    select?: MateriaMedicaSelect<ExtArgs> | null
+    /**
+     * Filter, which MateriaMedica to fetch.
+     */
+    where: MateriaMedicaWhereUniqueInput
+  }
+
+  /**
+   * MateriaMedica findUniqueOrThrow
+   */
+  export type MateriaMedicaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MateriaMedica
+     */
+    select?: MateriaMedicaSelect<ExtArgs> | null
+    /**
+     * Filter, which MateriaMedica to fetch.
+     */
+    where: MateriaMedicaWhereUniqueInput
+  }
+
+  /**
+   * MateriaMedica findFirst
+   */
+  export type MateriaMedicaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MateriaMedica
+     */
+    select?: MateriaMedicaSelect<ExtArgs> | null
+    /**
+     * Filter, which MateriaMedica to fetch.
+     */
+    where?: MateriaMedicaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MateriaMedicas to fetch.
+     */
+    orderBy?: MateriaMedicaOrderByWithRelationInput | MateriaMedicaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MateriaMedicas.
+     */
+    cursor?: MateriaMedicaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MateriaMedicas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MateriaMedicas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MateriaMedicas.
+     */
+    distinct?: MateriaMedicaScalarFieldEnum | MateriaMedicaScalarFieldEnum[]
+  }
+
+  /**
+   * MateriaMedica findFirstOrThrow
+   */
+  export type MateriaMedicaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MateriaMedica
+     */
+    select?: MateriaMedicaSelect<ExtArgs> | null
+    /**
+     * Filter, which MateriaMedica to fetch.
+     */
+    where?: MateriaMedicaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MateriaMedicas to fetch.
+     */
+    orderBy?: MateriaMedicaOrderByWithRelationInput | MateriaMedicaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MateriaMedicas.
+     */
+    cursor?: MateriaMedicaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MateriaMedicas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MateriaMedicas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MateriaMedicas.
+     */
+    distinct?: MateriaMedicaScalarFieldEnum | MateriaMedicaScalarFieldEnum[]
+  }
+
+  /**
+   * MateriaMedica findMany
+   */
+  export type MateriaMedicaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MateriaMedica
+     */
+    select?: MateriaMedicaSelect<ExtArgs> | null
+    /**
+     * Filter, which MateriaMedicas to fetch.
+     */
+    where?: MateriaMedicaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MateriaMedicas to fetch.
+     */
+    orderBy?: MateriaMedicaOrderByWithRelationInput | MateriaMedicaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MateriaMedicas.
+     */
+    cursor?: MateriaMedicaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MateriaMedicas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MateriaMedicas.
+     */
+    skip?: number
+    distinct?: MateriaMedicaScalarFieldEnum | MateriaMedicaScalarFieldEnum[]
+  }
+
+  /**
+   * MateriaMedica create
+   */
+  export type MateriaMedicaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MateriaMedica
+     */
+    select?: MateriaMedicaSelect<ExtArgs> | null
+    /**
+     * The data needed to create a MateriaMedica.
+     */
+    data: XOR<MateriaMedicaCreateInput, MateriaMedicaUncheckedCreateInput>
+  }
+
+  /**
+   * MateriaMedica createMany
+   */
+  export type MateriaMedicaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MateriaMedicas.
+     */
+    data: MateriaMedicaCreateManyInput | MateriaMedicaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MateriaMedica createManyAndReturn
+   */
+  export type MateriaMedicaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MateriaMedica
+     */
+    select?: MateriaMedicaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many MateriaMedicas.
+     */
+    data: MateriaMedicaCreateManyInput | MateriaMedicaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MateriaMedica update
+   */
+  export type MateriaMedicaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MateriaMedica
+     */
+    select?: MateriaMedicaSelect<ExtArgs> | null
+    /**
+     * The data needed to update a MateriaMedica.
+     */
+    data: XOR<MateriaMedicaUpdateInput, MateriaMedicaUncheckedUpdateInput>
+    /**
+     * Choose, which MateriaMedica to update.
+     */
+    where: MateriaMedicaWhereUniqueInput
+  }
+
+  /**
+   * MateriaMedica updateMany
+   */
+  export type MateriaMedicaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MateriaMedicas.
+     */
+    data: XOR<MateriaMedicaUpdateManyMutationInput, MateriaMedicaUncheckedUpdateManyInput>
+    /**
+     * Filter which MateriaMedicas to update
+     */
+    where?: MateriaMedicaWhereInput
+  }
+
+  /**
+   * MateriaMedica upsert
+   */
+  export type MateriaMedicaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MateriaMedica
+     */
+    select?: MateriaMedicaSelect<ExtArgs> | null
+    /**
+     * The filter to search for the MateriaMedica to update in case it exists.
+     */
+    where: MateriaMedicaWhereUniqueInput
+    /**
+     * In case the MateriaMedica found by the `where` argument doesn't exist, create a new MateriaMedica with this data.
+     */
+    create: XOR<MateriaMedicaCreateInput, MateriaMedicaUncheckedCreateInput>
+    /**
+     * In case the MateriaMedica was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MateriaMedicaUpdateInput, MateriaMedicaUncheckedUpdateInput>
+  }
+
+  /**
+   * MateriaMedica delete
+   */
+  export type MateriaMedicaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MateriaMedica
+     */
+    select?: MateriaMedicaSelect<ExtArgs> | null
+    /**
+     * Filter which MateriaMedica to delete.
+     */
+    where: MateriaMedicaWhereUniqueInput
+  }
+
+  /**
+   * MateriaMedica deleteMany
+   */
+  export type MateriaMedicaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MateriaMedicas to delete
+     */
+    where?: MateriaMedicaWhereInput
+  }
+
+  /**
+   * MateriaMedica without action
+   */
+  export type MateriaMedicaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MateriaMedica
+     */
+    select?: MateriaMedicaSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -13408,6 +14420,21 @@ export namespace Prisma {
   };
 
   export type InvoiceScalarFieldEnum = (typeof InvoiceScalarFieldEnum)[keyof typeof InvoiceScalarFieldEnum]
+
+
+  export const MateriaMedicaScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    productName: 'productName',
+    potency6CH: 'potency6CH',
+    potency30CH: 'potency30CH',
+    potency200CH: 'potency200CH',
+    potency1M: 'potency1M',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MateriaMedicaScalarFieldEnum = (typeof MateriaMedicaScalarFieldEnum)[keyof typeof MateriaMedicaScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -14560,6 +15587,78 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
   }
 
+  export type MateriaMedicaWhereInput = {
+    AND?: MateriaMedicaWhereInput | MateriaMedicaWhereInput[]
+    OR?: MateriaMedicaWhereInput[]
+    NOT?: MateriaMedicaWhereInput | MateriaMedicaWhereInput[]
+    id?: StringFilter<"MateriaMedica"> | string
+    code?: StringFilter<"MateriaMedica"> | string
+    productName?: StringFilter<"MateriaMedica"> | string
+    potency6CH?: StringNullableFilter<"MateriaMedica"> | string | null
+    potency30CH?: StringNullableFilter<"MateriaMedica"> | string | null
+    potency200CH?: StringNullableFilter<"MateriaMedica"> | string | null
+    potency1M?: StringNullableFilter<"MateriaMedica"> | string | null
+    createdAt?: DateTimeFilter<"MateriaMedica"> | Date | string
+    updatedAt?: DateTimeFilter<"MateriaMedica"> | Date | string
+  }
+
+  export type MateriaMedicaOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    productName?: SortOrder
+    potency6CH?: SortOrderInput | SortOrder
+    potency30CH?: SortOrderInput | SortOrder
+    potency200CH?: SortOrderInput | SortOrder
+    potency1M?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MateriaMedicaWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    AND?: MateriaMedicaWhereInput | MateriaMedicaWhereInput[]
+    OR?: MateriaMedicaWhereInput[]
+    NOT?: MateriaMedicaWhereInput | MateriaMedicaWhereInput[]
+    productName?: StringFilter<"MateriaMedica"> | string
+    potency6CH?: StringNullableFilter<"MateriaMedica"> | string | null
+    potency30CH?: StringNullableFilter<"MateriaMedica"> | string | null
+    potency200CH?: StringNullableFilter<"MateriaMedica"> | string | null
+    potency1M?: StringNullableFilter<"MateriaMedica"> | string | null
+    createdAt?: DateTimeFilter<"MateriaMedica"> | Date | string
+    updatedAt?: DateTimeFilter<"MateriaMedica"> | Date | string
+  }, "id" | "code">
+
+  export type MateriaMedicaOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    productName?: SortOrder
+    potency6CH?: SortOrderInput | SortOrder
+    potency30CH?: SortOrderInput | SortOrder
+    potency200CH?: SortOrderInput | SortOrder
+    potency1M?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MateriaMedicaCountOrderByAggregateInput
+    _max?: MateriaMedicaMaxOrderByAggregateInput
+    _min?: MateriaMedicaMinOrderByAggregateInput
+  }
+
+  export type MateriaMedicaScalarWhereWithAggregatesInput = {
+    AND?: MateriaMedicaScalarWhereWithAggregatesInput | MateriaMedicaScalarWhereWithAggregatesInput[]
+    OR?: MateriaMedicaScalarWhereWithAggregatesInput[]
+    NOT?: MateriaMedicaScalarWhereWithAggregatesInput | MateriaMedicaScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MateriaMedica"> | string
+    code?: StringWithAggregatesFilter<"MateriaMedica"> | string
+    productName?: StringWithAggregatesFilter<"MateriaMedica"> | string
+    potency6CH?: StringNullableWithAggregatesFilter<"MateriaMedica"> | string | null
+    potency30CH?: StringNullableWithAggregatesFilter<"MateriaMedica"> | string | null
+    potency200CH?: StringNullableWithAggregatesFilter<"MateriaMedica"> | string | null
+    potency1M?: StringNullableWithAggregatesFilter<"MateriaMedica"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"MateriaMedica"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MateriaMedica"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name: string
@@ -15655,6 +16754,90 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MateriaMedicaCreateInput = {
+    id?: string
+    code: string
+    productName: string
+    potency6CH?: string | null
+    potency30CH?: string | null
+    potency200CH?: string | null
+    potency1M?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MateriaMedicaUncheckedCreateInput = {
+    id?: string
+    code: string
+    productName: string
+    potency6CH?: string | null
+    potency30CH?: string | null
+    potency200CH?: string | null
+    potency1M?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MateriaMedicaUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    productName?: StringFieldUpdateOperationsInput | string
+    potency6CH?: NullableStringFieldUpdateOperationsInput | string | null
+    potency30CH?: NullableStringFieldUpdateOperationsInput | string | null
+    potency200CH?: NullableStringFieldUpdateOperationsInput | string | null
+    potency1M?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MateriaMedicaUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    productName?: StringFieldUpdateOperationsInput | string
+    potency6CH?: NullableStringFieldUpdateOperationsInput | string | null
+    potency30CH?: NullableStringFieldUpdateOperationsInput | string | null
+    potency200CH?: NullableStringFieldUpdateOperationsInput | string | null
+    potency1M?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MateriaMedicaCreateManyInput = {
+    id?: string
+    code: string
+    productName: string
+    potency6CH?: string | null
+    potency30CH?: string | null
+    potency200CH?: string | null
+    potency1M?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MateriaMedicaUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    productName?: StringFieldUpdateOperationsInput | string
+    potency6CH?: NullableStringFieldUpdateOperationsInput | string | null
+    potency30CH?: NullableStringFieldUpdateOperationsInput | string | null
+    potency200CH?: NullableStringFieldUpdateOperationsInput | string | null
+    potency1M?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MateriaMedicaUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    productName?: StringFieldUpdateOperationsInput | string
+    potency6CH?: NullableStringFieldUpdateOperationsInput | string | null
+    potency30CH?: NullableStringFieldUpdateOperationsInput | string | null
+    potency200CH?: NullableStringFieldUpdateOperationsInput | string | null
+    potency1M?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -16574,6 +17757,42 @@ export namespace Prisma {
 
   export type InvoiceSumOrderByAggregateInput = {
     amount?: SortOrder
+  }
+
+  export type MateriaMedicaCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    productName?: SortOrder
+    potency6CH?: SortOrder
+    potency30CH?: SortOrder
+    potency200CH?: SortOrder
+    potency1M?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MateriaMedicaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    productName?: SortOrder
+    potency6CH?: SortOrder
+    potency30CH?: SortOrder
+    potency200CH?: SortOrder
+    potency1M?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MateriaMedicaMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    productName?: SortOrder
+    potency6CH?: SortOrder
+    potency30CH?: SortOrder
+    potency200CH?: SortOrder
+    potency1M?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type AppointmentCreateNestedManyWithoutDoctorInput = {
@@ -19332,6 +20551,10 @@ export namespace Prisma {
      * @deprecated Use InvoiceDefaultArgs instead
      */
     export type InvoiceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = InvoiceDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use MateriaMedicaDefaultArgs instead
+     */
+    export type MateriaMedicaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MateriaMedicaDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
