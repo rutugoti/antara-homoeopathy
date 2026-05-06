@@ -2405,6 +2405,7 @@ export namespace Prisma {
     phone: string | null
     email: string | null
     address: string | null
+    bloodGroup: string | null
     branch: $Enums.Branch | null
     isActive: boolean | null
     createdAt: Date | null
@@ -2421,6 +2422,7 @@ export namespace Prisma {
     phone: string | null
     email: string | null
     address: string | null
+    bloodGroup: string | null
     branch: $Enums.Branch | null
     isActive: boolean | null
     createdAt: Date | null
@@ -2437,6 +2439,7 @@ export namespace Prisma {
     phone: number
     email: number
     address: number
+    bloodGroup: number
     branch: number
     isActive: number
     createdAt: number
@@ -2455,6 +2458,7 @@ export namespace Prisma {
     phone?: true
     email?: true
     address?: true
+    bloodGroup?: true
     branch?: true
     isActive?: true
     createdAt?: true
@@ -2471,6 +2475,7 @@ export namespace Prisma {
     phone?: true
     email?: true
     address?: true
+    bloodGroup?: true
     branch?: true
     isActive?: true
     createdAt?: true
@@ -2487,6 +2492,7 @@ export namespace Prisma {
     phone?: true
     email?: true
     address?: true
+    bloodGroup?: true
     branch?: true
     isActive?: true
     createdAt?: true
@@ -2576,6 +2582,7 @@ export namespace Prisma {
     phone: string
     email: string | null
     address: string | null
+    bloodGroup: string | null
     branch: $Enums.Branch
     isActive: boolean
     createdAt: Date
@@ -2609,6 +2616,7 @@ export namespace Prisma {
     phone?: boolean
     email?: boolean
     address?: boolean
+    bloodGroup?: boolean
     branch?: boolean
     isActive?: boolean
     createdAt?: boolean
@@ -2628,6 +2636,7 @@ export namespace Prisma {
     phone?: boolean
     email?: boolean
     address?: boolean
+    bloodGroup?: boolean
     branch?: boolean
     isActive?: boolean
     createdAt?: boolean
@@ -2644,6 +2653,7 @@ export namespace Prisma {
     phone?: boolean
     email?: boolean
     address?: boolean
+    bloodGroup?: boolean
     branch?: boolean
     isActive?: boolean
     createdAt?: boolean
@@ -2673,6 +2683,7 @@ export namespace Prisma {
       phone: string
       email: string | null
       address: string | null
+      bloodGroup: string | null
       branch: $Enums.Branch
       isActive: boolean
       createdAt: Date
@@ -3081,6 +3092,7 @@ export namespace Prisma {
     readonly phone: FieldRef<"Patient", 'String'>
     readonly email: FieldRef<"Patient", 'String'>
     readonly address: FieldRef<"Patient", 'String'>
+    readonly bloodGroup: FieldRef<"Patient", 'String'>
     readonly branch: FieldRef<"Patient", 'Branch'>
     readonly isActive: FieldRef<"Patient", 'Boolean'>
     readonly createdAt: FieldRef<"Patient", 'DateTime'>
@@ -7290,6 +7302,7 @@ export namespace Prisma {
     phone: 'phone',
     email: 'email',
     address: 'address',
+    bloodGroup: 'bloodGroup',
     branch: 'branch',
     isActive: 'isActive',
     createdAt: 'createdAt',
@@ -7576,6 +7589,7 @@ export namespace Prisma {
     phone?: StringFilter<"Patient"> | string
     email?: StringNullableFilter<"Patient"> | string | null
     address?: StringNullableFilter<"Patient"> | string | null
+    bloodGroup?: StringNullableFilter<"Patient"> | string | null
     branch?: EnumBranchFilter<"Patient"> | $Enums.Branch
     isActive?: BoolFilter<"Patient"> | boolean
     createdAt?: DateTimeFilter<"Patient"> | Date | string
@@ -7594,6 +7608,7 @@ export namespace Prisma {
     phone?: SortOrder
     email?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
+    bloodGroup?: SortOrderInput | SortOrder
     branch?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
@@ -7615,6 +7630,7 @@ export namespace Prisma {
     phone?: StringFilter<"Patient"> | string
     email?: StringNullableFilter<"Patient"> | string | null
     address?: StringNullableFilter<"Patient"> | string | null
+    bloodGroup?: StringNullableFilter<"Patient"> | string | null
     branch?: EnumBranchFilter<"Patient"> | $Enums.Branch
     isActive?: BoolFilter<"Patient"> | boolean
     createdAt?: DateTimeFilter<"Patient"> | Date | string
@@ -7633,6 +7649,7 @@ export namespace Prisma {
     phone?: SortOrder
     email?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
+    bloodGroup?: SortOrderInput | SortOrder
     branch?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
@@ -7655,6 +7672,7 @@ export namespace Prisma {
     phone?: StringWithAggregatesFilter<"Patient"> | string
     email?: StringNullableWithAggregatesFilter<"Patient"> | string | null
     address?: StringNullableWithAggregatesFilter<"Patient"> | string | null
+    bloodGroup?: StringNullableWithAggregatesFilter<"Patient"> | string | null
     branch?: EnumBranchWithAggregatesFilter<"Patient"> | $Enums.Branch
     isActive?: BoolWithAggregatesFilter<"Patient"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Patient"> | Date | string
@@ -8034,6 +8052,7 @@ export namespace Prisma {
     phone: string
     email?: string | null
     address?: string | null
+    bloodGroup?: string | null
     branch?: $Enums.Branch
     isActive?: boolean
     createdAt?: Date | string
@@ -8052,6 +8071,7 @@ export namespace Prisma {
     phone: string
     email?: string | null
     address?: string | null
+    bloodGroup?: string | null
     branch?: $Enums.Branch
     isActive?: boolean
     createdAt?: Date | string
@@ -8070,6 +8090,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8088,6 +8109,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8106,6 +8128,7 @@ export namespace Prisma {
     phone: string
     email?: string | null
     address?: string | null
+    bloodGroup?: string | null
     branch?: $Enums.Branch
     isActive?: boolean
     createdAt?: Date | string
@@ -8122,6 +8145,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8138,6 +8162,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8641,6 +8666,7 @@ export namespace Prisma {
     phone?: SortOrder
     email?: SortOrder
     address?: SortOrder
+    bloodGroup?: SortOrder
     branch?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
@@ -8657,6 +8683,7 @@ export namespace Prisma {
     phone?: SortOrder
     email?: SortOrder
     address?: SortOrder
+    bloodGroup?: SortOrder
     branch?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
@@ -8673,6 +8700,7 @@ export namespace Prisma {
     phone?: SortOrder
     email?: SortOrder
     address?: SortOrder
+    bloodGroup?: SortOrder
     branch?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
@@ -9456,6 +9484,7 @@ export namespace Prisma {
     phone: string
     email?: string | null
     address?: string | null
+    bloodGroup?: string | null
     branch?: $Enums.Branch
     isActive?: boolean
     createdAt?: Date | string
@@ -9473,6 +9502,7 @@ export namespace Prisma {
     phone: string
     email?: string | null
     address?: string | null
+    bloodGroup?: string | null
     branch?: $Enums.Branch
     isActive?: boolean
     createdAt?: Date | string
@@ -9533,6 +9563,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9550,6 +9581,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9600,6 +9632,7 @@ export namespace Prisma {
     phone: string
     email?: string | null
     address?: string | null
+    bloodGroup?: string | null
     branch?: $Enums.Branch
     isActive?: boolean
     createdAt?: Date | string
@@ -9617,6 +9650,7 @@ export namespace Prisma {
     phone: string
     email?: string | null
     address?: string | null
+    bloodGroup?: string | null
     branch?: $Enums.Branch
     isActive?: boolean
     createdAt?: Date | string
@@ -9650,6 +9684,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9667,6 +9702,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

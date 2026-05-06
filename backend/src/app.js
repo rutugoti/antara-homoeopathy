@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 
 const { ApiError, ApiResponse } = require('./utils/apiResponse');
 const dashboardRouter = require('./routes/dashboard.routes');
+const patientRouter   = require('./routes/patient.routes');
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use(cookieParser());
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
 app.use('/api/dashboard', dashboardRouter);
+app.use('/api/patients',  patientRouter);
 
 // Health-check — useful for load balancers and uptime monitors.
 app.get('/api/health', (req, res) => {

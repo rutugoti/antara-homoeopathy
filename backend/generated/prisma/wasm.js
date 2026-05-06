@@ -143,6 +143,7 @@ exports.Prisma.PatientScalarFieldEnum = {
   phone: 'phone',
   email: 'email',
   address: 'address',
+  bloodGroup: 'bloodGroup',
   branch: 'branch',
   isActive: 'isActive',
   createdAt: 'createdAt',

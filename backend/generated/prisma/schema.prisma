@@ -62,6 +62,7 @@ model Patient {
   phone       String
   email       String?
   address     String?
+  bloodGroup  String? // e.g. A+, B+, O+, AB+, A-, B-, O-, AB-
   branch      Branch   @default(MAIN)
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
