@@ -1,1 +1,0 @@
-{"success":false,"message":"Phone number already registered.","errors":[],"stack":"ApiError: Phone number already registered.\n    at Object.createPatient (E:\\antara-homoeopathy\\backend\\src\\services\\patient.service.js:136:11)\n    at async E:\\antara-homoeopathy\\backend\\src\\controllers\\patient.controller.js:61:19"}

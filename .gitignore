@@ -87,9 +87,14 @@ coverage/
 prisma/dev.db
 prisma/dev.db-journal
 backend/generated/
-backend/*.ps1
+backend/test_*.ps1
+backend/full_api_test.ps1
 backend/*.txt
-backend/*.json
+backend/test_*.json
+backend/available_*.json
+backend/booking_*.json
+backend/lookup_*.json
+backend/settings_*.json
 backend/*.jpg
 *.tmp*
 

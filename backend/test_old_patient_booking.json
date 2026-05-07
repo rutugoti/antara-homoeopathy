@@ -1,1 +1,0 @@
-{"success":false,"message":"Patient already has an appointment on this date.","errors":[],"stack":"ApiError: Patient already has an appointment on this date.\n    at Object.bookForOldPatient (E:\\antara-homoeopathy\\backend\\src\\services\\booking.service.js:134:11)\n    at async E:\\antara-homoeopathy\\backend\\src\\controllers\\book.controller.js:52:18"}
