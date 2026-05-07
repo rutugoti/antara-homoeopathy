@@ -7,19 +7,19 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 const { ApiError, ApiResponse } = require('./utils/apiResponse');
-const dashboardRouter   = require('./routes/dashboard.routes');
-const patientRouter     = require('./routes/patient.routes');
-const caseTakingRouter  = require('./routes/caseTaking.routes');
-const followUpRouter    = require('./routes/followUp.routes');
-const invoiceRouter     = require('./routes/invoice.routes');
-const settingsRouter    = require('./routes/appointmentSettings.routes');
-const appointmentRouter    = require('./routes/appointment.routes');
-const bookRouter           = require('./routes/book.routes');
-const prescriptionRouter   = require('./routes/prescription.routes');
-const materiaMedicaRouter  = require('./routes/materiaMedica.routes');
-const eventRouter          = require('./routes/event.routes');
-const researchDevRouter    = require('./routes/researchDev.routes');
-const clinicRouter         = require('./routes/clinic.routes');
+const dashboardRouter = require('./routes/dashboard.routes');
+const patientRouter = require('./routes/patient.routes');
+const caseTakingRouter = require('./routes/caseTaking.routes');
+const followUpRouter = require('./routes/followUp.routes');
+const invoiceRouter = require('./routes/invoice.routes');
+const settingsRouter = require('./routes/appointmentSettings.routes');
+const appointmentRouter = require('./routes/appointment.routes');
+const bookRouter = require('./routes/book.routes');
+const prescriptionRouter = require('./routes/prescription.routes');
+const materiaMedicaRouter = require('./routes/materiaMedica.routes');
+const eventRouter = require('./routes/event.routes');
+const researchDevRouter = require('./routes/researchDev.routes');
+const clinicRouter = require('./routes/clinic.routes');
 
 const app = express();
 
@@ -47,18 +47,18 @@ app.use(cookieParser());
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
 app.use('/api/dashboard', dashboardRouter);
-app.use('/api/patients',  patientRouter);
-app.use('/api/patients/:patientId/case-taking',  caseTakingRouter);
-app.use('/api/patients/:patientId/follow-ups',   followUpRouter);
-app.use('/api/patients/:patientId/invoices',     invoiceRouter);
-app.use('/api/settings',                          settingsRouter);
-app.use('/api/appointments',                       appointmentRouter);
-app.use('/api/book',                                bookRouter);
-app.use('/api/prescriptions',                       prescriptionRouter);
-app.use('/api/materia-medica',                       materiaMedicaRouter);
-app.use('/api/events',                                eventRouter);
-app.use('/api/research-dev',                           researchDevRouter);
-app.use('/api/clinics',                                 clinicRouter);
+app.use('/api/patients', patientRouter);
+app.use('/api/patients/:patientId/case-taking', caseTakingRouter);
+app.use('/api/patients/:patientId/follow-ups', followUpRouter);
+app.use('/api/patients/:patientId/invoices', invoiceRouter);
+app.use('/api/settings', settingsRouter);
+app.use('/api/appointments', appointmentRouter);
+app.use('/api/book', bookRouter);
+app.use('/api/prescriptions', prescriptionRouter);
+app.use('/api/materia-medica', materiaMedicaRouter);
+app.use('/api/events', eventRouter);
+app.use('/api/research-dev', researchDevRouter);
+app.use('/api/clinics', clinicRouter);
 
 // Health-check — useful for load balancers and uptime monitors.
 app.get('/api/health', (req, res) => {

@@ -311,6 +311,16 @@ exports.Prisma.ClinicScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ContactScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  contact: 'contact',
+  description: 'description',
+  subscribed: 'subscribed',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -384,7 +394,8 @@ exports.Prisma.ModelName = {
   Invoice: 'Invoice',
   MateriaMedica: 'MateriaMedica',
   ResearchDev: 'ResearchDev',
-  Clinic: 'Clinic'
+  Clinic: 'Clinic',
+  Contact: 'Contact'
 };
 
 /**
