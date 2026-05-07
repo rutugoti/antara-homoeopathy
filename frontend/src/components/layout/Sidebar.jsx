@@ -51,10 +51,9 @@ export function Sidebar() {
   return (
     <div className="fixed inset-y-0 left-0 z-50 w-60 bg-[#1a2d5a] flex flex-col transition-all duration-300">
       <div className="flex flex-col items-center justify-center h-40 shrink-0 border-b border-[#2c4a8e]">
-        <div className="bg-white rounded-full p-2 mb-2 w-14 h-14 flex items-center justify-center overflow-hidden">
-          <img src={logoUrl} alt="Logo" className="h-10 w-auto object-contain" />
+        <div className="bg-white rounded-full p-2 w-24 h-24 flex items-center justify-center overflow-hidden">
+          <img src={logoUrl} alt="Logo" className="h-16 w-auto object-contain" />
         </div>
-        <h1 className="text-white text-[13px] font-semibold uppercase tracking-wider">Antara Homoeopathy</h1>
       </div>
       <div className="flex-1 overflow-y-auto py-4">
         <nav className="space-y-1 px-2">
