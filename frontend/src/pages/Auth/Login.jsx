@@ -6,7 +6,7 @@ import { Input } from '../../components/ui/Input';
 import { useAuth } from '../../hooks/useAuth';
 import { login } from '../../services/auth.service';
 import { useToast } from '../../hooks/useToast';
-import logoUrl from '../../assets/logo.svg';
+import logoUrl from '../../assets/logo.jpg';
 
 export default function Login() {
   const { register, handleSubmit } = useForm();

@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { Navbar } from './Navbar';
 import { SplashScreen } from '../shared/SplashScreen';
 
 export function AppLayout() {
   const [showSplash, setShowSplash] = useState(true);
+  const location = useLocation();
 
   useEffect(() => {
+    // Trigger splash screen on every route change
+    setShowSplash(true);
     const timer = setTimeout(() => {
       setShowSplash(false);
-    }, 1500);
+    }, 800); // 800ms for a snappy transition
     return () => clearTimeout(timer);
-  }, []);
+  }, [location.pathname]);
 
   return (
     <>
