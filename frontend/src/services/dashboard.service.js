@@ -7,7 +7,7 @@ export const getDashboardStats = async () => {
 
 export const getDashboardAppointments = async () => {
   const { data } = await api.get('/api/dashboard/appointments/today');
-  return data.data;
+  return data.data.appointments;
 };
 
 export const updateDashboardAppointmentStatus = async ({ id, status }) => {
@@ -17,10 +17,10 @@ export const updateDashboardAppointmentStatus = async ({ id, status }) => {
 
 export const getDashboardHolidays = async () => {
   const { data } = await api.get('/api/dashboard/holidays');
-  return data.data;
+  return data.data.holidays;
 };
 
 export const getDashboardEvents = async () => {
   const { data } = await api.get('/api/dashboard/events');
-  return data.data;
+  return data.data.events;
 };

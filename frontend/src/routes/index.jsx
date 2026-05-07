@@ -33,7 +33,7 @@ export function AppRoutes() {
           <Route path="/patients/:id" element={<PatientDetail />} />
           
           <Route path="/appointments" element={<Appointments />}>
-            <Route index element={<Navigate to="details" replace />} />
+            <Route index element={<Navigate to="/appointments/details" replace />} />
             <Route path="details" element={<AppointmentDetails />} />
             <Route path="book" element={<BookAppointment />} />
             <Route path="settings" element={<Settings />} />

@@ -54,14 +54,11 @@ const getTodaysAppointments = async () => {
   });
 
   return appointments.map((appt) => ({
+    ...appt,
     appointmentId: appt.id,
-    patientId: appt.patientId,
     patientName: `${appt.patient.firstName} ${appt.patient.lastName}`,
     fileId: appt.patient.fileId,
     phone: appt.patient.phone,
-    time: appt.time,
-    branch: appt.branch,
-    status: appt.status,
     reason: appt.reason ?? null,
   }));
 };
@@ -112,12 +109,10 @@ const updateAppointmentStatus = async (appointmentId, status) => {
   });
 
   return {
+    ...updated,
     appointmentId: updated.id,
-    status: updated.status,
     patientName: `${updated.patient.firstName} ${updated.patient.lastName}`,
     fileId: updated.patient.fileId,
-    time: updated.time,
-    branch: updated.branch,
   };
 };
 

@@ -7,7 +7,7 @@ export const getAppointments = async (params) => {
 
 export const getAvailableSlots = async (params) => {
   const { data } = await api.get('/api/appointments/available-slots', { params });
-  return data.data;
+  return data.data.slots;
 };
 
 export const getAppointmentById = async (id) => {

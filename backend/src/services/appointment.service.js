@@ -85,24 +85,10 @@ const getAppointmentsByDate = async ({ date, branch }) => {
   });
 
   return appointments.map((appt) => ({
-    id: appt.id,
-    patientId: appt.patientId,
+    ...appt,
     patientName: `${appt.patient.firstName} ${appt.patient.lastName}`,
-    fileId: appt.patient.fileId,
-    phone: appt.patient.phone,
-    doctorId: appt.doctorId,
     doctorName: appt.doctor ? appt.doctor.name : null,
-    branch: appt.branch,
-    date: appt.date,
-    time: appt.time,
-    endTime: appt.endTime,
     timeSlot: appt.endTime ? `${appt.time} To ${appt.endTime}` : appt.time,
-    reason: appt.reason,
-    notes: appt.notes,
-    charge: appt.charge,
-    appointmentBy: appt.appointmentBy,
-    status: appt.status,
-    createdAt: appt.createdAt,
   }));
 };
 

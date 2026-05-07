@@ -33,7 +33,7 @@ export default function Dashboard() {
     mutationFn: updateDashboardAppointmentStatus,
     onSuccess: () => {
       showSuccess('Appointment status updated');
-      queryClient.invalidateQueries(['dashboard-appointments']);
+      queryClient.invalidateQueries({ queryKey: ['dashboard-appointments'] });
     },
     onError: showError
   });

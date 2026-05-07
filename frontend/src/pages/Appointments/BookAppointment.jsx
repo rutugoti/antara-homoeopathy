@@ -106,7 +106,7 @@ function OldPatientBooking({ defaultFileId }) {
       {patient && (
         <div className="border border-[var(--color-border-main)] rounded p-4 bg-slate-50">
           <p className="font-semibold text-lg text-[var(--color-primary)]">{patient.firstName} {patient.lastName}</p>
-          <p className="text-sm text-slate-600">Mobile: {patient.mobileNo} | Branch: {patient.branch}</p>
+          <p className="text-sm text-slate-600">Mobile: {patient.phone} | Branch: {patient.branch}</p>
           
           <form onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-6">
             <h3 className="font-semibold text-[var(--color-text-dark)] border-b pb-2">Appointment Details</h3>
@@ -120,11 +120,11 @@ function OldPatientBooking({ defaultFileId }) {
                   <div className="text-sm text-slate-500">Loading slots...</div>
                 ) : slots?.length > 0 ? (
                   <div className="flex flex-wrap gap-2">
-                    {slots.map(slot => (
-                      <label key={slot} className="cursor-pointer">
-                        <input type="radio" value={slot} {...register('time', { required: true })} className="peer sr-only" />
+                    {slots.filter(s => !s.isBooked).map(slot => (
+                      <label key={slot.timeSlot} className="cursor-pointer">
+                        <input type="radio" value={slot.startTime} {...register('time', { required: true })} className="peer sr-only" />
                         <div className="px-3 py-1.5 border border-slate-200 rounded text-sm hover:bg-slate-100 peer-checked:bg-[var(--color-primary)] peer-checked:text-white peer-checked:border-[var(--color-primary)] transition-colors">
-                          {slot}
+                          {slot.startTime}
                         </div>
                       </label>
                     ))}
@@ -162,30 +162,94 @@ function OldPatientBooking({ defaultFileId }) {
 
 function NewPatientBooking() {
   const { showSuccess, showError } = useToast();
+  const { register, handleSubmit, watch, reset } = useForm();
+  
+  const selectedDate = watch('date');
+  const selectedBranch = watch('branch');
+
+  const { data: slots, isLoading: isLoadingSlots } = useQuery({
+    queryKey: ['available-slots', selectedDate, selectedBranch],
+    queryFn: () => getAvailableSlots({ date: selectedDate, branch: selectedBranch }),
+    enabled: !!selectedDate && !!selectedBranch
+  });
+
   const bookMutation = useMutation({
     mutationFn: bookNewPatient,
     onSuccess: () => {
       showSuccess('Patient registered and appointment booked!');
+      reset();
     },
     onError: showError
   });
 
-  const onSubmit = (formData) => {
-    formData.append('date', new Date().toISOString().split('T')[0]);
-    formData.append('time', '10:00 AM');
-    formData.append('branch', 'MAIN');
-    formData.append('paymentAmount', '500');
-    formData.append('paymentMethod', 'CASH');
+  const onSubmit = (patientFormData) => {
+    // This is called when PatientForm is submitted
+    // We need to trigger our local form submission or combine them
+    // But PatientForm handles its own submission.
+    // The requirement says: Render PatientForm with an onSubmit that receives FormData
+    // Show extra appointment + payment fields using local state (separate from PatientForm)
+    // On PatientForm submit, append extra fields to FormData then call bookNewPatient
+  };
+
+  const handleFullSubmit = (patientFormData) => {
+    const formData = new FormData();
+    // Assuming patientFormData is the FormData from PatientForm
+    // If PatientForm.onSubmit provides FormData, we append to it.
     
-    bookMutation.mutate(formData);
+    const extraData = watch();
+    Object.keys(extraData).forEach(key => {
+      if (extraData[key]) {
+        patientFormData.append(key, extraData[key]);
+      }
+    });
+
+    bookMutation.mutate(patientFormData);
   };
 
   return (
     <div className="space-y-6">
-      <div className="bg-blue-50 text-blue-800 p-4 rounded text-sm mb-4 border border-blue-200">
-        <strong>Note:</strong> Since new patient registration involves a large form, appointment date/time and payment details will be auto-filled for today as a demonstration of the one-step booking flow.
+      <div className="bg-white border border-[var(--color-border-main)] rounded-lg p-6">
+        <h3 className="font-semibold text-lg text-[var(--color-text-dark)] mb-4">New Patient Registration & Booking</h3>
+        
+        <div className="mb-8 space-y-6 border-b pb-8">
+          <h4 className="font-medium text-[var(--color-primary)]">Appointment & Payment Details</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Input label="Date *" type="date" {...register('date', { required: true })} />
+            <Select label="Branch *" options={BRANCHES} placeholder="Select Branch" {...register('branch', { required: true })} />
+            
+            <div className="col-span-1 md:col-span-2">
+              <label className="text-sm font-medium text-[var(--color-text-dark)] mb-1 block">Time Slot *</label>
+              {isLoadingSlots ? (
+                <div className="text-sm text-slate-500">Loading slots...</div>
+              ) : slots?.length > 0 ? (
+                <div className="flex flex-wrap gap-2">
+                  {slots.filter(s => !s.isBooked).map(slot => (
+                    <label key={slot.timeSlot} className="cursor-pointer">
+                      <input type="radio" value={slot.startTime} {...register('time', { required: true })} className="peer sr-only" />
+                      <div className="px-3 py-1.5 border border-slate-200 rounded text-sm hover:bg-slate-100 peer-checked:bg-[var(--color-primary)] peer-checked:text-white peer-checked:border-[var(--color-primary)] transition-colors">
+                        {slot.startTime}
+                      </div>
+                    </label>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-sm text-slate-500">Please select a date and branch to view slots.</div>
+              )}
+            </div>
+
+            <Input label="Reason" {...register('reason')} />
+            <Input label="Appointment By" {...register('appointmentBy')} />
+            <Input label="Amount (₹) *" type="number" step="0.01" {...register('paymentAmount', { required: true })} />
+            <Select label="Payment Method *" options={PAYMENT_METHODS} placeholder="Select Method" {...register('paymentMethod', { required: true })} />
+            <div className="col-span-1 md:col-span-2">
+              <Input label="Payment Notes" {...register('paymentNotes')} />
+            </div>
+          </div>
+        </div>
+
+        <h4 className="font-medium text-[var(--color-primary)] mb-4">Patient Information</h4>
+        <PatientForm onSubmit={handleFullSubmit} isLoading={bookMutation.isPending} />
       </div>
-      <PatientForm onSubmit={onSubmit} isLoading={bookMutation.isPending} />
     </div>
   );
 }

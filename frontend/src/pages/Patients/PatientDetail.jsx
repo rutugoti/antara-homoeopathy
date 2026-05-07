@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { ArrowLeft, Plus, Download, Trash2, Eye } from 'lucide-react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { useDropzone } from 'react-dropzone';
 import { createColumnHelper, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 
@@ -24,6 +24,7 @@ import {
   getPatientInvoices, createPatientInvoice, deletePatientInvoice
 } from '../../services/patient.service';
 import { getPrescriptionsByPatientId, createPrescription } from '../../services/prescription.service';
+import { RichTextEditor } from '../../components/ui/RichTextEditor';
 
 const TABS = ['Profile', 'Case Taking', 'Follow Up', 'Invoices', 'Prescriptions'];
 
@@ -63,7 +64,7 @@ export default function PatientDetail() {
             <h2 className="text-2xl font-bold text-[var(--color-text-dark)]">{patient.firstName} {patient.lastName}</h2>
             <p className="text-sm font-medium text-[var(--color-primary)] mt-1">{patient.fileId}</p>
             <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-600 justify-center sm:justify-start">
-              <span><strong>Phone:</strong> {patient.mobileNo}</span>
+              <span><strong>Phone:</strong> {patient.phone}</span>
               <span><strong>Email:</strong> {patient.email || 'N/A'}</span>
               <span><strong>Blood Group:</strong> {patient.bloodGroup || 'N/A'}</span>
             </div>
@@ -127,13 +128,19 @@ function ProfileTab({ patient }) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 text-sm">
         <div className="flex flex-col"><span className="text-slate-500 mb-1">First Name</span><span className="font-medium text-slate-900">{patient.firstName}</span></div>
         <div className="flex flex-col"><span className="text-slate-500 mb-1">Last Name</span><span className="font-medium text-slate-900">{patient.lastName}</span></div>
-        <div className="flex flex-col"><span className="text-slate-500 mb-1">Mobile</span><span className="font-medium text-slate-900">{patient.mobileNo}</span></div>
+        <div className="flex flex-col"><span className="text-slate-500 mb-1">Mobile</span><span className="font-medium text-slate-900">{patient.phone}</span></div>
         <div className="flex flex-col"><span className="text-slate-500 mb-1">Email</span><span className="font-medium text-slate-900">{patient.email || '-'}</span></div>
-        <div className="flex flex-col"><span className="text-slate-500 mb-1">Birth Date</span><span className="font-medium text-slate-900">{patient.birthDate ? new Date(patient.birthDate).toLocaleDateString() : '-'}</span></div>
+        <div className="flex flex-col"><span className="text-slate-500 mb-1">Birth Date</span><span className="font-medium text-slate-900">{patient.dateOfBirth ? new Date(patient.dateOfBirth).toLocaleDateString() : '-'}</span></div>
+        <div className="flex flex-col"><span className="text-slate-500 mb-1">Age</span><span className="font-medium text-slate-900">{patient.age || '-'}</span></div>
         <div className="flex flex-col"><span className="text-slate-500 mb-1">Gender</span><span className="font-medium text-slate-900">{patient.gender || '-'}</span></div>
         <div className="flex flex-col"><span className="text-slate-500 mb-1">Blood Group</span><span className="font-medium text-slate-900">{patient.bloodGroup || '-'}</span></div>
         <div className="flex flex-col"><span className="text-slate-500 mb-1">Branch</span><span className="font-medium text-slate-900">{patient.branch}</span></div>
+        <div className="flex flex-col"><span className="text-slate-500 mb-1">Occupation</span><span className="font-medium text-slate-900">{patient.occupation || '-'}</span></div>
+        <div className="flex flex-col"><span className="text-slate-500 mb-1">Reference</span><span className="font-medium text-slate-900">{patient.reference || '-'}</span></div>
+        <div className="flex flex-col"><span className="text-slate-500 mb-1">Marital Status</span><span className="font-medium text-slate-900">{patient.maritalStatus || '-'}</span></div>
+        <div className="flex flex-col"><span className="text-slate-500 mb-1">Education</span><span className="font-medium text-slate-900">{patient.education || '-'}</span></div>
         <div className="flex flex-col col-span-1 md:col-span-2"><span className="text-slate-500 mb-1">Address</span><span className="font-medium text-slate-900">{patient.address || '-'}</span></div>
+        <div className="flex flex-col col-span-1 md:col-span-2"><span className="text-slate-500 mb-1">Note</span><span className="font-medium text-slate-900">{patient.note || '-'}</span></div>
       </div>
 
       <Modal isOpen={isEditOpen} onClose={() => setIsEditOpen(false)} title="Edit Patient">
@@ -157,11 +164,16 @@ function CaseTakingTab({ patientId }) {
     queryFn: () => getPatientCaseTaking(patientId)
   });
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, control } = useForm({
+    defaultValues: { historyTakenBy: '', notes: '' }
+  });
   
   React.useEffect(() => {
     if (caseTaking) {
-      reset({ historyTakenBy: caseTaking.historyTakenBy || '', notes: caseTaking.notes || '' });
+      reset({ 
+        historyTakenBy: caseTaking.historyTakenBy || '', 
+        notes: caseTaking.notes || '' 
+      });
     }
   }, [caseTaking, reset]);
 
@@ -182,13 +194,20 @@ function CaseTakingTab({ patientId }) {
     <div className="space-y-6">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <Input label="History Taken By" {...register('historyTakenBy')} />
-        <div className="flex flex-col space-y-1">
-          <label className="text-sm font-medium text-[var(--color-text-dark)]">Notes</label>
-          <textarea 
-            {...register('notes')}
-            className="flex w-full rounded-md border border-[var(--color-border-main)] bg-white px-3 py-2 text-sm focus:outline-none focus:border-[var(--color-primary-medium)] min-h-[120px]"
-          />
-        </div>
+        
+        <Controller
+          name="notes"
+          control={control}
+          render={({ field }) => (
+            <RichTextEditor
+              label="Notes"
+              value={field.value}
+              onChange={field.onChange}
+              placeholder="Write case taking notes here... (symptoms, history, observations)"
+              minHeight="250px"
+            />
+          )}
+        />
         <div className="flex justify-end">
           <Button type="submit" isLoading={updateMutation.isPending}>Save Notes</Button>
         </div>
@@ -199,13 +218,20 @@ function CaseTakingTab({ patientId }) {
 
 function FollowUpTab({ patientId }) {
   const [page, setPage] = useState(1);
+  const [historyPage, setHistoryPage] = useState(1);
+  
   const { data, isLoading } = useQuery({
     queryKey: ['followups', patientId, page],
     queryFn: () => getPatientFollowUps(patientId, { page, limit: 10 })
   });
 
+  const { data: remedyHistory, isLoading: isLoadingHistory } = useQuery({
+    queryKey: ['remedy-history', patientId, historyPage],
+    queryFn: () => getPatientRemedyHistory(patientId, { page: historyPage, limit: 10 })
+  });
+
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, control } = useForm();
   const queryClient = useQueryClient();
   const { showSuccess, showError } = useToast();
 
@@ -216,6 +242,7 @@ function FollowUpTab({ patientId }) {
       setIsFormOpen(false);
       reset();
       queryClient.invalidateQueries({ queryKey: ['followups', patientId] });
+      queryClient.invalidateQueries({ queryKey: ['remedy-history', patientId] });
     },
     onError: showError
   });
@@ -223,27 +250,57 @@ function FollowUpTab({ patientId }) {
   const columnHelper = createColumnHelper();
   const columns = [
     columnHelper.accessor('createdAt', { header: 'Date', cell: info => new Date(info.getValue()).toLocaleDateString() }),
-    columnHelper.accessor('followUp', { header: 'Notes' }),
+    columnHelper.accessor('followUp', { header: 'Notes', cell: info => <div dangerouslySetInnerHTML={{ __html: info.getValue() }} className="prose prose-sm max-w-none" /> }),
     columnHelper.accessor('remedy', { header: 'Remedy' }),
     columnHelper.accessor('potency', { header: 'Potency' }),
   ];
   const table = useReactTable({ data: data?.followUps || [], columns, getCoreRowModel: getCoreRowModel() });
 
+  const historyColumnHelper = createColumnHelper();
+  const historyColumns = [
+    historyColumnHelper.accessor('createdAt', { header: 'Date', cell: info => new Date(info.getValue()).toLocaleDateString() }),
+    historyColumnHelper.accessor('remedy', { header: 'Remedy' }),
+    historyColumnHelper.accessor('potency', { header: 'Potency' }),
+    historyColumnHelper.accessor('dosage', { header: 'Dosage' }),
+    historyColumnHelper.accessor('repetition', { header: 'Repetition' }),
+    historyColumnHelper.accessor('days', { header: 'Days' }),
+  ];
+  const historyTable = useReactTable({ data: remedyHistory?.remedies || [], columns: historyColumns, getCoreRowModel: getCoreRowModel() });
+
   return (
-    <div>
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-semibold text-[var(--color-text-dark)]">Follow Ups</h3>
-        <Button onClick={() => setIsFormOpen(true)} size="sm">Add Follow Up</Button>
+    <div className="space-y-12">
+      <div>
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-lg font-semibold text-[var(--color-text-dark)]">Follow Ups</h3>
+          <Button onClick={() => setIsFormOpen(true)} size="sm">Add Follow Up</Button>
+        </div>
+        <Table table={table} isLoading={isLoading} />
+        {data && <Pagination currentPage={data.currentPage} totalPages={data.totalPages} totalCount={data.totalCount} limit={data.limit} onPageChange={setPage} />}
       </div>
-      <Table table={table} isLoading={isLoading} />
-      {data && <Pagination currentPage={data.currentPage} totalPages={data.totalPages} totalCount={data.totalCount} limit={data.limit} onPageChange={setPage} />}
+
+      <div>
+        <h3 className="text-lg font-semibold text-[var(--color-text-dark)] mb-4">Remedy History</h3>
+        <Table table={historyTable} isLoading={isLoadingHistory} />
+        {remedyHistory && <Pagination currentPage={remedyHistory.currentPage} totalPages={remedyHistory.totalPages} totalCount={remedyHistory.totalCount} limit={remedyHistory.limit} onPageChange={setHistoryPage} />}
+      </div>
       
       <Modal isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} title="Add Follow Up">
         <form onSubmit={handleSubmit((d) => createMutation.mutate({ patientId, payload: d }))} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-2">
-              <label className="text-sm font-medium">Notes</label>
-              <textarea {...register('followUp')} className="w-full border rounded p-2 text-sm mt-1" rows={3}></textarea>
+              <Controller
+                name="followUp"
+                control={control}
+                render={({ field }) => (
+                  <RichTextEditor
+                    label="Follow Up Notes"
+                    value={field.value || ''}
+                    onChange={field.onChange}
+                    placeholder="Describe patient progress, complaints, observations..."
+                    minHeight="180px"
+                  />
+                )}
+              />
             </div>
             <Input label="Weight" {...register('weight')} />
             <Input label="BP" {...register('bp')} />

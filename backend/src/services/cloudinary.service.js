@@ -2,12 +2,18 @@
 
 const cloudinary = require('cloudinary').v2;
 
-// ─── Configuration ────────────────────────────────────────────────────────────
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key:    process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+const isPlaceholder = 
+  !process.env.CLOUDINARY_CLOUD_NAME || 
+  process.env.CLOUDINARY_CLOUD_NAME === 'your_cloud_name' ||
+  process.env.CLOUDINARY_API_KEY === 'your_api_key';
+
+if (!isPlaceholder) {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key:    process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
+}
 
 // ─── Exports ──────────────────────────────────────────────────────────────────
 
@@ -19,6 +25,11 @@ cloudinary.config({
  * @returns {Promise<string>}      - The secure URL of the uploaded asset
  */
 const uploadImage = (buffer, folder = 'antara-homoeopathy/patients') => {
+  if (isPlaceholder) {
+    console.warn('Cloudinary keys are placeholders. Returning mock URL.');
+    return Promise.resolve('https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg');
+  }
+
   return new Promise((resolve, reject) => {
     const stream = cloudinary.uploader.upload_stream(
       {
@@ -43,6 +54,7 @@ const uploadImage = (buffer, folder = 'antara-homoeopathy/patients') => {
  * @returns {Promise<Object>} - Cloudinary destroy result
  */
 const deleteImage = async (publicId) => {
+  if (isPlaceholder) return { result: 'ok' };
   const result = await cloudinary.uploader.destroy(publicId);
   return result;
 };

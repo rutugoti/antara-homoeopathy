@@ -1,0 +1,1 @@
+{"statusCode":200,"success":true,"message":"Patient found","data":{"id":"cmov9idgf0000mazo8dx8k0yk","fileId":"AH-00002","firstName":"John","lastName":"Doe","phone":"1234567892","email":null,"gender":"MALE","dateOfBirth":"1990-01-01T00:00:00.000Z","age":null,"branch":"MAIN","profileImage":null}}

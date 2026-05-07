@@ -144,7 +144,7 @@ const createPatient = async (data) => {
       firstName,
       lastName,
       gender,
-      dateOfBirth:   new Date(dateOfBirth),
+      dateOfBirth:   dateOfBirth ? new Date(dateOfBirth) : (age ? new Date(new Date().getFullYear() - parseInt(age, 10), 0, 1) : new Date()),
       phone,
       email:         email         ?? null,
       address:       address       ?? null,
@@ -196,7 +196,7 @@ const updatePatient = async (id, data) => {
   if (firstName     !== undefined) updateData.firstName     = firstName;
   if (lastName      !== undefined) updateData.lastName      = lastName;
   if (gender        !== undefined) updateData.gender        = gender;
-  if (dateOfBirth   !== undefined) updateData.dateOfBirth   = new Date(dateOfBirth);
+  if (dateOfBirth   !== undefined) updateData.dateOfBirth   = dateOfBirth ? new Date(dateOfBirth) : null;
   if (phone         !== undefined) updateData.phone         = phone;
   if (email         !== undefined) updateData.email         = email;
   if (address       !== undefined) updateData.address       = address;

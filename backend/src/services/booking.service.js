@@ -222,7 +222,7 @@ const bookForNewPatient = async (data) => {
       firstName,
       lastName,
       gender,
-      dateOfBirth:   new Date(dateOfBirth),
+      dateOfBirth:   dateOfBirth ? new Date(dateOfBirth) : (age ? new Date(new Date().getFullYear() - parseInt(age, 10), 0, 1) : new Date()),
       phone,
       email:         email         ?? null,
       address:       address       ?? null,

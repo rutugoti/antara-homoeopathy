@@ -119,7 +119,7 @@ export default function Patients() {
       )
     }),
     columnHelper.accessor('email', { header: 'Email' }),
-    columnHelper.accessor(row => row.phone || row.mobileNo, { id: 'mobileNo', header: 'Mobile No' }),
+    columnHelper.accessor(row => row.phone, { id: 'mobileNo', header: 'Mobile No' }),
     columnHelper.accessor('fileId', { header: 'File ID' }),
     columnHelper.accessor('bloodGroup', { header: 'Blood Group' }),
     columnHelper.accessor('createdAt', { 

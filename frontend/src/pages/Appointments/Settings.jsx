@@ -6,10 +6,11 @@ import { Input } from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
 import { Table } from '../../components/ui/Table';
 import { Modal } from '../../components/ui/Modal';
-import { getAppointmentSettings, updateAppointmentSettings, updateWorkingDays, getHolidays, createHoliday, deleteHoliday } from '../../services/appointment.service';
+import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
+import { getAppointmentSettings, updateAppointmentSettings, updateWorkingDays, getHolidays, createHoliday, updateHoliday, deleteHoliday } from '../../services/appointment.service';
 import { useToast } from '../../hooks/useToast';
 import { createColumnHelper, getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import { Trash2 } from 'lucide-react';
+import { Trash2, Pencil } from 'lucide-react';
 
 export default function Settings() {
   return (
@@ -125,9 +126,26 @@ function HolidaySettings() {
   const { data, isLoading } = useQuery({ queryKey: ['holidays'], queryFn: () => getHolidays({ limit: 100 }) });
   
   const [isFormOpen, setIsFormOpen] = React.useState(false);
+  const [selectedHoliday, setSelectedHoliday] = React.useState(null);
+  const [isDeleteOpen, setIsDeleteOpen] = React.useState(false);
+  const [holidayToDelete, setHolidayToDelete] = React.useState(null);
+
   const { register, handleSubmit, reset } = useForm();
   const queryClient = useQueryClient();
   const { showSuccess, showError } = useToast();
+
+  React.useEffect(() => {
+    if (selectedHoliday) {
+      reset({
+        title: selectedHoliday.title,
+        date: new Date(selectedHoliday.date).toISOString().split('T')[0],
+        morningTime: selectedHoliday.morningTime || '',
+        afternoonTime: selectedHoliday.afternoonTime || ''
+      });
+    } else {
+      reset({ title: '', date: '', morningTime: '', afternoonTime: '' });
+    }
+  }, [selectedHoliday, reset]);
 
   const createMutation = useMutation({
     mutationFn: createHoliday,
@@ -141,15 +159,48 @@ function HolidaySettings() {
     onError: showError
   });
 
-  const deleteMutation = useMutation({
-    mutationFn: deleteHoliday,
+  const updateMutation = useMutation({
+    mutationFn: updateHoliday,
     onSuccess: () => {
-      showSuccess('Holiday deleted');
+      showSuccess('Holiday updated');
+      setIsFormOpen(false);
+      setSelectedHoliday(null);
+      reset();
       queryClient.invalidateQueries({ queryKey: ['holidays'] });
       queryClient.invalidateQueries({ queryKey: ['dashboard-holidays'] });
     },
     onError: showError
   });
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteHoliday,
+    onSuccess: () => {
+      showSuccess('Holiday deleted');
+      setIsDeleteOpen(false);
+      setHolidayToDelete(null);
+      queryClient.invalidateQueries({ queryKey: ['holidays'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboard-holidays'] });
+    },
+    onError: showError
+  });
+
+  const handleEdit = (holiday) => {
+    setSelectedHoliday(holiday);
+    setIsFormOpen(true);
+  };
+
+  const handleDelete = (id) => {
+    setHolidayToDelete(id);
+    setIsDeleteOpen(true);
+  };
+
+  const handleFormSubmit = (d) => {
+    if (selectedHoliday) {
+      updateMutation.mutate({ id: selectedHoliday.id, payload: d });
+    } else {
+      createMutation.mutate(d);
+    }
+  };
 
   const columnHelper = createColumnHelper();
   const columns = [
@@ -161,9 +212,14 @@ function HolidaySettings() {
       id: 'action',
       header: 'Action',
       cell: (info) => (
-        <button onClick={() => deleteMutation.mutate(info.row.original.id)} className="p-1.5 text-red-600 hover:bg-red-50 rounded">
-          <Trash2 className="w-4 h-4" />
-        </button>
+        <div className="flex space-x-2">
+          <button onClick={() => handleEdit(info.row.original)} className="p-1.5 text-blue-600 hover:bg-blue-50 rounded">
+            <Pencil className="w-4 h-4" />
+          </button>
+          <button onClick={() => handleDelete(info.row.original.id)} className="p-1.5 text-red-600 hover:bg-red-50 rounded">
+            <Trash2 className="w-4 h-4" />
+          </button>
+        </div>
       )
     })
   ];
@@ -174,22 +230,33 @@ function HolidaySettings() {
     <div className="border border-[var(--color-border-main)] rounded-lg p-6 bg-white shadow-sm">
       <div className="flex justify-between items-center border-b pb-2 mb-4">
         <h3 className="text-lg font-semibold text-[var(--color-text-dark)]">Holiday Management</h3>
-        <Button size="sm" onClick={() => setIsFormOpen(true)}>Add Holiday</Button>
+        <Button size="sm" onClick={() => { setSelectedHoliday(null); setIsFormOpen(true); }}>Add Holiday</Button>
       </div>
       <Table table={table} isLoading={isLoading} />
 
-      <Modal isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} title="Add Holiday">
-        <form onSubmit={handleSubmit((d) => createMutation.mutate(d))} className="space-y-4">
+      <Modal isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} title={selectedHoliday ? "Edit Holiday" : "Add Holiday"}>
+        <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
           <Input label="Title *" {...register('title', { required: true })} />
           <Input label="Date *" type="date" {...register('date', { required: true })} />
           <div className="text-xs text-slate-500 mb-2">Leave time empty if completely closed</div>
           <Input label="Morning Time" type="time" {...register('morningTime')} />
           <Input label="Afternoon Time" type="time" {...register('afternoonTime')} />
           <div className="flex justify-end pt-4">
-            <Button type="submit" isLoading={createMutation.isPending}>Save</Button>
+            <Button type="submit" isLoading={createMutation.isPending || updateMutation.isPending}>
+              {selectedHoliday ? "Update" : "Save"}
+            </Button>
           </div>
         </form>
       </Modal>
+
+      <ConfirmDialog 
+        isOpen={isDeleteOpen}
+        onClose={() => setIsDeleteOpen(false)}
+        onConfirm={() => deleteMutation.mutate(holidayToDelete)}
+        title="Delete Holiday"
+        message="Are you sure you want to delete this holiday?"
+        isLoading={deleteMutation.isPending}
+      />
     </div>
   );
 }
