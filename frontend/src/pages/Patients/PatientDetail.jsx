@@ -20,13 +20,13 @@ import { useToast } from '../../hooks/useToast';
 import { 
   getPatientById, updatePatient,
   getPatientCaseTaking, updatePatientCaseTaking, uploadCaseTakingImages,
-  getPatientFollowUps, createPatientFollowUp, getPatientRemedyHistory,
+  getPatientFollowUps, createPatientFollowUp, getPatientRemedyHistory, createPatientRemedy,
   getPatientInvoices, createPatientInvoice, deletePatientInvoice
 } from '../../services/patient.service';
 import { getPrescriptionsByPatientId, createPrescription } from '../../services/prescription.service';
 import { RichTextEditor } from '../../components/ui/RichTextEditor';
 
-const TABS = ['Profile', 'Case Taking', 'Follow Up', 'Invoices', 'Prescriptions'];
+const TABS = ['Profile', 'Case Taking', 'Follow Up', 'Remedy', 'Invoices', 'Prescriptions'];
 
 export default function PatientDetail() {
   const { id } = useParams();
@@ -92,6 +92,7 @@ export default function PatientDetail() {
         {activeTab === 'Profile' && <ProfileTab patient={patient} />}
         {activeTab === 'Case Taking' && <CaseTakingTab patientId={id} />}
         {activeTab === 'Follow Up' && <FollowUpTab patientId={id} />}
+        {activeTab === 'Remedy' && <RemedyTab patientId={id} />}
         {activeTab === 'Invoices' && <InvoicesTab patientId={id} />}
         {activeTab === 'Prescriptions' && <PrescriptionsTab patientId={id} />}
       </div>
@@ -312,6 +313,74 @@ function FollowUpTab({ patientId }) {
           </div>
           <div className="flex justify-end pt-4 border-t">
             <Button type="submit" isLoading={createMutation.isPending}>Save</Button>
+          </div>
+        </form>
+      </Modal>
+    </div>
+  );
+}
+
+function RemedyTab({ patientId }) {
+  const [page, setPage] = useState(1);
+  const { data, isLoading } = useQuery({
+    queryKey: ['remedy-history', patientId, page],
+    queryFn: () => getPatientRemedyHistory(patientId, { page, limit: 10 })
+  });
+  
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const { register, handleSubmit, reset } = useForm();
+  const queryClient = useQueryClient();
+  const { showSuccess, showError } = useToast();
+
+  const createMutation = useMutation({
+    mutationFn: createPatientRemedy,
+    onSuccess: () => {
+      showSuccess('Remedy added');
+      setIsFormOpen(false);
+      reset();
+      queryClient.invalidateQueries({ queryKey: ['remedy-history', patientId] });
+      // Also invalidate follow-up history if they are linked
+      queryClient.invalidateQueries({ queryKey: ['follow-up-history', patientId] });
+    },
+    onError: showError
+  });
+
+  const columnHelper = createColumnHelper();
+  const columns = [
+    columnHelper.accessor('createdAt', { header: 'Date', cell: info => new Date(info.getValue()).toLocaleDateString() }),
+    columnHelper.accessor('remedy', { header: 'Remedy' }),
+    columnHelper.accessor('potency', { header: 'Potency' }),
+    columnHelper.accessor('dosage', { header: 'Dosage' }),
+    columnHelper.accessor('repetition', { header: 'Repetition' }),
+    columnHelper.accessor('days', { header: 'Days' }),
+  ];
+
+  const table = useReactTable({ data: data?.remedies || [], columns, getCoreRowModel: getCoreRowModel() });
+
+  return (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h3 className="text-lg font-semibold text-[var(--color-text-dark)]">Remedy Management</h3>
+        <Button onClick={() => setIsFormOpen(true)} size="sm">Add Remedy</Button>
+      </div>
+
+      <Table table={table} isLoading={isLoading} />
+      {data && <Pagination currentPage={data.currentPage} totalPages={data.totalPages} totalCount={data.totalCount} limit={data.limit} onPageChange={setPage} />}
+
+      <Modal isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} title="Add Remedy">
+        <form onSubmit={handleSubmit((d) => createMutation.mutate({ patientId, payload: d }))} className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <Input label="Remedy Name" {...register('remedy', { required: true })} placeholder="e.g. Natrum Mur" />
+            <Input label="Potency" {...register('potency', { required: true })} placeholder="e.g. 200C" />
+            <Input label="Dosage" {...register('dosage')} placeholder="e.g. 4 pills" />
+            <Input label="Repetition" {...register('repetition')} placeholder="e.g. TDS" />
+            <Input label="Days" {...register('days')} placeholder="e.g. 15 days" />
+            <div className="col-span-2">
+              <Input label="Notes" {...register('notes')} placeholder="Optional notes about this prescription" />
+            </div>
+          </div>
+          <div className="flex justify-end pt-4 border-t">
+            <Button type="submit" isLoading={createMutation.isPending}>Save Remedy</Button>
           </div>
         </form>
       </Modal>

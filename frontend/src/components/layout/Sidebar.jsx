@@ -1,16 +1,19 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { 
-  LayoutDashboard, Users, Calendar, FileText, BookOpen, 
-  CalendarDays, FlaskConical, Building2, Phone, Bell, Image, BookMarked
+import {
+  LayoutDashboard, Users, Calendar, FileText, BookOpen,
+  CalendarDays, FlaskConical, Building2, Phone, Bell, Image, BookMarked, LogOut
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 import { cn } from '../../lib/utils';
 import logoUrl from '../../assets/logo.svg';
 
 const menuItems = [
   { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { path: '/patients', label: 'Patient', icon: Users },
-  { path: '/appointments', label: 'Appointment', icon: Calendar,
+  {
+    path: '/appointments', label: 'Appointment', icon: Calendar,
     subItems: [
       { path: '/appointments/details', label: 'Appointment Details' },
       { path: '/appointments/book', label: 'Book Appointment' },
@@ -30,6 +33,13 @@ const menuItems = [
 
 export function Sidebar() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   const isRouteActive = (path) => {
     if (path === '/appointments') {
@@ -51,7 +61,7 @@ export function Sidebar() {
           {menuItems.map((item) => {
             const Icon = item.icon;
             const active = isRouteActive(item.path);
-            
+
             return (
               <div key={item.path}>
                 <NavLink
@@ -84,6 +94,15 @@ export function Sidebar() {
             );
           })}
         </nav>
+      </div>
+      <div className="p-4 border-t border-[#2c4a8e]">
+        <button
+          onClick={handleLogout}
+          className="group flex items-center w-full px-3 py-2.5 text-sm font-medium rounded-md text-slate-300 hover:text-white hover:bg-[#2c4a8e] transition-colors"
+        >
+          <LogOut className="mr-3 h-5 w-5 shrink-0 text-slate-300 group-hover:text-white" />
+          Logout
+        </button>
       </div>
     </div>
   );

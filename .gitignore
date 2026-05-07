@@ -82,11 +82,16 @@ coverage/
 # =========================
 
 # Prisma
-
 # =========================
 
 prisma/dev.db
 prisma/dev.db-journal
+backend/generated/
+backend/*.ps1
+backend/*.txt
+backend/*.json
+backend/*.jpg
+*.tmp*
 
 # =========================
 

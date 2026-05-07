@@ -64,6 +64,11 @@ export type CaseTaking = $Result.DefaultSelection<Prisma.$CaseTakingPayload>
  */
 export type FollowUp = $Result.DefaultSelection<Prisma.$FollowUpPayload>
 /**
+ * Model Remedy
+ * 
+ */
+export type Remedy = $Result.DefaultSelection<Prisma.$RemedyPayload>
+/**
  * Model Invoice
  * 
  */
@@ -410,6 +415,16 @@ export class PrismaClient<
     * ```
     */
   get followUp(): Prisma.FollowUpDelegate<ExtArgs>;
+
+  /**
+   * `prisma.remedy`: Exposes CRUD operations for the **Remedy** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Remedies
+    * const remedies = await prisma.remedy.findMany()
+    * ```
+    */
+  get remedy(): Prisma.RemedyDelegate<ExtArgs>;
 
   /**
    * `prisma.invoice`: Exposes CRUD operations for the **Invoice** model.
@@ -911,6 +926,7 @@ export namespace Prisma {
     Event: 'Event',
     CaseTaking: 'CaseTaking',
     FollowUp: 'FollowUp',
+    Remedy: 'Remedy',
     Invoice: 'Invoice',
     MateriaMedica: 'MateriaMedica',
     ResearchDev: 'ResearchDev',
@@ -931,7 +947,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "patient" | "appointment" | "payment" | "prescription" | "holiday" | "appointmentSettings" | "event" | "caseTaking" | "followUp" | "invoice" | "materiaMedica" | "researchDev" | "clinic" | "contact"
+      modelProps: "user" | "patient" | "appointment" | "payment" | "prescription" | "holiday" | "appointmentSettings" | "event" | "caseTaking" | "followUp" | "remedy" | "invoice" | "materiaMedica" | "researchDev" | "clinic" | "contact"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1635,6 +1651,76 @@ export namespace Prisma {
           }
         }
       }
+      Remedy: {
+        payload: Prisma.$RemedyPayload<ExtArgs>
+        fields: Prisma.RemedyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RemedyFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RemedyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RemedyFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RemedyPayload>
+          }
+          findFirst: {
+            args: Prisma.RemedyFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RemedyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RemedyFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RemedyPayload>
+          }
+          findMany: {
+            args: Prisma.RemedyFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RemedyPayload>[]
+          }
+          create: {
+            args: Prisma.RemedyCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RemedyPayload>
+          }
+          createMany: {
+            args: Prisma.RemedyCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RemedyCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RemedyPayload>[]
+          }
+          delete: {
+            args: Prisma.RemedyDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RemedyPayload>
+          }
+          update: {
+            args: Prisma.RemedyUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RemedyPayload>
+          }
+          deleteMany: {
+            args: Prisma.RemedyDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RemedyUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.RemedyUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RemedyPayload>
+          }
+          aggregate: {
+            args: Prisma.RemedyAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRemedy>
+          }
+          groupBy: {
+            args: Prisma.RemedyGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RemedyGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RemedyCountArgs<ExtArgs>
+            result: $Utils.Optional<RemedyCountAggregateOutputType> | number
+          }
+        }
+      }
       Invoice: {
         payload: Prisma.$InvoicePayload<ExtArgs>
         fields: Prisma.InvoiceFieldRefs
@@ -2180,6 +2266,7 @@ export namespace Prisma {
     appointments: number
     prescriptions: number
     followUps: number
+    remedies: number
     invoices: number
     payments: number
   }
@@ -2188,6 +2275,7 @@ export namespace Prisma {
     appointments?: boolean | PatientCountOutputTypeCountAppointmentsArgs
     prescriptions?: boolean | PatientCountOutputTypeCountPrescriptionsArgs
     followUps?: boolean | PatientCountOutputTypeCountFollowUpsArgs
+    remedies?: boolean | PatientCountOutputTypeCountRemediesArgs
     invoices?: boolean | PatientCountOutputTypeCountInvoicesArgs
     payments?: boolean | PatientCountOutputTypeCountPaymentsArgs
   }
@@ -2222,6 +2310,13 @@ export namespace Prisma {
    */
   export type PatientCountOutputTypeCountFollowUpsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FollowUpWhereInput
+  }
+
+  /**
+   * PatientCountOutputType without action
+   */
+  export type PatientCountOutputTypeCountRemediesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RemedyWhereInput
   }
 
   /**
@@ -3588,6 +3683,7 @@ export namespace Prisma {
     prescriptions?: boolean | Patient$prescriptionsArgs<ExtArgs>
     caseTaking?: boolean | Patient$caseTakingArgs<ExtArgs>
     followUps?: boolean | Patient$followUpsArgs<ExtArgs>
+    remedies?: boolean | Patient$remediesArgs<ExtArgs>
     invoices?: boolean | Patient$invoicesArgs<ExtArgs>
     payments?: boolean | Patient$paymentsArgs<ExtArgs>
     _count?: boolean | PatientCountOutputTypeDefaultArgs<ExtArgs>
@@ -3646,6 +3742,7 @@ export namespace Prisma {
     prescriptions?: boolean | Patient$prescriptionsArgs<ExtArgs>
     caseTaking?: boolean | Patient$caseTakingArgs<ExtArgs>
     followUps?: boolean | Patient$followUpsArgs<ExtArgs>
+    remedies?: boolean | Patient$remediesArgs<ExtArgs>
     invoices?: boolean | Patient$invoicesArgs<ExtArgs>
     payments?: boolean | Patient$paymentsArgs<ExtArgs>
     _count?: boolean | PatientCountOutputTypeDefaultArgs<ExtArgs>
@@ -3659,6 +3756,7 @@ export namespace Prisma {
       prescriptions: Prisma.$PrescriptionPayload<ExtArgs>[]
       caseTaking: Prisma.$CaseTakingPayload<ExtArgs> | null
       followUps: Prisma.$FollowUpPayload<ExtArgs>[]
+      remedies: Prisma.$RemedyPayload<ExtArgs>[]
       invoices: Prisma.$InvoicePayload<ExtArgs>[]
       payments: Prisma.$PaymentPayload<ExtArgs>[]
     }
@@ -4052,6 +4150,7 @@ export namespace Prisma {
     prescriptions<T extends Patient$prescriptionsArgs<ExtArgs> = {}>(args?: Subset<T, Patient$prescriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PrescriptionPayload<ExtArgs>, T, "findMany"> | Null>
     caseTaking<T extends Patient$caseTakingArgs<ExtArgs> = {}>(args?: Subset<T, Patient$caseTakingArgs<ExtArgs>>): Prisma__CaseTakingClient<$Result.GetResult<Prisma.$CaseTakingPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     followUps<T extends Patient$followUpsArgs<ExtArgs> = {}>(args?: Subset<T, Patient$followUpsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FollowUpPayload<ExtArgs>, T, "findMany"> | Null>
+    remedies<T extends Patient$remediesArgs<ExtArgs> = {}>(args?: Subset<T, Patient$remediesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RemedyPayload<ExtArgs>, T, "findMany"> | Null>
     invoices<T extends Patient$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, Patient$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany"> | Null>
     payments<T extends Patient$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Patient$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany"> | Null>
     /**
@@ -4490,6 +4589,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: FollowUpScalarFieldEnum | FollowUpScalarFieldEnum[]
+  }
+
+  /**
+   * Patient.remedies
+   */
+  export type Patient$remediesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Remedy
+     */
+    select?: RemedySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RemedyInclude<ExtArgs> | null
+    where?: RemedyWhereInput
+    orderBy?: RemedyOrderByWithRelationInput | RemedyOrderByWithRelationInput[]
+    cursor?: RemedyWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RemedyScalarFieldEnum | RemedyScalarFieldEnum[]
   }
 
   /**
@@ -12564,6 +12683,999 @@ export namespace Prisma {
 
 
   /**
+   * Model Remedy
+   */
+
+  export type AggregateRemedy = {
+    _count: RemedyCountAggregateOutputType | null
+    _min: RemedyMinAggregateOutputType | null
+    _max: RemedyMaxAggregateOutputType | null
+  }
+
+  export type RemedyMinAggregateOutputType = {
+    id: string | null
+    patientId: string | null
+    remedy: string | null
+    potency: string | null
+    dosage: string | null
+    repetition: string | null
+    days: string | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RemedyMaxAggregateOutputType = {
+    id: string | null
+    patientId: string | null
+    remedy: string | null
+    potency: string | null
+    dosage: string | null
+    repetition: string | null
+    days: string | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RemedyCountAggregateOutputType = {
+    id: number
+    patientId: number
+    remedy: number
+    potency: number
+    dosage: number
+    repetition: number
+    days: number
+    notes: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type RemedyMinAggregateInputType = {
+    id?: true
+    patientId?: true
+    remedy?: true
+    potency?: true
+    dosage?: true
+    repetition?: true
+    days?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RemedyMaxAggregateInputType = {
+    id?: true
+    patientId?: true
+    remedy?: true
+    potency?: true
+    dosage?: true
+    repetition?: true
+    days?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RemedyCountAggregateInputType = {
+    id?: true
+    patientId?: true
+    remedy?: true
+    potency?: true
+    dosage?: true
+    repetition?: true
+    days?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type RemedyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Remedy to aggregate.
+     */
+    where?: RemedyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Remedies to fetch.
+     */
+    orderBy?: RemedyOrderByWithRelationInput | RemedyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RemedyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Remedies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Remedies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Remedies
+    **/
+    _count?: true | RemedyCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RemedyMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RemedyMaxAggregateInputType
+  }
+
+  export type GetRemedyAggregateType<T extends RemedyAggregateArgs> = {
+        [P in keyof T & keyof AggregateRemedy]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRemedy[P]>
+      : GetScalarType<T[P], AggregateRemedy[P]>
+  }
+
+
+
+
+  export type RemedyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RemedyWhereInput
+    orderBy?: RemedyOrderByWithAggregationInput | RemedyOrderByWithAggregationInput[]
+    by: RemedyScalarFieldEnum[] | RemedyScalarFieldEnum
+    having?: RemedyScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RemedyCountAggregateInputType | true
+    _min?: RemedyMinAggregateInputType
+    _max?: RemedyMaxAggregateInputType
+  }
+
+  export type RemedyGroupByOutputType = {
+    id: string
+    patientId: string
+    remedy: string
+    potency: string
+    dosage: string | null
+    repetition: string | null
+    days: string | null
+    notes: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: RemedyCountAggregateOutputType | null
+    _min: RemedyMinAggregateOutputType | null
+    _max: RemedyMaxAggregateOutputType | null
+  }
+
+  type GetRemedyGroupByPayload<T extends RemedyGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RemedyGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RemedyGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RemedyGroupByOutputType[P]>
+            : GetScalarType<T[P], RemedyGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RemedySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    patientId?: boolean
+    remedy?: boolean
+    potency?: boolean
+    dosage?: boolean
+    repetition?: boolean
+    days?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["remedy"]>
+
+  export type RemedySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    patientId?: boolean
+    remedy?: boolean
+    potency?: boolean
+    dosage?: boolean
+    repetition?: boolean
+    days?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["remedy"]>
+
+  export type RemedySelectScalar = {
+    id?: boolean
+    patientId?: boolean
+    remedy?: boolean
+    potency?: boolean
+    dosage?: boolean
+    repetition?: boolean
+    days?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type RemedyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+  }
+  export type RemedyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+  }
+
+  export type $RemedyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Remedy"
+    objects: {
+      patient: Prisma.$PatientPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      patientId: string
+      remedy: string
+      potency: string
+      dosage: string | null
+      repetition: string | null
+      days: string | null
+      notes: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["remedy"]>
+    composites: {}
+  }
+
+  type RemedyGetPayload<S extends boolean | null | undefined | RemedyDefaultArgs> = $Result.GetResult<Prisma.$RemedyPayload, S>
+
+  type RemedyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<RemedyFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: RemedyCountAggregateInputType | true
+    }
+
+  export interface RemedyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Remedy'], meta: { name: 'Remedy' } }
+    /**
+     * Find zero or one Remedy that matches the filter.
+     * @param {RemedyFindUniqueArgs} args - Arguments to find a Remedy
+     * @example
+     * // Get one Remedy
+     * const remedy = await prisma.remedy.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RemedyFindUniqueArgs>(args: SelectSubset<T, RemedyFindUniqueArgs<ExtArgs>>): Prisma__RemedyClient<$Result.GetResult<Prisma.$RemedyPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Remedy that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {RemedyFindUniqueOrThrowArgs} args - Arguments to find a Remedy
+     * @example
+     * // Get one Remedy
+     * const remedy = await prisma.remedy.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RemedyFindUniqueOrThrowArgs>(args: SelectSubset<T, RemedyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RemedyClient<$Result.GetResult<Prisma.$RemedyPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Remedy that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RemedyFindFirstArgs} args - Arguments to find a Remedy
+     * @example
+     * // Get one Remedy
+     * const remedy = await prisma.remedy.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RemedyFindFirstArgs>(args?: SelectSubset<T, RemedyFindFirstArgs<ExtArgs>>): Prisma__RemedyClient<$Result.GetResult<Prisma.$RemedyPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Remedy that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RemedyFindFirstOrThrowArgs} args - Arguments to find a Remedy
+     * @example
+     * // Get one Remedy
+     * const remedy = await prisma.remedy.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RemedyFindFirstOrThrowArgs>(args?: SelectSubset<T, RemedyFindFirstOrThrowArgs<ExtArgs>>): Prisma__RemedyClient<$Result.GetResult<Prisma.$RemedyPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Remedies that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RemedyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Remedies
+     * const remedies = await prisma.remedy.findMany()
+     * 
+     * // Get first 10 Remedies
+     * const remedies = await prisma.remedy.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const remedyWithIdOnly = await prisma.remedy.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RemedyFindManyArgs>(args?: SelectSubset<T, RemedyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RemedyPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Remedy.
+     * @param {RemedyCreateArgs} args - Arguments to create a Remedy.
+     * @example
+     * // Create one Remedy
+     * const Remedy = await prisma.remedy.create({
+     *   data: {
+     *     // ... data to create a Remedy
+     *   }
+     * })
+     * 
+     */
+    create<T extends RemedyCreateArgs>(args: SelectSubset<T, RemedyCreateArgs<ExtArgs>>): Prisma__RemedyClient<$Result.GetResult<Prisma.$RemedyPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Remedies.
+     * @param {RemedyCreateManyArgs} args - Arguments to create many Remedies.
+     * @example
+     * // Create many Remedies
+     * const remedy = await prisma.remedy.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RemedyCreateManyArgs>(args?: SelectSubset<T, RemedyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Remedies and returns the data saved in the database.
+     * @param {RemedyCreateManyAndReturnArgs} args - Arguments to create many Remedies.
+     * @example
+     * // Create many Remedies
+     * const remedy = await prisma.remedy.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Remedies and only return the `id`
+     * const remedyWithIdOnly = await prisma.remedy.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RemedyCreateManyAndReturnArgs>(args?: SelectSubset<T, RemedyCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RemedyPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Remedy.
+     * @param {RemedyDeleteArgs} args - Arguments to delete one Remedy.
+     * @example
+     * // Delete one Remedy
+     * const Remedy = await prisma.remedy.delete({
+     *   where: {
+     *     // ... filter to delete one Remedy
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RemedyDeleteArgs>(args: SelectSubset<T, RemedyDeleteArgs<ExtArgs>>): Prisma__RemedyClient<$Result.GetResult<Prisma.$RemedyPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Remedy.
+     * @param {RemedyUpdateArgs} args - Arguments to update one Remedy.
+     * @example
+     * // Update one Remedy
+     * const remedy = await prisma.remedy.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RemedyUpdateArgs>(args: SelectSubset<T, RemedyUpdateArgs<ExtArgs>>): Prisma__RemedyClient<$Result.GetResult<Prisma.$RemedyPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Remedies.
+     * @param {RemedyDeleteManyArgs} args - Arguments to filter Remedies to delete.
+     * @example
+     * // Delete a few Remedies
+     * const { count } = await prisma.remedy.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RemedyDeleteManyArgs>(args?: SelectSubset<T, RemedyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Remedies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RemedyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Remedies
+     * const remedy = await prisma.remedy.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RemedyUpdateManyArgs>(args: SelectSubset<T, RemedyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Remedy.
+     * @param {RemedyUpsertArgs} args - Arguments to update or create a Remedy.
+     * @example
+     * // Update or create a Remedy
+     * const remedy = await prisma.remedy.upsert({
+     *   create: {
+     *     // ... data to create a Remedy
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Remedy we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RemedyUpsertArgs>(args: SelectSubset<T, RemedyUpsertArgs<ExtArgs>>): Prisma__RemedyClient<$Result.GetResult<Prisma.$RemedyPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Remedies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RemedyCountArgs} args - Arguments to filter Remedies to count.
+     * @example
+     * // Count the number of Remedies
+     * const count = await prisma.remedy.count({
+     *   where: {
+     *     // ... the filter for the Remedies we want to count
+     *   }
+     * })
+    **/
+    count<T extends RemedyCountArgs>(
+      args?: Subset<T, RemedyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RemedyCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Remedy.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RemedyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RemedyAggregateArgs>(args: Subset<T, RemedyAggregateArgs>): Prisma.PrismaPromise<GetRemedyAggregateType<T>>
+
+    /**
+     * Group by Remedy.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RemedyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RemedyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RemedyGroupByArgs['orderBy'] }
+        : { orderBy?: RemedyGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RemedyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRemedyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Remedy model
+   */
+  readonly fields: RemedyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Remedy.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RemedyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    patient<T extends PatientDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PatientDefaultArgs<ExtArgs>>): Prisma__PatientClient<$Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Remedy model
+   */ 
+  interface RemedyFieldRefs {
+    readonly id: FieldRef<"Remedy", 'String'>
+    readonly patientId: FieldRef<"Remedy", 'String'>
+    readonly remedy: FieldRef<"Remedy", 'String'>
+    readonly potency: FieldRef<"Remedy", 'String'>
+    readonly dosage: FieldRef<"Remedy", 'String'>
+    readonly repetition: FieldRef<"Remedy", 'String'>
+    readonly days: FieldRef<"Remedy", 'String'>
+    readonly notes: FieldRef<"Remedy", 'String'>
+    readonly createdAt: FieldRef<"Remedy", 'DateTime'>
+    readonly updatedAt: FieldRef<"Remedy", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Remedy findUnique
+   */
+  export type RemedyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Remedy
+     */
+    select?: RemedySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RemedyInclude<ExtArgs> | null
+    /**
+     * Filter, which Remedy to fetch.
+     */
+    where: RemedyWhereUniqueInput
+  }
+
+  /**
+   * Remedy findUniqueOrThrow
+   */
+  export type RemedyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Remedy
+     */
+    select?: RemedySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RemedyInclude<ExtArgs> | null
+    /**
+     * Filter, which Remedy to fetch.
+     */
+    where: RemedyWhereUniqueInput
+  }
+
+  /**
+   * Remedy findFirst
+   */
+  export type RemedyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Remedy
+     */
+    select?: RemedySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RemedyInclude<ExtArgs> | null
+    /**
+     * Filter, which Remedy to fetch.
+     */
+    where?: RemedyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Remedies to fetch.
+     */
+    orderBy?: RemedyOrderByWithRelationInput | RemedyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Remedies.
+     */
+    cursor?: RemedyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Remedies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Remedies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Remedies.
+     */
+    distinct?: RemedyScalarFieldEnum | RemedyScalarFieldEnum[]
+  }
+
+  /**
+   * Remedy findFirstOrThrow
+   */
+  export type RemedyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Remedy
+     */
+    select?: RemedySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RemedyInclude<ExtArgs> | null
+    /**
+     * Filter, which Remedy to fetch.
+     */
+    where?: RemedyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Remedies to fetch.
+     */
+    orderBy?: RemedyOrderByWithRelationInput | RemedyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Remedies.
+     */
+    cursor?: RemedyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Remedies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Remedies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Remedies.
+     */
+    distinct?: RemedyScalarFieldEnum | RemedyScalarFieldEnum[]
+  }
+
+  /**
+   * Remedy findMany
+   */
+  export type RemedyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Remedy
+     */
+    select?: RemedySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RemedyInclude<ExtArgs> | null
+    /**
+     * Filter, which Remedies to fetch.
+     */
+    where?: RemedyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Remedies to fetch.
+     */
+    orderBy?: RemedyOrderByWithRelationInput | RemedyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Remedies.
+     */
+    cursor?: RemedyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Remedies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Remedies.
+     */
+    skip?: number
+    distinct?: RemedyScalarFieldEnum | RemedyScalarFieldEnum[]
+  }
+
+  /**
+   * Remedy create
+   */
+  export type RemedyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Remedy
+     */
+    select?: RemedySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RemedyInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Remedy.
+     */
+    data: XOR<RemedyCreateInput, RemedyUncheckedCreateInput>
+  }
+
+  /**
+   * Remedy createMany
+   */
+  export type RemedyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Remedies.
+     */
+    data: RemedyCreateManyInput | RemedyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Remedy createManyAndReturn
+   */
+  export type RemedyCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Remedy
+     */
+    select?: RemedySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Remedies.
+     */
+    data: RemedyCreateManyInput | RemedyCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RemedyIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Remedy update
+   */
+  export type RemedyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Remedy
+     */
+    select?: RemedySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RemedyInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Remedy.
+     */
+    data: XOR<RemedyUpdateInput, RemedyUncheckedUpdateInput>
+    /**
+     * Choose, which Remedy to update.
+     */
+    where: RemedyWhereUniqueInput
+  }
+
+  /**
+   * Remedy updateMany
+   */
+  export type RemedyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Remedies.
+     */
+    data: XOR<RemedyUpdateManyMutationInput, RemedyUncheckedUpdateManyInput>
+    /**
+     * Filter which Remedies to update
+     */
+    where?: RemedyWhereInput
+  }
+
+  /**
+   * Remedy upsert
+   */
+  export type RemedyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Remedy
+     */
+    select?: RemedySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RemedyInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Remedy to update in case it exists.
+     */
+    where: RemedyWhereUniqueInput
+    /**
+     * In case the Remedy found by the `where` argument doesn't exist, create a new Remedy with this data.
+     */
+    create: XOR<RemedyCreateInput, RemedyUncheckedCreateInput>
+    /**
+     * In case the Remedy was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RemedyUpdateInput, RemedyUncheckedUpdateInput>
+  }
+
+  /**
+   * Remedy delete
+   */
+  export type RemedyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Remedy
+     */
+    select?: RemedySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RemedyInclude<ExtArgs> | null
+    /**
+     * Filter which Remedy to delete.
+     */
+    where: RemedyWhereUniqueInput
+  }
+
+  /**
+   * Remedy deleteMany
+   */
+  export type RemedyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Remedies to delete
+     */
+    where?: RemedyWhereInput
+  }
+
+  /**
+   * Remedy without action
+   */
+  export type RemedyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Remedy
+     */
+    select?: RemedySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RemedyInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Invoice
    */
 
@@ -17421,6 +18533,22 @@ export namespace Prisma {
   export type FollowUpScalarFieldEnum = (typeof FollowUpScalarFieldEnum)[keyof typeof FollowUpScalarFieldEnum]
 
 
+  export const RemedyScalarFieldEnum: {
+    id: 'id',
+    patientId: 'patientId',
+    remedy: 'remedy',
+    potency: 'potency',
+    dosage: 'dosage',
+    repetition: 'repetition',
+    days: 'days',
+    notes: 'notes',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type RemedyScalarFieldEnum = (typeof RemedyScalarFieldEnum)[keyof typeof RemedyScalarFieldEnum]
+
+
   export const InvoiceScalarFieldEnum: {
     id: 'id',
     patientId: 'patientId',
@@ -17784,6 +18912,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionListRelationFilter
     caseTaking?: XOR<CaseTakingNullableRelationFilter, CaseTakingWhereInput> | null
     followUps?: FollowUpListRelationFilter
+    remedies?: RemedyListRelationFilter
     invoices?: InvoiceListRelationFilter
     payments?: PaymentListRelationFilter
   }
@@ -17814,6 +18943,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionOrderByRelationAggregateInput
     caseTaking?: CaseTakingOrderByWithRelationInput
     followUps?: FollowUpOrderByRelationAggregateInput
+    remedies?: RemedyOrderByRelationAggregateInput
     invoices?: InvoiceOrderByRelationAggregateInput
     payments?: PaymentOrderByRelationAggregateInput
   }
@@ -17847,6 +18977,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionListRelationFilter
     caseTaking?: XOR<CaseTakingNullableRelationFilter, CaseTakingWhereInput> | null
     followUps?: FollowUpListRelationFilter
+    remedies?: RemedyListRelationFilter
     invoices?: InvoiceListRelationFilter
     payments?: PaymentListRelationFilter
   }, "id" | "fileId">
@@ -18575,6 +19706,86 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"FollowUp"> | Date | string
   }
 
+  export type RemedyWhereInput = {
+    AND?: RemedyWhereInput | RemedyWhereInput[]
+    OR?: RemedyWhereInput[]
+    NOT?: RemedyWhereInput | RemedyWhereInput[]
+    id?: StringFilter<"Remedy"> | string
+    patientId?: StringFilter<"Remedy"> | string
+    remedy?: StringFilter<"Remedy"> | string
+    potency?: StringFilter<"Remedy"> | string
+    dosage?: StringNullableFilter<"Remedy"> | string | null
+    repetition?: StringNullableFilter<"Remedy"> | string | null
+    days?: StringNullableFilter<"Remedy"> | string | null
+    notes?: StringNullableFilter<"Remedy"> | string | null
+    createdAt?: DateTimeFilter<"Remedy"> | Date | string
+    updatedAt?: DateTimeFilter<"Remedy"> | Date | string
+    patient?: XOR<PatientRelationFilter, PatientWhereInput>
+  }
+
+  export type RemedyOrderByWithRelationInput = {
+    id?: SortOrder
+    patientId?: SortOrder
+    remedy?: SortOrder
+    potency?: SortOrder
+    dosage?: SortOrderInput | SortOrder
+    repetition?: SortOrderInput | SortOrder
+    days?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    patient?: PatientOrderByWithRelationInput
+  }
+
+  export type RemedyWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RemedyWhereInput | RemedyWhereInput[]
+    OR?: RemedyWhereInput[]
+    NOT?: RemedyWhereInput | RemedyWhereInput[]
+    patientId?: StringFilter<"Remedy"> | string
+    remedy?: StringFilter<"Remedy"> | string
+    potency?: StringFilter<"Remedy"> | string
+    dosage?: StringNullableFilter<"Remedy"> | string | null
+    repetition?: StringNullableFilter<"Remedy"> | string | null
+    days?: StringNullableFilter<"Remedy"> | string | null
+    notes?: StringNullableFilter<"Remedy"> | string | null
+    createdAt?: DateTimeFilter<"Remedy"> | Date | string
+    updatedAt?: DateTimeFilter<"Remedy"> | Date | string
+    patient?: XOR<PatientRelationFilter, PatientWhereInput>
+  }, "id">
+
+  export type RemedyOrderByWithAggregationInput = {
+    id?: SortOrder
+    patientId?: SortOrder
+    remedy?: SortOrder
+    potency?: SortOrder
+    dosage?: SortOrderInput | SortOrder
+    repetition?: SortOrderInput | SortOrder
+    days?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: RemedyCountOrderByAggregateInput
+    _max?: RemedyMaxOrderByAggregateInput
+    _min?: RemedyMinOrderByAggregateInput
+  }
+
+  export type RemedyScalarWhereWithAggregatesInput = {
+    AND?: RemedyScalarWhereWithAggregatesInput | RemedyScalarWhereWithAggregatesInput[]
+    OR?: RemedyScalarWhereWithAggregatesInput[]
+    NOT?: RemedyScalarWhereWithAggregatesInput | RemedyScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Remedy"> | string
+    patientId?: StringWithAggregatesFilter<"Remedy"> | string
+    remedy?: StringWithAggregatesFilter<"Remedy"> | string
+    potency?: StringWithAggregatesFilter<"Remedy"> | string
+    dosage?: StringNullableWithAggregatesFilter<"Remedy"> | string | null
+    repetition?: StringNullableWithAggregatesFilter<"Remedy"> | string | null
+    days?: StringNullableWithAggregatesFilter<"Remedy"> | string | null
+    notes?: StringNullableWithAggregatesFilter<"Remedy"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Remedy"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Remedy"> | Date | string
+  }
+
   export type InvoiceWhereInput = {
     AND?: InvoiceWhereInput | InvoiceWhereInput[]
     OR?: InvoiceWhereInput[]
@@ -19027,6 +20238,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionCreateNestedManyWithoutPatientInput
     caseTaking?: CaseTakingCreateNestedOneWithoutPatientInput
     followUps?: FollowUpCreateNestedManyWithoutPatientInput
+    remedies?: RemedyCreateNestedManyWithoutPatientInput
     invoices?: InvoiceCreateNestedManyWithoutPatientInput
     payments?: PaymentCreateNestedManyWithoutPatientInput
   }
@@ -19057,6 +20269,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutPatientInput
     caseTaking?: CaseTakingUncheckedCreateNestedOneWithoutPatientInput
     followUps?: FollowUpUncheckedCreateNestedManyWithoutPatientInput
+    remedies?: RemedyUncheckedCreateNestedManyWithoutPatientInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutPatientInput
     payments?: PaymentUncheckedCreateNestedManyWithoutPatientInput
   }
@@ -19087,6 +20300,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUpdateManyWithoutPatientNestedInput
     caseTaking?: CaseTakingUpdateOneWithoutPatientNestedInput
     followUps?: FollowUpUpdateManyWithoutPatientNestedInput
+    remedies?: RemedyUpdateManyWithoutPatientNestedInput
     invoices?: InvoiceUpdateManyWithoutPatientNestedInput
     payments?: PaymentUpdateManyWithoutPatientNestedInput
   }
@@ -19117,6 +20331,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedUpdateManyWithoutPatientNestedInput
     caseTaking?: CaseTakingUncheckedUpdateOneWithoutPatientNestedInput
     followUps?: FollowUpUncheckedUpdateManyWithoutPatientNestedInput
+    remedies?: RemedyUncheckedUpdateManyWithoutPatientNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutPatientNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutPatientNestedInput
   }
@@ -19946,6 +21161,96 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RemedyCreateInput = {
+    id?: string
+    remedy: string
+    potency: string
+    dosage?: string | null
+    repetition?: string | null
+    days?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    patient: PatientCreateNestedOneWithoutRemediesInput
+  }
+
+  export type RemedyUncheckedCreateInput = {
+    id?: string
+    patientId: string
+    remedy: string
+    potency: string
+    dosage?: string | null
+    repetition?: string | null
+    days?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RemedyUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    remedy?: StringFieldUpdateOperationsInput | string
+    potency?: StringFieldUpdateOperationsInput | string
+    dosage?: NullableStringFieldUpdateOperationsInput | string | null
+    repetition?: NullableStringFieldUpdateOperationsInput | string | null
+    days?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    patient?: PatientUpdateOneRequiredWithoutRemediesNestedInput
+  }
+
+  export type RemedyUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patientId?: StringFieldUpdateOperationsInput | string
+    remedy?: StringFieldUpdateOperationsInput | string
+    potency?: StringFieldUpdateOperationsInput | string
+    dosage?: NullableStringFieldUpdateOperationsInput | string | null
+    repetition?: NullableStringFieldUpdateOperationsInput | string | null
+    days?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RemedyCreateManyInput = {
+    id?: string
+    patientId: string
+    remedy: string
+    potency: string
+    dosage?: string | null
+    repetition?: string | null
+    days?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RemedyUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    remedy?: StringFieldUpdateOperationsInput | string
+    potency?: StringFieldUpdateOperationsInput | string
+    dosage?: NullableStringFieldUpdateOperationsInput | string | null
+    repetition?: NullableStringFieldUpdateOperationsInput | string | null
+    days?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RemedyUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patientId?: StringFieldUpdateOperationsInput | string
+    remedy?: StringFieldUpdateOperationsInput | string
+    potency?: StringFieldUpdateOperationsInput | string
+    dosage?: NullableStringFieldUpdateOperationsInput | string | null
+    repetition?: NullableStringFieldUpdateOperationsInput | string | null
+    days?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type InvoiceCreateInput = {
     id?: string
     invoiceNo: string
@@ -20532,6 +21837,12 @@ export namespace Prisma {
     none?: FollowUpWhereInput
   }
 
+  export type RemedyListRelationFilter = {
+    every?: RemedyWhereInput
+    some?: RemedyWhereInput
+    none?: RemedyWhereInput
+  }
+
   export type InvoiceListRelationFilter = {
     every?: InvoiceWhereInput
     some?: InvoiceWhereInput
@@ -20554,6 +21865,10 @@ export namespace Prisma {
   }
 
   export type FollowUpOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RemedyOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21220,6 +22535,45 @@ export namespace Prisma {
     appointmentCharge?: SortOrder
   }
 
+  export type RemedyCountOrderByAggregateInput = {
+    id?: SortOrder
+    patientId?: SortOrder
+    remedy?: SortOrder
+    potency?: SortOrder
+    dosage?: SortOrder
+    repetition?: SortOrder
+    days?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RemedyMaxOrderByAggregateInput = {
+    id?: SortOrder
+    patientId?: SortOrder
+    remedy?: SortOrder
+    potency?: SortOrder
+    dosage?: SortOrder
+    repetition?: SortOrder
+    days?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RemedyMinOrderByAggregateInput = {
+    id?: SortOrder
+    patientId?: SortOrder
+    remedy?: SortOrder
+    potency?: SortOrder
+    dosage?: SortOrder
+    repetition?: SortOrder
+    days?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type InvoiceCountOrderByAggregateInput = {
     id?: SortOrder
     patientId?: SortOrder
@@ -21481,6 +22835,13 @@ export namespace Prisma {
     connect?: FollowUpWhereUniqueInput | FollowUpWhereUniqueInput[]
   }
 
+  export type RemedyCreateNestedManyWithoutPatientInput = {
+    create?: XOR<RemedyCreateWithoutPatientInput, RemedyUncheckedCreateWithoutPatientInput> | RemedyCreateWithoutPatientInput[] | RemedyUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: RemedyCreateOrConnectWithoutPatientInput | RemedyCreateOrConnectWithoutPatientInput[]
+    createMany?: RemedyCreateManyPatientInputEnvelope
+    connect?: RemedyWhereUniqueInput | RemedyWhereUniqueInput[]
+  }
+
   export type InvoiceCreateNestedManyWithoutPatientInput = {
     create?: XOR<InvoiceCreateWithoutPatientInput, InvoiceUncheckedCreateWithoutPatientInput> | InvoiceCreateWithoutPatientInput[] | InvoiceUncheckedCreateWithoutPatientInput[]
     connectOrCreate?: InvoiceCreateOrConnectWithoutPatientInput | InvoiceCreateOrConnectWithoutPatientInput[]
@@ -21520,6 +22881,13 @@ export namespace Prisma {
     connectOrCreate?: FollowUpCreateOrConnectWithoutPatientInput | FollowUpCreateOrConnectWithoutPatientInput[]
     createMany?: FollowUpCreateManyPatientInputEnvelope
     connect?: FollowUpWhereUniqueInput | FollowUpWhereUniqueInput[]
+  }
+
+  export type RemedyUncheckedCreateNestedManyWithoutPatientInput = {
+    create?: XOR<RemedyCreateWithoutPatientInput, RemedyUncheckedCreateWithoutPatientInput> | RemedyCreateWithoutPatientInput[] | RemedyUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: RemedyCreateOrConnectWithoutPatientInput | RemedyCreateOrConnectWithoutPatientInput[]
+    createMany?: RemedyCreateManyPatientInputEnvelope
+    connect?: RemedyWhereUniqueInput | RemedyWhereUniqueInput[]
   }
 
   export type InvoiceUncheckedCreateNestedManyWithoutPatientInput = {
@@ -21612,6 +22980,20 @@ export namespace Prisma {
     deleteMany?: FollowUpScalarWhereInput | FollowUpScalarWhereInput[]
   }
 
+  export type RemedyUpdateManyWithoutPatientNestedInput = {
+    create?: XOR<RemedyCreateWithoutPatientInput, RemedyUncheckedCreateWithoutPatientInput> | RemedyCreateWithoutPatientInput[] | RemedyUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: RemedyCreateOrConnectWithoutPatientInput | RemedyCreateOrConnectWithoutPatientInput[]
+    upsert?: RemedyUpsertWithWhereUniqueWithoutPatientInput | RemedyUpsertWithWhereUniqueWithoutPatientInput[]
+    createMany?: RemedyCreateManyPatientInputEnvelope
+    set?: RemedyWhereUniqueInput | RemedyWhereUniqueInput[]
+    disconnect?: RemedyWhereUniqueInput | RemedyWhereUniqueInput[]
+    delete?: RemedyWhereUniqueInput | RemedyWhereUniqueInput[]
+    connect?: RemedyWhereUniqueInput | RemedyWhereUniqueInput[]
+    update?: RemedyUpdateWithWhereUniqueWithoutPatientInput | RemedyUpdateWithWhereUniqueWithoutPatientInput[]
+    updateMany?: RemedyUpdateManyWithWhereWithoutPatientInput | RemedyUpdateManyWithWhereWithoutPatientInput[]
+    deleteMany?: RemedyScalarWhereInput | RemedyScalarWhereInput[]
+  }
+
   export type InvoiceUpdateManyWithoutPatientNestedInput = {
     create?: XOR<InvoiceCreateWithoutPatientInput, InvoiceUncheckedCreateWithoutPatientInput> | InvoiceCreateWithoutPatientInput[] | InvoiceUncheckedCreateWithoutPatientInput[]
     connectOrCreate?: InvoiceCreateOrConnectWithoutPatientInput | InvoiceCreateOrConnectWithoutPatientInput[]
@@ -21690,6 +23072,20 @@ export namespace Prisma {
     update?: FollowUpUpdateWithWhereUniqueWithoutPatientInput | FollowUpUpdateWithWhereUniqueWithoutPatientInput[]
     updateMany?: FollowUpUpdateManyWithWhereWithoutPatientInput | FollowUpUpdateManyWithWhereWithoutPatientInput[]
     deleteMany?: FollowUpScalarWhereInput | FollowUpScalarWhereInput[]
+  }
+
+  export type RemedyUncheckedUpdateManyWithoutPatientNestedInput = {
+    create?: XOR<RemedyCreateWithoutPatientInput, RemedyUncheckedCreateWithoutPatientInput> | RemedyCreateWithoutPatientInput[] | RemedyUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: RemedyCreateOrConnectWithoutPatientInput | RemedyCreateOrConnectWithoutPatientInput[]
+    upsert?: RemedyUpsertWithWhereUniqueWithoutPatientInput | RemedyUpsertWithWhereUniqueWithoutPatientInput[]
+    createMany?: RemedyCreateManyPatientInputEnvelope
+    set?: RemedyWhereUniqueInput | RemedyWhereUniqueInput[]
+    disconnect?: RemedyWhereUniqueInput | RemedyWhereUniqueInput[]
+    delete?: RemedyWhereUniqueInput | RemedyWhereUniqueInput[]
+    connect?: RemedyWhereUniqueInput | RemedyWhereUniqueInput[]
+    update?: RemedyUpdateWithWhereUniqueWithoutPatientInput | RemedyUpdateWithWhereUniqueWithoutPatientInput[]
+    updateMany?: RemedyUpdateManyWithWhereWithoutPatientInput | RemedyUpdateManyWithWhereWithoutPatientInput[]
+    deleteMany?: RemedyScalarWhereInput | RemedyScalarWhereInput[]
   }
 
   export type InvoiceUncheckedUpdateManyWithoutPatientNestedInput = {
@@ -21923,6 +23319,20 @@ export namespace Prisma {
     upsert?: PatientUpsertWithoutFollowUpsInput
     connect?: PatientWhereUniqueInput
     update?: XOR<XOR<PatientUpdateToOneWithWhereWithoutFollowUpsInput, PatientUpdateWithoutFollowUpsInput>, PatientUncheckedUpdateWithoutFollowUpsInput>
+  }
+
+  export type PatientCreateNestedOneWithoutRemediesInput = {
+    create?: XOR<PatientCreateWithoutRemediesInput, PatientUncheckedCreateWithoutRemediesInput>
+    connectOrCreate?: PatientCreateOrConnectWithoutRemediesInput
+    connect?: PatientWhereUniqueInput
+  }
+
+  export type PatientUpdateOneRequiredWithoutRemediesNestedInput = {
+    create?: XOR<PatientCreateWithoutRemediesInput, PatientUncheckedCreateWithoutRemediesInput>
+    connectOrCreate?: PatientCreateOrConnectWithoutRemediesInput
+    upsert?: PatientUpsertWithoutRemediesInput
+    connect?: PatientWhereUniqueInput
+    update?: XOR<XOR<PatientUpdateToOneWithWhereWithoutRemediesInput, PatientUpdateWithoutRemediesInput>, PatientUncheckedUpdateWithoutRemediesInput>
   }
 
   export type PatientCreateNestedOneWithoutInvoicesInput = {
@@ -22487,6 +23897,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type RemedyCreateWithoutPatientInput = {
+    id?: string
+    remedy: string
+    potency: string
+    dosage?: string | null
+    repetition?: string | null
+    days?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RemedyUncheckedCreateWithoutPatientInput = {
+    id?: string
+    remedy: string
+    potency: string
+    dosage?: string | null
+    repetition?: string | null
+    days?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RemedyCreateOrConnectWithoutPatientInput = {
+    where: RemedyWhereUniqueInput
+    create: XOR<RemedyCreateWithoutPatientInput, RemedyUncheckedCreateWithoutPatientInput>
+  }
+
+  export type RemedyCreateManyPatientInputEnvelope = {
+    data: RemedyCreateManyPatientInput | RemedyCreateManyPatientInput[]
+    skipDuplicates?: boolean
+  }
+
   export type InvoiceCreateWithoutPatientInput = {
     id?: string
     invoiceNo: string
@@ -22666,6 +24110,38 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"FollowUp"> | Date | string
   }
 
+  export type RemedyUpsertWithWhereUniqueWithoutPatientInput = {
+    where: RemedyWhereUniqueInput
+    update: XOR<RemedyUpdateWithoutPatientInput, RemedyUncheckedUpdateWithoutPatientInput>
+    create: XOR<RemedyCreateWithoutPatientInput, RemedyUncheckedCreateWithoutPatientInput>
+  }
+
+  export type RemedyUpdateWithWhereUniqueWithoutPatientInput = {
+    where: RemedyWhereUniqueInput
+    data: XOR<RemedyUpdateWithoutPatientInput, RemedyUncheckedUpdateWithoutPatientInput>
+  }
+
+  export type RemedyUpdateManyWithWhereWithoutPatientInput = {
+    where: RemedyScalarWhereInput
+    data: XOR<RemedyUpdateManyMutationInput, RemedyUncheckedUpdateManyWithoutPatientInput>
+  }
+
+  export type RemedyScalarWhereInput = {
+    AND?: RemedyScalarWhereInput | RemedyScalarWhereInput[]
+    OR?: RemedyScalarWhereInput[]
+    NOT?: RemedyScalarWhereInput | RemedyScalarWhereInput[]
+    id?: StringFilter<"Remedy"> | string
+    patientId?: StringFilter<"Remedy"> | string
+    remedy?: StringFilter<"Remedy"> | string
+    potency?: StringFilter<"Remedy"> | string
+    dosage?: StringNullableFilter<"Remedy"> | string | null
+    repetition?: StringNullableFilter<"Remedy"> | string | null
+    days?: StringNullableFilter<"Remedy"> | string | null
+    notes?: StringNullableFilter<"Remedy"> | string | null
+    createdAt?: DateTimeFilter<"Remedy"> | Date | string
+    updatedAt?: DateTimeFilter<"Remedy"> | Date | string
+  }
+
   export type InvoiceUpsertWithWhereUniqueWithoutPatientInput = {
     where: InvoiceWhereUniqueInput
     update: XOR<InvoiceUpdateWithoutPatientInput, InvoiceUncheckedUpdateWithoutPatientInput>
@@ -22754,6 +24230,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionCreateNestedManyWithoutPatientInput
     caseTaking?: CaseTakingCreateNestedOneWithoutPatientInput
     followUps?: FollowUpCreateNestedManyWithoutPatientInput
+    remedies?: RemedyCreateNestedManyWithoutPatientInput
     invoices?: InvoiceCreateNestedManyWithoutPatientInput
     payments?: PaymentCreateNestedManyWithoutPatientInput
   }
@@ -22783,6 +24260,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutPatientInput
     caseTaking?: CaseTakingUncheckedCreateNestedOneWithoutPatientInput
     followUps?: FollowUpUncheckedCreateNestedManyWithoutPatientInput
+    remedies?: RemedyUncheckedCreateNestedManyWithoutPatientInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutPatientInput
     payments?: PaymentUncheckedCreateNestedManyWithoutPatientInput
   }
@@ -22889,6 +24367,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUpdateManyWithoutPatientNestedInput
     caseTaking?: CaseTakingUpdateOneWithoutPatientNestedInput
     followUps?: FollowUpUpdateManyWithoutPatientNestedInput
+    remedies?: RemedyUpdateManyWithoutPatientNestedInput
     invoices?: InvoiceUpdateManyWithoutPatientNestedInput
     payments?: PaymentUpdateManyWithoutPatientNestedInput
   }
@@ -22918,6 +24397,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedUpdateManyWithoutPatientNestedInput
     caseTaking?: CaseTakingUncheckedUpdateOneWithoutPatientNestedInput
     followUps?: FollowUpUncheckedUpdateManyWithoutPatientNestedInput
+    remedies?: RemedyUncheckedUpdateManyWithoutPatientNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutPatientNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutPatientNestedInput
   }
@@ -23036,6 +24516,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionCreateNestedManyWithoutPatientInput
     caseTaking?: CaseTakingCreateNestedOneWithoutPatientInput
     followUps?: FollowUpCreateNestedManyWithoutPatientInput
+    remedies?: RemedyCreateNestedManyWithoutPatientInput
     invoices?: InvoiceCreateNestedManyWithoutPatientInput
   }
 
@@ -23065,6 +24546,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutPatientInput
     caseTaking?: CaseTakingUncheckedCreateNestedOneWithoutPatientInput
     followUps?: FollowUpUncheckedCreateNestedManyWithoutPatientInput
+    remedies?: RemedyUncheckedCreateNestedManyWithoutPatientInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutPatientInput
   }
 
@@ -23155,6 +24637,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUpdateManyWithoutPatientNestedInput
     caseTaking?: CaseTakingUpdateOneWithoutPatientNestedInput
     followUps?: FollowUpUpdateManyWithoutPatientNestedInput
+    remedies?: RemedyUpdateManyWithoutPatientNestedInput
     invoices?: InvoiceUpdateManyWithoutPatientNestedInput
   }
 
@@ -23184,6 +24667,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedUpdateManyWithoutPatientNestedInput
     caseTaking?: CaseTakingUncheckedUpdateOneWithoutPatientNestedInput
     followUps?: FollowUpUncheckedUpdateManyWithoutPatientNestedInput
+    remedies?: RemedyUncheckedUpdateManyWithoutPatientNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutPatientNestedInput
   }
 
@@ -23212,6 +24696,7 @@ export namespace Prisma {
     appointments?: AppointmentCreateNestedManyWithoutPatientInput
     caseTaking?: CaseTakingCreateNestedOneWithoutPatientInput
     followUps?: FollowUpCreateNestedManyWithoutPatientInput
+    remedies?: RemedyCreateNestedManyWithoutPatientInput
     invoices?: InvoiceCreateNestedManyWithoutPatientInput
     payments?: PaymentCreateNestedManyWithoutPatientInput
   }
@@ -23241,6 +24726,7 @@ export namespace Prisma {
     appointments?: AppointmentUncheckedCreateNestedManyWithoutPatientInput
     caseTaking?: CaseTakingUncheckedCreateNestedOneWithoutPatientInput
     followUps?: FollowUpUncheckedCreateNestedManyWithoutPatientInput
+    remedies?: RemedyUncheckedCreateNestedManyWithoutPatientInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutPatientInput
     payments?: PaymentUncheckedCreateNestedManyWithoutPatientInput
   }
@@ -23286,6 +24772,7 @@ export namespace Prisma {
     appointments?: AppointmentUpdateManyWithoutPatientNestedInput
     caseTaking?: CaseTakingUpdateOneWithoutPatientNestedInput
     followUps?: FollowUpUpdateManyWithoutPatientNestedInput
+    remedies?: RemedyUpdateManyWithoutPatientNestedInput
     invoices?: InvoiceUpdateManyWithoutPatientNestedInput
     payments?: PaymentUpdateManyWithoutPatientNestedInput
   }
@@ -23315,6 +24802,7 @@ export namespace Prisma {
     appointments?: AppointmentUncheckedUpdateManyWithoutPatientNestedInput
     caseTaking?: CaseTakingUncheckedUpdateOneWithoutPatientNestedInput
     followUps?: FollowUpUncheckedUpdateManyWithoutPatientNestedInput
+    remedies?: RemedyUncheckedUpdateManyWithoutPatientNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutPatientNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutPatientNestedInput
   }
@@ -23344,6 +24832,7 @@ export namespace Prisma {
     appointments?: AppointmentCreateNestedManyWithoutPatientInput
     prescriptions?: PrescriptionCreateNestedManyWithoutPatientInput
     followUps?: FollowUpCreateNestedManyWithoutPatientInput
+    remedies?: RemedyCreateNestedManyWithoutPatientInput
     invoices?: InvoiceCreateNestedManyWithoutPatientInput
     payments?: PaymentCreateNestedManyWithoutPatientInput
   }
@@ -23373,6 +24862,7 @@ export namespace Prisma {
     appointments?: AppointmentUncheckedCreateNestedManyWithoutPatientInput
     prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutPatientInput
     followUps?: FollowUpUncheckedCreateNestedManyWithoutPatientInput
+    remedies?: RemedyUncheckedCreateNestedManyWithoutPatientInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutPatientInput
     payments?: PaymentUncheckedCreateNestedManyWithoutPatientInput
   }
@@ -23418,6 +24908,7 @@ export namespace Prisma {
     appointments?: AppointmentUpdateManyWithoutPatientNestedInput
     prescriptions?: PrescriptionUpdateManyWithoutPatientNestedInput
     followUps?: FollowUpUpdateManyWithoutPatientNestedInput
+    remedies?: RemedyUpdateManyWithoutPatientNestedInput
     invoices?: InvoiceUpdateManyWithoutPatientNestedInput
     payments?: PaymentUpdateManyWithoutPatientNestedInput
   }
@@ -23447,6 +24938,7 @@ export namespace Prisma {
     appointments?: AppointmentUncheckedUpdateManyWithoutPatientNestedInput
     prescriptions?: PrescriptionUncheckedUpdateManyWithoutPatientNestedInput
     followUps?: FollowUpUncheckedUpdateManyWithoutPatientNestedInput
+    remedies?: RemedyUncheckedUpdateManyWithoutPatientNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutPatientNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutPatientNestedInput
   }
@@ -23476,6 +24968,7 @@ export namespace Prisma {
     appointments?: AppointmentCreateNestedManyWithoutPatientInput
     prescriptions?: PrescriptionCreateNestedManyWithoutPatientInput
     caseTaking?: CaseTakingCreateNestedOneWithoutPatientInput
+    remedies?: RemedyCreateNestedManyWithoutPatientInput
     invoices?: InvoiceCreateNestedManyWithoutPatientInput
     payments?: PaymentCreateNestedManyWithoutPatientInput
   }
@@ -23505,6 +24998,7 @@ export namespace Prisma {
     appointments?: AppointmentUncheckedCreateNestedManyWithoutPatientInput
     prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutPatientInput
     caseTaking?: CaseTakingUncheckedCreateNestedOneWithoutPatientInput
+    remedies?: RemedyUncheckedCreateNestedManyWithoutPatientInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutPatientInput
     payments?: PaymentUncheckedCreateNestedManyWithoutPatientInput
   }
@@ -23550,6 +25044,7 @@ export namespace Prisma {
     appointments?: AppointmentUpdateManyWithoutPatientNestedInput
     prescriptions?: PrescriptionUpdateManyWithoutPatientNestedInput
     caseTaking?: CaseTakingUpdateOneWithoutPatientNestedInput
+    remedies?: RemedyUpdateManyWithoutPatientNestedInput
     invoices?: InvoiceUpdateManyWithoutPatientNestedInput
     payments?: PaymentUpdateManyWithoutPatientNestedInput
   }
@@ -23579,6 +25074,143 @@ export namespace Prisma {
     appointments?: AppointmentUncheckedUpdateManyWithoutPatientNestedInput
     prescriptions?: PrescriptionUncheckedUpdateManyWithoutPatientNestedInput
     caseTaking?: CaseTakingUncheckedUpdateOneWithoutPatientNestedInput
+    remedies?: RemedyUncheckedUpdateManyWithoutPatientNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutPatientNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutPatientNestedInput
+  }
+
+  export type PatientCreateWithoutRemediesInput = {
+    id?: string
+    fileId: string
+    firstName: string
+    lastName: string
+    gender: $Enums.Gender
+    dateOfBirth: Date | string
+    phone: string
+    email?: string | null
+    address?: string | null
+    bloodGroup?: string | null
+    occupation?: string | null
+    reference?: string | null
+    maritalStatus?: $Enums.MaritalStatus | null
+    education?: string | null
+    profileImage?: string | null
+    note?: string | null
+    age?: number | null
+    branch?: $Enums.Branch
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    appointments?: AppointmentCreateNestedManyWithoutPatientInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutPatientInput
+    caseTaking?: CaseTakingCreateNestedOneWithoutPatientInput
+    followUps?: FollowUpCreateNestedManyWithoutPatientInput
+    invoices?: InvoiceCreateNestedManyWithoutPatientInput
+    payments?: PaymentCreateNestedManyWithoutPatientInput
+  }
+
+  export type PatientUncheckedCreateWithoutRemediesInput = {
+    id?: string
+    fileId: string
+    firstName: string
+    lastName: string
+    gender: $Enums.Gender
+    dateOfBirth: Date | string
+    phone: string
+    email?: string | null
+    address?: string | null
+    bloodGroup?: string | null
+    occupation?: string | null
+    reference?: string | null
+    maritalStatus?: $Enums.MaritalStatus | null
+    education?: string | null
+    profileImage?: string | null
+    note?: string | null
+    age?: number | null
+    branch?: $Enums.Branch
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    appointments?: AppointmentUncheckedCreateNestedManyWithoutPatientInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutPatientInput
+    caseTaking?: CaseTakingUncheckedCreateNestedOneWithoutPatientInput
+    followUps?: FollowUpUncheckedCreateNestedManyWithoutPatientInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutPatientInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutPatientInput
+  }
+
+  export type PatientCreateOrConnectWithoutRemediesInput = {
+    where: PatientWhereUniqueInput
+    create: XOR<PatientCreateWithoutRemediesInput, PatientUncheckedCreateWithoutRemediesInput>
+  }
+
+  export type PatientUpsertWithoutRemediesInput = {
+    update: XOR<PatientUpdateWithoutRemediesInput, PatientUncheckedUpdateWithoutRemediesInput>
+    create: XOR<PatientCreateWithoutRemediesInput, PatientUncheckedCreateWithoutRemediesInput>
+    where?: PatientWhereInput
+  }
+
+  export type PatientUpdateToOneWithWhereWithoutRemediesInput = {
+    where?: PatientWhereInput
+    data: XOR<PatientUpdateWithoutRemediesInput, PatientUncheckedUpdateWithoutRemediesInput>
+  }
+
+  export type PatientUpdateWithoutRemediesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileId?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus | null
+    education?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appointments?: AppointmentUpdateManyWithoutPatientNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutPatientNestedInput
+    caseTaking?: CaseTakingUpdateOneWithoutPatientNestedInput
+    followUps?: FollowUpUpdateManyWithoutPatientNestedInput
+    invoices?: InvoiceUpdateManyWithoutPatientNestedInput
+    payments?: PaymentUpdateManyWithoutPatientNestedInput
+  }
+
+  export type PatientUncheckedUpdateWithoutRemediesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileId?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus | null
+    education?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    branch?: EnumBranchFieldUpdateOperationsInput | $Enums.Branch
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appointments?: AppointmentUncheckedUpdateManyWithoutPatientNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutPatientNestedInput
+    caseTaking?: CaseTakingUncheckedUpdateOneWithoutPatientNestedInput
+    followUps?: FollowUpUncheckedUpdateManyWithoutPatientNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutPatientNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutPatientNestedInput
   }
@@ -23609,6 +25241,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionCreateNestedManyWithoutPatientInput
     caseTaking?: CaseTakingCreateNestedOneWithoutPatientInput
     followUps?: FollowUpCreateNestedManyWithoutPatientInput
+    remedies?: RemedyCreateNestedManyWithoutPatientInput
     payments?: PaymentCreateNestedManyWithoutPatientInput
   }
 
@@ -23638,6 +25271,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutPatientInput
     caseTaking?: CaseTakingUncheckedCreateNestedOneWithoutPatientInput
     followUps?: FollowUpUncheckedCreateNestedManyWithoutPatientInput
+    remedies?: RemedyUncheckedCreateNestedManyWithoutPatientInput
     payments?: PaymentUncheckedCreateNestedManyWithoutPatientInput
   }
 
@@ -23683,6 +25317,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUpdateManyWithoutPatientNestedInput
     caseTaking?: CaseTakingUpdateOneWithoutPatientNestedInput
     followUps?: FollowUpUpdateManyWithoutPatientNestedInput
+    remedies?: RemedyUpdateManyWithoutPatientNestedInput
     payments?: PaymentUpdateManyWithoutPatientNestedInput
   }
 
@@ -23712,6 +25347,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedUpdateManyWithoutPatientNestedInput
     caseTaking?: CaseTakingUncheckedUpdateOneWithoutPatientNestedInput
     followUps?: FollowUpUncheckedUpdateManyWithoutPatientNestedInput
+    remedies?: RemedyUncheckedUpdateManyWithoutPatientNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutPatientNestedInput
   }
 
@@ -23819,6 +25455,18 @@ export namespace Prisma {
     potency: string
     days?: string | null
     prescriptionType?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RemedyCreateManyPatientInput = {
+    id?: string
+    remedy: string
+    potency: string
+    dosage?: string | null
+    repetition?: string | null
+    days?: string | null
+    notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -23970,6 +25618,42 @@ export namespace Prisma {
     potency?: StringFieldUpdateOperationsInput | string
     days?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptionType?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RemedyUpdateWithoutPatientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    remedy?: StringFieldUpdateOperationsInput | string
+    potency?: StringFieldUpdateOperationsInput | string
+    dosage?: NullableStringFieldUpdateOperationsInput | string | null
+    repetition?: NullableStringFieldUpdateOperationsInput | string | null
+    days?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RemedyUncheckedUpdateWithoutPatientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    remedy?: StringFieldUpdateOperationsInput | string
+    potency?: StringFieldUpdateOperationsInput | string
+    dosage?: NullableStringFieldUpdateOperationsInput | string | null
+    repetition?: NullableStringFieldUpdateOperationsInput | string | null
+    days?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RemedyUncheckedUpdateManyWithoutPatientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    remedy?: StringFieldUpdateOperationsInput | string
+    potency?: StringFieldUpdateOperationsInput | string
+    dosage?: NullableStringFieldUpdateOperationsInput | string | null
+    repetition?: NullableStringFieldUpdateOperationsInput | string | null
+    days?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -24148,6 +25832,10 @@ export namespace Prisma {
      * @deprecated Use FollowUpDefaultArgs instead
      */
     export type FollowUpArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FollowUpDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use RemedyDefaultArgs instead
+     */
+    export type RemedyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = RemedyDefaultArgs<ExtArgs>
     /**
      * @deprecated Use InvoiceDefaultArgs instead
      */

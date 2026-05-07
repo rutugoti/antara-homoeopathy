@@ -9,6 +9,7 @@ const {
   deletePatient,
   bookAppointment,
 } = require('../controllers/patient.controller');
+const { addRemedy, getHistory } = require('../controllers/remedy.controller');
 const { uploadSingle } = require('../middleware/upload.middleware');
 
 // const { protect } = require('../middlewares/auth.middleware');
@@ -68,5 +69,17 @@ router.delete('/:id', deletePatient);
  */
 // router.post('/:id/book-appointment', protect, bookAppointment);
 router.post('/:id/book-appointment', bookAppointment);
+
+/**
+ * @route   POST /api/patients/:id/remedies
+ * @desc    Add a new remedy for a patient
+ */
+router.post('/:id/remedies', addRemedy);
+
+/**
+ * @route   GET /api/patients/:id/remedy-history
+ * @desc    Get full remedy history (combined from follow-ups and remedies)
+ */
+router.get('/:id/remedy-history', getHistory);
 
 module.exports = router;

@@ -7,6 +7,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 const { ApiError, ApiResponse } = require('./utils/apiResponse');
+const authRouter = require('./routes/auth.routes');
 const dashboardRouter = require('./routes/dashboard.routes');
 const patientRouter = require('./routes/patient.routes');
 const caseTakingRouter = require('./routes/caseTaking.routes');
@@ -46,6 +47,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
+app.use('/api/auth', authRouter);
 app.use('/api/dashboard', dashboardRouter);
 app.use('/api/patients', patientRouter);
 app.use('/api/patients/:patientId/case-taking', caseTakingRouter);

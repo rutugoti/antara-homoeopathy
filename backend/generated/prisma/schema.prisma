@@ -99,6 +99,7 @@ model Patient {
   prescriptions Prescription[]
   caseTaking    CaseTaking?
   followUps     FollowUp[]
+  remedies      Remedy[]
   invoices      Invoice[]
   payments      Payment[]
 
@@ -240,6 +241,23 @@ model FollowUp {
   patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
 
   @@map("follow_ups")
+}
+
+model Remedy {
+  id         String   @id @default(cuid())
+  patientId  String
+  remedy     String
+  potency    String
+  dosage     String?
+  repetition String?
+  days       String?
+  notes      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@map("remedies")
 }
 
 model Invoice {

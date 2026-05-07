@@ -59,7 +59,12 @@ export const createPatientFollowUp = async ({ patientId, payload }) => {
 };
 
 export const getPatientRemedyHistory = async (patientId, params) => {
-  const { data } = await api.get(`/api/patients/${patientId}/follow-ups/remedy-history`, { params });
+  const { data } = await api.get(`/api/patients/${patientId}/remedy-history`, { params });
+  return data.data;
+};
+
+export const createPatientRemedy = async ({ patientId, payload }) => {
+  const { data } = await api.post(`/api/patients/${patientId}/remedies`, payload);
   return data.data;
 };
 

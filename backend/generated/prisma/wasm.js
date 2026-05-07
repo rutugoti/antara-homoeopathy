@@ -265,6 +265,19 @@ exports.Prisma.FollowUpScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.RemedyScalarFieldEnum = {
+  id: 'id',
+  patientId: 'patientId',
+  remedy: 'remedy',
+  potency: 'potency',
+  dosage: 'dosage',
+  repetition: 'repetition',
+  days: 'days',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.InvoiceScalarFieldEnum = {
   id: 'id',
   patientId: 'patientId',
@@ -391,6 +404,7 @@ exports.Prisma.ModelName = {
   Event: 'Event',
   CaseTaking: 'CaseTaking',
   FollowUp: 'FollowUp',
+  Remedy: 'Remedy',
   Invoice: 'Invoice',
   MateriaMedica: 'MateriaMedica',
   ResearchDev: 'ResearchDev',
