@@ -8,7 +8,267 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// ─── Enums ───────────────────────────────────────────────────────────────────
+model User {
+  id           String        @id @default(cuid())
+  name         String
+  email        String        @unique
+  password     String
+  role         Role          @default(RECEPTIONIST)
+  isActive     Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  appointments Appointment[] @relation("DoctorAppointments")
+
+  @@map("users")
+}
+
+model Patient {
+  id            String         @id @default(cuid())
+  fileId        String         @unique
+  firstName     String
+  lastName      String
+  gender        Gender
+  dateOfBirth   DateTime       @db.Date
+  phone         String
+  email         String?
+  address       String?
+  bloodGroup    String?
+  occupation    String?
+  reference     String?
+  maritalStatus MaritalStatus?
+  education     String?
+  profileImage  String?
+  note          String?
+  age           Int?
+  branch        Branch         @default(MAIN)
+  isActive      Boolean        @default(true)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  appointments  Appointment[]
+  caseTaking    CaseTaking?
+  followUps     FollowUp[]
+  invoices      Invoice[]
+  payments      Payment[]
+  prescriptions Prescription[]
+  remedies      Remedy[]
+
+  @@map("patients")
+}
+
+model Appointment {
+  id            String            @id @default(cuid())
+  patientId     String
+  doctorId      String?
+  branch        Branch            @default(MAIN)
+  date          DateTime          @db.Date
+  time          String
+  endTime       String?
+  reason        String?
+  notes         String?
+  charge        Float?
+  appointmentBy String            @default("In Clinic")
+  status        AppointmentStatus @default(PENDING)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  doctor        User?             @relation("DoctorAppointments", fields: [doctorId], references: [id])
+  patient       Patient           @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  payments      Payment[]
+
+  @@map("appointments")
+}
+
+model Payment {
+  id            String        @id @default(cuid())
+  appointmentId String
+  patientId     String
+  amount        Float
+  method        PaymentMethod @default(CASH)
+  status        PaymentStatus @default(PAID)
+  notes         String?
+  receiptNo     String?       @unique
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  appointment   Appointment   @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+  patient       Patient       @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@map("payments")
+}
+
+model Prescription {
+  id        String   @id @default(cuid())
+  patientId String
+  title     String
+  list      String?
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  patient   Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@map("prescriptions")
+}
+
+model Holiday {
+  id            String   @id @default(cuid())
+  title         String
+  date          DateTime @db.Date
+  morningTime   String?
+  afternoonTime String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("holidays")
+}
+
+model AppointmentSettings {
+  id                 String   @id @default(cuid())
+  morningStartTime   String
+  morningEndTime     String
+  afternoonStartTime String
+  afternoonEndTime   String
+  oldPatientTime     Int
+  newPatientTime     Int
+  oldPatientFee      Float
+  newPatientFee      Float
+  workingDays        String[]
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@map("appointment_settings")
+}
+
+model Event {
+  id          String   @id @default(cuid())
+  title       String
+  type        String?
+  organizeBy  String?
+  description String?
+  date        DateTime @db.Date
+  time        String
+  location    String?
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("events")
+}
+
+model CaseTaking {
+  id             String   @id @default(cuid())
+  patientId      String   @unique
+  historyTakenBy String?
+  beforeImages   String[]
+  afterImages    String[]
+  notes          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  patient        Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@map("case_takings")
+}
+
+model FollowUp {
+  id                String   @id @default(cuid())
+  patientId         String
+  followUp          String
+  weight            String?
+  bp                String?
+  appointmentCharge Float?
+  historyTakenBy    String
+  remedy            String
+  dosage            String?
+  repetition        String?
+  potency           String
+  days              String?
+  prescriptionType  String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  patient           Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@map("follow_ups")
+}
+
+model Remedy {
+  id         String   @id @default(cuid())
+  patientId  String
+  remedy     String
+  potency    String
+  dosage     String?
+  repetition String?
+  days       String?
+  notes      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  patient    Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@map("remedies")
+}
+
+model Invoice {
+  id               String   @id @default(cuid())
+  patientId        String
+  invoiceNo        String   @unique
+  diagnosis        String
+  prescriptionDate DateTime @db.Date
+  prescription     String
+  amount           Float?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  patient          Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@map("invoices")
+}
+
+model MateriaMedica {
+  id           String   @id @default(cuid())
+  code         String   @unique
+  productName  String
+  potency6CH   String?
+  potency30CH  String?
+  potency200CH String?
+  potency1M    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("materia_medicas")
+}
+
+model ResearchDev {
+  id               String   @id @default(cuid())
+  title            String
+  descriptionTitle String?
+  description      String?
+  image            String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("research_devs")
+}
+
+model Clinic {
+  id         String   @id @default(cuid())
+  officeId   String   @unique
+  title      String
+  address    String?
+  contact    String?
+  officeType String?
+  location   String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("clinics")
+}
+
+model Contact {
+  id          String   @id @default(cuid())
+  name        String
+  contact     String
+  description String?
+  subscribed  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("contacts")
+}
 
 enum Role {
   ADMIN
@@ -53,277 +313,4 @@ enum PaymentStatus {
   PAID
   PENDING
   REFUNDED
-}
-
-// ─── Models ──────────────────────────────────────────────────────────────────
-
-model User {
-  id        String   @id @default(cuid())
-  name      String
-  email     String   @unique
-  password  String
-  role      Role     @default(RECEPTIONIST)
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  appointments Appointment[] @relation("DoctorAppointments")
-
-  @@map("users")
-}
-
-model Patient {
-  id          String   @id @default(cuid())
-  fileId      String   @unique
-  firstName   String
-  lastName    String
-  gender      Gender
-  dateOfBirth DateTime @db.Date
-  phone       String
-  email       String?
-  address       String?
-  bloodGroup    String?        // e.g. A+, B+, O+, AB+, A-, B-, O-, AB-
-  occupation    String?
-  reference     String?
-  maritalStatus MaritalStatus?
-  education     String?
-  profileImage  String?        // Cloudinary URL
-  note          String?        @db.Text
-  age           Int?           // stored for quick display
-  branch        Branch         @default(MAIN)
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  appointments  Appointment[]
-  prescriptions Prescription[]
-  caseTaking    CaseTaking?
-  followUps     FollowUp[]
-  remedies      Remedy[]
-  invoices      Invoice[]
-  payments      Payment[]
-
-  @@map("patients")
-}
-
-model Appointment {
-  id        String            @id @default(cuid())
-  patientId String
-  doctorId  String?
-  branch    Branch            @default(MAIN)
-  date      DateTime          @db.Date
-  time      String
-  endTime   String?           // auto-computed from appointment settings
-  reason    String?
-  notes     String?
-  charge    Float?            // appointment fee
-  appointmentBy String        @default("In Clinic") // e.g. "In Clinic", "Online"
-  status    AppointmentStatus @default(PENDING)
-  createdAt DateTime          @default(now())
-  updatedAt DateTime          @updatedAt
-
-  patient  Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
-  doctor   User?    @relation("DoctorAppointments", fields: [doctorId], references: [id], onDelete: SetNull)
-  payments Payment[]
-
-  @@map("appointments")
-}
-
-model Payment {
-  id            String        @id @default(cuid())
-  appointmentId String
-  patientId     String
-  amount        Float
-  method        PaymentMethod @default(CASH)
-  status        PaymentStatus @default(PAID)
-  notes         String?
-  receiptNo     String?       @unique
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-
-  appointment Appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
-  patient     Patient     @relation(fields: [patientId], references: [id], onDelete: Cascade)
-
-  @@map("payments")
-}
-
-model Prescription {
-  id        String   @id @default(cuid())
-  patientId String
-  title     String
-  list      String?  // category/type e.g. "General", "Follow Up", etc.
-  content   String   @db.Text
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
-
-  @@map("prescriptions")
-}
-
-model Holiday {
-  id            String   @id @default(cuid())
-  title         String
-  date          DateTime @db.Date
-  morningTime   String?
-  afternoonTime String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  @@map("holidays")
-}
-
-model AppointmentSettings {
-  id                 String   @id @default(cuid())
-  morningStartTime   String   // e.g. "09:00 AM"
-  morningEndTime     String   // e.g. "02:00 PM"
-  afternoonStartTime String   // e.g. "02:01 PM"
-  afternoonEndTime   String   // e.g. "11:59 PM"
-  oldPatientTime     Int      // in minutes
-  newPatientTime     Int      // in minutes
-  oldPatientFee      Float
-  newPatientFee      Float
-  workingDays        String[] // e.g. ["Monday", "Tuesday", ...]
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
-
-  @@map("appointment_settings")
-}
-
-model Event {
-  id          String   @id @default(cuid())
-  title       String
-  type        String?  // e.g. "Seminar", "Workshop", "Camp", etc.
-  organizeBy  String?  // e.g. "Dr. Bhumi", "Antara Homoeopathy"
-  description String?
-  date        DateTime @db.Date
-  time        String
-  location    String?
-  isPublished Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@map("events")
-}
-
-model CaseTaking {
-  id             String   @id @default(cuid())
-  patientId      String   @unique
-  historyTakenBy String?
-  beforeImages   String[] // Array of Cloudinary URLs
-  afterImages    String[] // Array of Cloudinary URLs
-  notes          String?  @db.Text
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-
-  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
-
-  @@map("case_takings")
-}
-
-model FollowUp {
-  id                String   @id @default(cuid())
-  patientId         String
-  followUp          String
-  weight            String?
-  bp                String?
-  appointmentCharge Float?
-  historyTakenBy    String
-  remedy            String
-  dosage            String?
-  repetition        String?
-  potency           String
-  days              String?
-  prescriptionType  String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-
-  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
-
-  @@map("follow_ups")
-}
-
-model Remedy {
-  id         String   @id @default(cuid())
-  patientId  String
-  remedy     String
-  potency    String
-  dosage     String?
-  repetition String?
-  days       String?
-  notes      String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
-
-  @@map("remedies")
-}
-
-model Invoice {
-  id               String   @id @default(cuid())
-  patientId        String
-  invoiceNo        String   @unique
-  diagnosis        String
-  prescriptionDate DateTime @db.Date
-  prescription     String   @db.Text
-  amount           Float?
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-
-  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
-
-  @@map("invoices")
-}
-
-model MateriaMedica {
-  id          String   @id @default(cuid())
-  code        String   @unique
-  productName String
-  potency6CH  String?  // 6 CH / 106F
-  potency30CH String?  // 30 CH / 130F
-  potency200CH String? // 200 CH / 150F
-  potency1M   String?  // 1M / 160F
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@map("materia_medicas")
-}
-
-model ResearchDev {
-  id               String   @id @default(cuid())
-  title            String
-  descriptionTitle String?
-  description      String?  @db.Text
-  image            String?  // Cloudinary URL
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-
-  @@map("research_devs")
-}
-
-model Clinic {
-  id         String   @id @default(cuid())
-  officeId   String   @unique          // auto-generated e.g. OFC-001
-  title      String
-  address    String?
-  contact    String?
-  officeType String?                   // e.g. "Main Office", "Branch", "Consultation"
-  location   String?                   // e.g. city or Google Maps link
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  @@map("clinics")
-}
-
-model Contact {
-  id          String   @id @default(cuid())
-  name        String
-  contact     String
-  description String?
-  subscribed  Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@map("contacts")
 }
