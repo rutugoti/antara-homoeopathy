@@ -305,9 +305,11 @@ function CaseTakingTab({ patientId, patient }) {
         {/* History Taken By */}
         <div className="mb-4">
           <label className="block text-[14px] font-medium text-slate-700 mb-1">History Taken By</label>
-          <input
+          <textarea
             {...register('historyTakenBy')}
-            className={inputStyle}
+            rows={1}
+            onInput={(e) => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; }}
+            className={`${inputStyle} resize-none overflow-hidden min-h-[36px]`}
             placeholder="Doctor / staff name"
           />
         </div>
@@ -344,33 +346,43 @@ function CaseTakingTab({ patientId, patient }) {
               {fields.map((item, index) => (
                 <div key={item.id} className="flex gap-2 mb-2">
                   <div className="flex-1">
-                    <input
+                    <textarea
                       {...register(`complaints.${index}.complaint`)}
-                      className="w-full border border-[#e2e8f0] rounded-md px-2 py-1 text-[13px] text-[#1e293b] bg-white focus:outline-none focus:border-[#2c4a8e] overflow-x-auto whitespace-nowrap"
+                      rows={1}
+                      onInput={(e) => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; }}
+                      className="w-full border border-[#e2e8f0] rounded-md px-2 py-1 text-[13px] text-[#1e293b] bg-white focus:outline-none focus:border-[#2c4a8e] resize-none overflow-hidden min-h-[32px]"
                     />
                   </div>
                   <div className="flex-1">
-                    <input
+                    <textarea
                       {...register(`complaints.${index}.location`)}
-                      className="w-full border border-[#e2e8f0] rounded-md px-2 py-1 text-[13px] text-[#1e293b] bg-white focus:outline-none focus:border-[#2c4a8e] overflow-x-auto whitespace-nowrap"
+                      rows={1}
+                      onInput={(e) => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; }}
+                      className="w-full border border-[#e2e8f0] rounded-md px-2 py-1 text-[13px] text-[#1e293b] bg-white focus:outline-none focus:border-[#2c4a8e] resize-none overflow-hidden min-h-[32px]"
                     />
                   </div>
                   <div className="flex-1">
-                    <input
+                    <textarea
                       {...register(`complaints.${index}.sensation`)}
-                      className="w-full border border-[#e2e8f0] rounded-md px-2 py-1 text-[13px] text-[#1e293b] bg-white focus:outline-none focus:border-[#2c4a8e] overflow-x-auto whitespace-nowrap"
+                      rows={1}
+                      onInput={(e) => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; }}
+                      className="w-full border border-[#e2e8f0] rounded-md px-2 py-1 text-[13px] text-[#1e293b] bg-white focus:outline-none focus:border-[#2c4a8e] resize-none overflow-hidden min-h-[32px]"
                     />
                   </div>
                   <div className="flex-1">
-                    <input
+                    <textarea
                       {...register(`complaints.${index}.modality`)}
-                      className="w-full border border-[#e2e8f0] rounded-md px-2 py-1 text-[13px] text-[#1e293b] bg-white focus:outline-none focus:border-[#2c4a8e] overflow-x-auto whitespace-nowrap"
+                      rows={1}
+                      onInput={(e) => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; }}
+                      className="w-full border border-[#e2e8f0] rounded-md px-2 py-1 text-[13px] text-[#1e293b] bg-white focus:outline-none focus:border-[#2c4a8e] resize-none overflow-hidden min-h-[32px]"
                     />
                   </div>
                   <div className="flex-1">
-                    <input
+                    <textarea
                       {...register(`complaints.${index}.concomitants`)}
-                      className="w-full border border-[#e2e8f0] rounded-md px-2 py-1 text-[13px] text-[#1e293b] bg-white focus:outline-none focus:border-[#2c4a8e] overflow-x-auto whitespace-nowrap"
+                      rows={1}
+                      onInput={(e) => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; }}
+                      className="w-full border border-[#e2e8f0] rounded-md px-2 py-1 text-[13px] text-[#1e293b] bg-white focus:outline-none focus:border-[#2c4a8e] resize-none overflow-hidden min-h-[32px]"
                     />
                   </div>
                 </div>
@@ -439,17 +451,21 @@ function CaseTakingTab({ patientId, patient }) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div className={sectionStyle + " mb-0"}>
             <label className={headingStyle + " block"}>Birth History / Milestone / History of Vaccination</label>
-            <input
+            <textarea
               {...register('birthHistory')}
-              className={inputStyle}
+              rows={1}
+              onInput={(e) => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; }}
+              className={`${inputStyle} resize-none overflow-hidden min-h-[40px]`}
               placeholder="Enter birth history, milestones, vaccination history..."
             />
           </div>
           <div className={sectionStyle + " mb-0"}>
             <label className={headingStyle + " block"}>General Examination</label>
-            <input
+            <textarea
               {...register('generalExamination')}
-              className={inputStyle}
+              rows={1}
+              onInput={(e) => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; }}
+              className={`${inputStyle} resize-none overflow-hidden min-h-[40px]`}
               placeholder="Enter general examination findings..."
             />
           </div>
@@ -511,33 +527,41 @@ function CaseTakingTab({ patientId, patient }) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
               <label className="block text-[14px] font-semibold text-[#1a2d5a] mb-1">Examination</label>
-              <input
+              <textarea
                 {...register('examination')}
-                className={inputStyle}
+                rows={1}
+                onInput={(e) => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; }}
+                className={`${inputStyle} resize-none overflow-hidden min-h-[40px]`}
                 placeholder="Clinical examination findings..."
               />
             </div>
             <div>
               <label className="block text-[14px] font-semibold text-[#1a2d5a] mb-1">Investigation</label>
-              <input
+              <textarea
                 {...register('investigation')}
-                className={inputStyle}
+                rows={1}
+                onInput={(e) => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; }}
+                className={`${inputStyle} resize-none overflow-hidden min-h-[40px]`}
                 placeholder="Lab reports, X-ray, MRI, CBC..."
               />
             </div>
             <div>
               <label className="block text-[14px] font-semibold text-[#1a2d5a] mb-1">Dx (Diagnosis)</label>
-              <input
+              <textarea
                 {...register('dx')}
-                className={inputStyle}
+                rows={1}
+                onInput={(e) => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; }}
+                className={`${inputStyle} resize-none overflow-hidden min-h-[40px]`}
                 placeholder="Homoeopathic / clinical diagnosis..."
               />
             </div>
             <div>
               <label className="block text-[14px] font-semibold text-[#1a2d5a] mb-1">Advice</label>
-              <input
+              <textarea
                 {...register('advice')}
-                className={inputStyle}
+                rows={1}
+                onInput={(e) => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; }}
+                className={`${inputStyle} resize-none overflow-hidden min-h-[40px]`}
                 placeholder="Diet, lifestyle, follow up advice..."
               />
             </div>
