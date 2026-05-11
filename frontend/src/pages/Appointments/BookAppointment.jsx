@@ -68,10 +68,11 @@ function OldPatientBooking({ defaultFileId }) {
   const selectedDate = watch('date');
   const selectedBranch = watch('branch');
 
-  const { data: slots, isLoading: isLoadingSlots } = useQuery({
+  const { data: slots, isLoading: isLoadingSlots, isFetching, error: slotsError } = useQuery({
     queryKey: ['available-slots', selectedDate, selectedBranch],
     queryFn: () => getAvailableSlots({ date: selectedDate, branch: selectedBranch }),
-    enabled: !!selectedDate && !!selectedBranch
+    enabled: !!selectedDate && !!selectedBranch,
+    retry: false
   });
 
   const bookMutation = useMutation({
@@ -116,19 +117,30 @@ function OldPatientBooking({ defaultFileId }) {
               
               <div className="col-span-1 md:col-span-2">
                 <label className="text-sm font-medium text-[var(--color-text-dark)] mb-1 block">Time Slot *</label>
-                {isLoadingSlots ? (
+                {isLoadingSlots || isFetching ? (
                   <div className="text-sm text-slate-500">Loading slots...</div>
-                ) : slots?.length > 0 ? (
-                  <div className="flex flex-wrap gap-2">
-                    {slots.filter(s => !s.isBooked).map(slot => (
-                      <label key={slot.timeSlot} className="cursor-pointer">
-                        <input type="radio" value={slot.startTime} {...register('time', { required: true })} className="peer sr-only" />
-                        <div className="px-3 py-1.5 border border-slate-200 rounded text-sm hover:bg-slate-100 peer-checked:bg-[var(--color-primary)] peer-checked:text-white peer-checked:border-[var(--color-primary)] transition-colors">
-                          {slot.startTime}
-                        </div>
-                      </label>
-                    ))}
+                ) : slotsError ? (
+                  <div className="text-sm text-red-500 bg-red-50 border border-red-100 p-3 rounded">
+                    {slotsError.response?.data?.message || slotsError.message || "Failed to load slots. Please check your settings."}
                   </div>
+                ) : slots ? (
+                  slots.length > 0 ? (
+                    <div className="flex flex-wrap gap-2">
+                      {slots.filter(s => !s.isBooked).map(slot => (
+                        <label key={slot.timeSlot} className="cursor-pointer">
+                          <input type="radio" value={slot.startTime} {...register('time', { required: true })} className="peer sr-only" />
+                          <div className="px-3 py-1.5 border border-slate-200 rounded text-sm hover:bg-slate-100 peer-checked:bg-[var(--color-primary)] peer-checked:text-white peer-checked:border-[var(--color-primary)] transition-colors">
+                            {slot.startTime}
+                          </div>
+                        </label>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-sm text-red-500 bg-red-50 border border-red-100 p-3 rounded">
+                      No time slots available for this date/branch. <br/>
+                      <span className="text-xs text-slate-600 mt-1 block">Make sure you have configured <strong>Appointment Settings</strong> (Working Days and Times).</span>
+                    </div>
+                  )
                 ) : (
                   <div className="text-sm text-slate-500">Please select a date and branch to view slots.</div>
                 )}
@@ -167,10 +179,11 @@ function NewPatientBooking() {
   const selectedDate = watch('date');
   const selectedBranch = watch('branch');
 
-  const { data: slots, isLoading: isLoadingSlots } = useQuery({
+  const { data: slots, isLoading: isLoadingSlots, isFetching, error: slotsError } = useQuery({
     queryKey: ['available-slots', selectedDate, selectedBranch],
     queryFn: () => getAvailableSlots({ date: selectedDate, branch: selectedBranch }),
-    enabled: !!selectedDate && !!selectedBranch
+    enabled: !!selectedDate && !!selectedBranch,
+    retry: false
   });
 
   const bookMutation = useMutation({
@@ -219,19 +232,30 @@ function NewPatientBooking() {
             
             <div className="col-span-1 md:col-span-2">
               <label className="text-sm font-medium text-[var(--color-text-dark)] mb-1 block">Time Slot *</label>
-              {isLoadingSlots ? (
+              {isLoadingSlots || isFetching ? (
                 <div className="text-sm text-slate-500">Loading slots...</div>
-              ) : slots?.length > 0 ? (
-                <div className="flex flex-wrap gap-2">
-                  {slots.filter(s => !s.isBooked).map(slot => (
-                    <label key={slot.timeSlot} className="cursor-pointer">
-                      <input type="radio" value={slot.startTime} {...register('time', { required: true })} className="peer sr-only" />
-                      <div className="px-3 py-1.5 border border-slate-200 rounded text-sm hover:bg-slate-100 peer-checked:bg-[var(--color-primary)] peer-checked:text-white peer-checked:border-[var(--color-primary)] transition-colors">
-                        {slot.startTime}
-                      </div>
-                    </label>
-                  ))}
+              ) : slotsError ? (
+                <div className="text-sm text-red-500 bg-red-50 border border-red-100 p-3 rounded">
+                  {slotsError.response?.data?.message || slotsError.message || "Failed to load slots. Please check your settings."}
                 </div>
+              ) : slots ? (
+                slots.length > 0 ? (
+                  <div className="flex flex-wrap gap-2">
+                    {slots.filter(s => !s.isBooked).map(slot => (
+                      <label key={slot.timeSlot} className="cursor-pointer">
+                        <input type="radio" value={slot.startTime} {...register('time', { required: true })} className="peer sr-only" />
+                        <div className="px-3 py-1.5 border border-slate-200 rounded text-sm hover:bg-slate-100 peer-checked:bg-[var(--color-primary)] peer-checked:text-white peer-checked:border-[var(--color-primary)] transition-colors">
+                          {slot.startTime}
+                        </div>
+                      </label>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-sm text-red-500 bg-red-50 border border-red-100 p-3 rounded">
+                    No time slots available for this date/branch. <br/>
+                    <span className="text-xs text-slate-600 mt-1 block">Make sure you have configured <strong>Appointment Settings</strong> (Working Days and Times).</span>
+                  </div>
+                )
               ) : (
                 <div className="text-sm text-slate-500">Please select a date and branch to view slots.</div>
               )}

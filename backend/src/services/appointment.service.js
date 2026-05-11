@@ -6,31 +6,38 @@ const { ApiError } = require('../utils/apiResponse');
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 /**
- * Add minutes to a time string (e.g. "10:00 AM" + 10 → "10:10 AM").
+ * Add minutes to a time string. Supports both '10:00 AM' and '10:00' (24-hour) formats.
  */
 const addMinutesToTime = (timeStr, minutes) => {
-  // Parse "HH:MM AM/PM" or "H:MM AM/PM"
-  const match = timeStr.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
-  if (!match) return null;
+  let hours, mins, period;
+  
+  const match12 = timeStr.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+  const match24 = timeStr.match(/^(\d{1,2}):(\d{2})$/);
 
-  let hours = parseInt(match[1], 10);
-  const mins = parseInt(match[2], 10);
-  const period = match[3].toUpperCase();
-
-  // Convert to 24-hour for arithmetic
-  if (period === 'PM' && hours !== 12) hours += 12;
-  if (period === 'AM' && hours === 12) hours = 0;
+  if (match12) {
+    hours = parseInt(match12[1], 10);
+    mins = parseInt(match12[2], 10);
+    period = match12[3].toUpperCase();
+    if (period === 'PM' && hours !== 12) hours += 12;
+    if (period === 'AM' && hours === 12) hours = 0;
+  } else if (match24) {
+    hours = parseInt(match24[1], 10);
+    mins = parseInt(match24[2], 10);
+  } else {
+    return null;
+  }
 
   const totalMins = hours * 60 + mins + minutes;
   let newHours = Math.floor(totalMins / 60) % 24;
   const newMins = totalMins % 60;
 
-  // Convert back to 12-hour
+  // Since time inputs typically use 24h format for values but display 12h, we should return 24h format so the frontend time radios match logic, or just return 12h format if we want AM/PM
+  // The frontend slots list just displays this string. Let's return 12-hour format so it looks nice in the UI:
   const newPeriod = newHours >= 12 ? 'PM' : 'AM';
-  if (newHours === 0) newHours = 12;
-  else if (newHours > 12) newHours -= 12;
+  let dispHours = newHours % 12;
+  if (dispHours === 0) dispHours = 12;
 
-  const hh = String(newHours).padStart(2, '0');
+  const hh = String(dispHours).padStart(2, '0');
   const mm = String(newMins).padStart(2, '0');
   return `${hh}:${mm} ${newPeriod}`;
 };
@@ -341,16 +348,21 @@ const getAvailableSlots = async ({ date, branch }) => {
     return slots;
   };
 
-  // Convert "HH:MM AM/PM" to total minutes for comparison
+  // Convert "HH:MM AM/PM" or "HH:MM" to total minutes for comparison
   const timeToMinutes = (timeStr) => {
-    const match = timeStr.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
-    if (!match) return 0;
-    let h = parseInt(match[1], 10);
-    const m = parseInt(match[2], 10);
-    const p = match[3].toUpperCase();
-    if (p === 'PM' && h !== 12) h += 12;
-    if (p === 'AM' && h === 12) h = 0;
-    return h * 60 + m;
+    const match12 = timeStr.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+    const match24 = timeStr.match(/^(\d{1,2}):(\d{2})$/);
+    if (match12) {
+      let h = parseInt(match12[1], 10);
+      const m = parseInt(match12[2], 10);
+      const p = match12[3].toUpperCase();
+      if (p === 'PM' && h !== 12) h += 12;
+      if (p === 'AM' && h === 12) h = 0;
+      return h * 60 + m;
+    } else if (match24) {
+      return parseInt(match24[1], 10) * 60 + parseInt(match24[2], 10);
+    }
+    return 0;
   };
 
   const duration = settings.oldPatientTime; // default slot size
